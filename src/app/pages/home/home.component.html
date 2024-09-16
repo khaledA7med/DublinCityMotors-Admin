@@ -1,0 +1,55 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<div class="caro">
+    <ngb-carousel *ngIf="images" [showNavigationArrows]="showNavigationArrows"
+        [showNavigationIndicators]="showNavigationIndicators">
+        <ng-template ngbSlide *ngFor="let image of images">
+            <div class="picsum-img-wrapper">
+                <img [src]="image" alt="Random slide" class="w-100 h-100" />
+            </div>
+            <!-- <div class="carousel-caption">
+            <h3>No mouse navigation</h3>
+            <p>This carousel hides navigation arrows and indicators.</p>
+        </div> -->
+        </ng-template>
+    </ngb-carousel>
+</div>
+
+<div class="row my-lg-5 py-lg-5 mx-5 d-flex justify-content-between deta">
+    <div class="col-6 text-center">
+        <h1>Dublin City Motors
+        </h1>
+        <h4>Luxury Car Boutique
+        </h4>
+        <p class="text-muted">Welcome to Dublin City Motors luxury car boutique
+            We specialise in offering an excellent <br>range of carefully selected, pre-owned Audi and BMWs and supply
+            cars of <br>the highest quality at extremely competitive prices</p>
+    </div>
+    <div class="col-6 d-flex justify-content-center">
+        <form class="w-100">
+            <div class="row d-flex justify-content-center">
+                <div class="col-8 mb-2">
+                    <ng-select [items]="cars" placeholder="Make" [searchable]="true" bindLabel="name" bindValue="name"
+                        id="Make">
+                    </ng-select>
+                </div>
+                <div class="col-8 mb-2">
+                    <ng-select [items]="cars" placeholder="Make" [searchable]="true" bindLabel="name" bindValue="name"
+                        id="Make">
+                    </ng-select>
+                </div>
+                <div class="col-8 mb-2">
+                    <ng-select [items]="cars" placeholder="Make" [searchable]="true" bindLabel="name" bindValue="name"
+                        id="Make">
+                    </ng-select>
+                </div>
+                <div class="col-8">
+                    <button class="btn btn-secondary w-100">Search</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
