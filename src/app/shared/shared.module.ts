@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EnquireCarModule } from './enquire-car/enquire-car.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [],
@@ -13,13 +14,17 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     EnquireCarModule,
     NgxSpinnerModule,
+    ReactiveFormsModule,
+    NgbTypeaheadModule,
   ],
   exports: [
     NgSelectModule,
     NgSelectModule,
     FormsModule,
+    ReactiveFormsModule,
     EnquireCarModule,
     NgxSpinnerModule,
+    NgbTypeaheadModule,
   ],
 })
 export class SharedModule {}
