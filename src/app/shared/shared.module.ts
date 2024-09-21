@@ -19,7 +19,6 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   exports: [
     NgSelectModule,
-    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     EnquireCarModule,

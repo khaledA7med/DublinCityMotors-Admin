@@ -1,0 +1,229 @@
+<div class="container-fluid content">
+    <div class="row">
+        <h4 class="mb-3">Car Form</h4>
+        <div class="col-md-9">
+            <form class="row" action="">
+                <div class="col-md-12">
+                    <div class="float-label mb-3">
+                        <input type="text" placeholder="Car Name" class="form-control" />
+                        <label for="">Car Name</label>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="">Product description</label>
+                    <ckeditor [editor]="Editor" [config]="editorConfig" (change)="getEditorData($event)"></ckeditor>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <input type="text" placeholder="Reg Year" class="form-control" />
+                        <label for="">Reg Year</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <input type="number" placeholder="Mileage" class="form-control" />
+                        <label for="">Mileage</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <ng-select [items]="FuelType" [clearable]="false" [searchable]="true" bindLabel="name"
+                            bindValue="name" id="Make"></ng-select>
+                        <label for="">Fuel Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <ng-select [items]="Transmission" [clearable]="false" [searchable]="true" bindLabel="name"
+                            bindValue="name" id="Make"></ng-select>
+                        <label for="">Transmission</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <ng-select [items]="Drive" [clearable]="false" [searchable]="true" bindLabel="name"
+                            bindValue="name" id="Make"></ng-select>
+                        <label for="">Drive</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <ng-select [items]="BodyType" [clearable]="false" [searchable]="true" bindLabel="name"
+                            bindValue="name" id="Make"></ng-select>
+                        <label for="">Body Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <input type="text" placeholder="Exterior Color" class="form-control" />
+                        <label for="">Exterior Color</label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="float-label">
+                        <input type="text" placeholder="Interior Color" class="form-control" />
+                        <label for="">Interior Color</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6 px-2 mb-3">
+                    <div class="bg p-2">
+                        <div class="row justify-content-between" style="cursor: pointer" (click)="collapse1.toggle()"
+                            [attr.aria-expanded]="!isExteriorCollapsed" aria-controls="collapseExample">
+                            <p class="text-dark fw-bold pb-0 w-50">Exterior Features</p>
+                            <i class="fa w-50 text-end" [ngClass]="
+                  !isExteriorCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                " aria-hidden="true"></i>
+                        </div>
+                        <div class="row" #collapse1="ngbCollapse" [(ngbCollapse)]="isExteriorCollapsed">
+                            <div class="col-md-6" *ngFor="let option of ExteriorOptions; let i = index">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="checkbox{{ i }}" />
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ option.label }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 px-2 mb-3">
+                    <div class="bg p-2">
+                        <div class="row justify-content-between" style="cursor: pointer" (click)="collapse2.toggle()"
+                            [attr.aria-expanded]="!isTechCollapsed" aria-controls="collapseExample">
+                            <p class="text-dark fw-bold pb-0 w-50">Safety Features</p>
+                            <i class="fa w-50 text-end" [ngClass]="!isTechCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                                aria-hidden="true"></i>
+                        </div>
+                        <div class="row" #collapse2="ngbCollapse" [(ngbCollapse)]="isTechCollapsed">
+                            <div class="col-md-6" *ngFor="let option of TechOptions; let i = index">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="checkbox{{ i }}" />
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ option.label }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="product-gallery pt-3 mb-3 bg">
+                    <div class="row justify-content-between align-items-baseline"
+                        [attr.aria-expanded]="!isGalleryCollapsed" aria-controls="collapseExample">
+                        <p class="text-dark fw-bold pb-0 w-50" style="cursor: pointer"
+                            (click)="collapseGallery.toggle()">Product Gallery</p>
+                        <div class="w-50 text-end">
+                            <i class="fa-solid fa-square-plus mx-2" style="cursor: pointer" placement="left"
+                                (click)="openImagesModal()" [ngbTooltip]="gallery"></i>
+
+                            <i class="fa" [ngClass]="!isGalleryCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                                aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row" #collapseGallery="ngbCollapse" [(ngbCollapse)]="isGalleryCollapsed">
+                        <div class="col-sm-4 px-1 mb-2">
+                            <img src="/assets/images/1.jpg" class="w-100" />
+                        </div>
+                        <div class="col-sm-4 px-1 mb-2">
+                            <img src="/assets/images/2.jpg" class="w-100" />
+                        </div>
+                        <div class="col-sm-4 px-1 mb-2">
+                            <img src="/assets/images/3.jpg" class="w-100" />
+                        </div>
+                        <div class="col-sm-4 px-1 mb-2">
+                            <img src="/assets/images/1.jpg" class="w-100" />
+                        </div>
+                        <div class="col-sm-4 px-1 mb-2">
+                            <img src="/assets/images/2.jpg" class="w-100" />
+                        </div>
+                        <div class="col-sm-4 px-1 mb-2">
+                            <img src="/assets/images/3.jpg" class="w-100" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product pt-3 mb-3 bg">
+                    <div class="row justify-content-between align-items-baseline"
+                        [attr.aria-expanded]="!isCategoryCollapsed" aria-controls="collapseExample">
+                        <p class="text-dark fw-bold mb-3 w-75" style="cursor: pointer"
+                            (click)="collapseCategory.toggle()">Product Categories</p>
+                        <div class="w-25 text-end">
+                            <i class="fa-solid fa-square-plus mx-2" style="cursor: pointer" placement="left"
+                                ngbTooltip="Add New Category" (click)="openCategoryModal()"></i>
+                            <i class="fa " [ngClass]="!isCategoryCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                                aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row" #collapseCategory="ngbCollapse" [(ngbCollapse)]="isCategoryCollapsed">
+                        <ul class="nav-item" *ngFor="let category of categories">
+                            <input type="checkbox" [(ngModel)]="category.checked"> {{ category.name }}
+                            <ul *ngFor="let subcategories of category.subcategories">
+                                <input type="checkbox" [(ngModel)]="subcategories.checked"> {{ subcategories.name }}
+                            </ul>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #gallery>
+    Add product gallery images
+    <hr class="my-1 ">
+    For best results , upload JPEG or PNG files that are 1000 by 1000 pixels or larger. minimum upload
+    file size: 100 MB
+</ng-template>
+
+<ng-template #cat let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Add New Category
+        </h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+</ng-template>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Add images to product gallery
+        </h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" (activeId)="(1)">
+            <li [ngbNavItem]="1">
+                <button ngbNavLink>Upload Files</button>
+                <ng-template ngbNavContent>
+                    <div class="d-flex mt-5 justify-content-center align-items-center">
+                        <p>
+                            Drop Files To Upload
+                        </p>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <button ngbNavLink>Media Library</button>
+                <ng-template ngbNavContent>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, nisi!
+                    </p>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+            Save
+        </button>
+    </div>
+</ng-template>
