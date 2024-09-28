@@ -1,118 +1,339 @@
 <div class="container-fluid content">
     <div class="row">
-        <h4 class="mb-3">Car Form</h4>
+        <h4 class="mb-3 fw-bold">
+            <i class="fa fa-car text-primary" aria-hidden="true"></i>
+            <span class="mx-2 ">Add Car</span>
+        </h4>
         <div class="col-md-9">
-            <form class="row" action="">
-                <div class="col-md-12">
-                    <div class="float-label mb-3">
-                        <input type="text" placeholder="Car Name" class="form-control" />
-                        <label for="">Car Name</label>
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="float-label mb-3">
+                            <input type="text" placeholder="Car Name" class="form-control" />
+                            <label for="">Car Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="bg-light p-2">
+                            <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                                (click)="collapseDesc.toggle()" [attr.aria-expanded]="!isDesc1lCollapsed"
+                                aria-controls="collapseExample">
+                                <p class="text-dark mb-0 w-50">Product description</p>
+                                <i class="fa w-50 text-end" [ngClass]="
+                            !isDesc1lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                            " aria-hidden="true"></i>
+                            </div>
+                            <div class="row mt-3" #collapseDesc="ngbCollapse" [(ngbCollapse)]="isDesc1lCollapsed">
+                                <div class="col-md-12 mb-3">
+                                    <ckeditor [editor]="Editor" [config]="editorConfig"
+                                        (change)="getEditorData($event)"></ckeditor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <input type="text" placeholder="Reg Year" class="form-control" />
+                            <label for="">Reg Year</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <input type="number" placeholder="Mileage" class="form-control" />
+                            <label for="">Mileage</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <ng-select [items]="FuelType" [clearable]="false" [searchable]="true" bindLabel="name"
+                                bindValue="name" id="Make"></ng-select>
+                            <label for="">Fuel Type</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <ng-select [items]="Transmission" [clearable]="false" [searchable]="true" bindLabel="name"
+                                bindValue="name" id="Make"></ng-select>
+                            <label for="">Transmission</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <ng-select [items]="Drive" [clearable]="false" [searchable]="true" bindLabel="name"
+                                bindValue="name" id="Make"></ng-select>
+                            <label for="">Drive</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <ng-select [items]="BodyType" [clearable]="false" [searchable]="true" bindLabel="name"
+                                bindValue="name" id="Make"></ng-select>
+                            <label for="">Body Type</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <input type="text" placeholder="Exterior Color" class="form-control" />
+                            <label for="">Exterior Color</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="float-label">
+                            <input type="text" placeholder="Interior Color" class="form-control" />
+                            <label for="">Interior Color</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 d-flex justify-content-between align-items-center">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Is this product Sold?
+                        </label>
+                        <input class="form-check-input" type="checkbox" name="sold" />
                     </div>
                 </div>
-                <div class="col-md-12 mb-3">
-                    <label for="">Product description</label>
-                    <ckeditor [editor]="Editor" [config]="editorConfig" (change)="getEditorData($event)"></ckeditor>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <input type="text" placeholder="Reg Year" class="form-control" />
-                        <label for="">Reg Year</label>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <input type="number" placeholder="Mileage" class="form-control" />
-                        <label for="">Mileage</label>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <ng-select [items]="FuelType" [clearable]="false" [searchable]="true" bindLabel="name"
-                            bindValue="name" id="Make"></ng-select>
-                        <label for="">Fuel Type</label>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <ng-select [items]="Transmission" [clearable]="false" [searchable]="true" bindLabel="name"
-                            bindValue="name" id="Make"></ng-select>
-                        <label for="">Transmission</label>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <ng-select [items]="Drive" [clearable]="false" [searchable]="true" bindLabel="name"
-                            bindValue="name" id="Make"></ng-select>
-                        <label for="">Drive</label>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <ng-select [items]="BodyType" [clearable]="false" [searchable]="true" bindLabel="name"
-                            bindValue="name" id="Make"></ng-select>
-                        <label for="">Body Type</label>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <input type="text" placeholder="Exterior Color" class="form-control" />
-                        <label for="">Exterior Color</label>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="float-label">
-                        <input type="text" placeholder="Interior Color" class="form-control" />
-                        <label for="">Interior Color</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 px-2 mb-3">
-                    <div class="bg p-2">
-                        <div class="row justify-content-between" style="cursor: pointer" (click)="collapse1.toggle()"
-                            [attr.aria-expanded]="!isExteriorCollapsed" aria-controls="collapseExample">
-                            <p class="text-dark fw-bold pb-0 w-50">Exterior Features</p>
-                            <i class="fa w-50 text-end" [ngClass]="
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <!-- Exterior Features -->
+                            <div class="col-md-12 px-2 mb-3">
+                                <div class="bg-light p-2">
+                                    <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                                        (click)="collapse1.toggle()" [attr.aria-expanded]="!isExteriorCollapsed"
+                                        aria-controls="collapseExample">
+                                        <p class="text-dark fw-bold mb-0 w-50">Exterior Features</p>
+                                        <i class="fa w-50 text-end" [ngClass]="
                   !isExteriorCollapsed ? 'fa-caret-down' : 'fa-caret-up'
                 " aria-hidden="true"></i>
-                        </div>
-                        <div class="row" #collapse1="ngbCollapse" [(ngbCollapse)]="isExteriorCollapsed">
-                            <div class="col-md-6" *ngFor="let option of ExteriorOptions; let i = index">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="checkbox{{ i }}" />
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        {{ option.label }}
-                                    </label>
+                                    </div>
+                                    <div class="row mt-2" #collapse1="ngbCollapse"
+                                        [(ngbCollapse)]="isExteriorCollapsed">
+                                        <div class="col-lg-6 col-md-12"
+                                            *ngFor="let option of ExteriorOptions; let i = index">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    name="checkbox{{ i }}" />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    {{ option.label }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Interior Features -->
+                            <div class="col-md-12 px-2 mb-3">
+                                <div class="bg-light p-2">
+                                    <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                                        (click)="collapse3.toggle()" [attr.aria-expanded]="!isInteriorCollapsed"
+                                        aria-controls="collapseExample">
+                                        <p class="text-dark fw-bold mb-0 w-50">Interior Features</p>
+                                        <i class="fa w-50 text-end" [ngClass]="
+                                  !isInteriorCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                                " aria-hidden="true"></i>
+                                    </div>
+                                    <div class="row mt-2" #collapse3="ngbCollapse"
+                                        [(ngbCollapse)]="isInteriorCollapsed">
+                                        <div class="col-md-12" *ngFor="let option of InteriorOptions; let i = index">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    name="checkbox{{ i }}" />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    {{ option.label }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <!-- Tech Features -->
+                            <div class="col-md-12 px-2 mb-3">
+                                <div class="bg-light p-2">
+                                    <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                                        (click)="collapse2.toggle()" [attr.aria-expanded]="!isTechCollapsed"
+                                        aria-controls="collapseExample">
+                                        <p class="text-dark fw-bold mb-0 w-50">Tech Features</p>
+                                        <i class="fa w-50 text-end"
+                                            [ngClass]="!isTechCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                                            aria-hidden="true"></i>
+                                    </div>
+                                    <div class="row mt-2" #collapse2="ngbCollapse" [(ngbCollapse)]="isTechCollapsed">
+                                        <div class="col-lg-6 col-md-12"
+                                            *ngFor="let option of TechOptions; let i = index">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    name="checkbox{{ i }}" />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    {{ option.label }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="col-md-6 px-2 mb-3">
-                    <div class="bg p-2">
-                        <div class="row justify-content-between" style="cursor: pointer" (click)="collapse2.toggle()"
-                            [attr.aria-expanded]="!isTechCollapsed" aria-controls="collapseExample">
-                            <p class="text-dark fw-bold pb-0 w-50">Safety Features</p>
-                            <i class="fa w-50 text-end" [ngClass]="!isTechCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
-                                aria-hidden="true"></i>
-                        </div>
-                        <div class="row" #collapse2="ngbCollapse" [(ngbCollapse)]="isTechCollapsed">
-                            <div class="col-md-6" *ngFor="let option of TechOptions; let i = index">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="checkbox{{ i }}" />
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        {{ option.label }}
-                                    </label>
+                            <!-- Safety Features -->
+                            <div class="col-md-12 px-2 mb-3">
+                                <div class="bg-light p-2">
+                                    <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                                        (click)="collapse4.toggle()" [attr.aria-expanded]="!isSafetyCollapsed"
+                                        aria-controls="collapseExample">
+                                        <p class="text-dark fw-bold mb-0 w-50">Safety Features</p>
+                                        <i class="fa w-50 text-end"
+                                            [ngClass]="!isSafetyCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                                            aria-hidden="true"></i>
+                                    </div>
+                                    <div class="row mt-2" #collapse4="ngbCollapse" [(ngbCollapse)]="isSafetyCollapsed">
+                                        <div class="col-lg-6 col-md-12"
+                                            *ngFor="let option of SafetyOptions; let i = index">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    name="checkbox{{ i }}" />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    {{ option.label }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                </div>
+                <hr>
+                <!-- Technical Specs -->
+                <div class="row">
+                    <div class="col-md-12 px-2 mb-3">
+                        <div class="bg-light p-2">
+                            <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                                (click)="collapse5.toggle()" [attr.aria-expanded]="!isTechnicalCollapsed"
+                                aria-controls="collapseExample">
+                                <p class="text-dark fw-bold mb-0 w-50">Technical Specs</p>
+                                <i class="fa w-50 text-end" [ngClass]="
+                            !isTechnicalCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                            " aria-hidden="true"></i>
+                            </div>
+                            <div class="row mt-3" #collapse5="ngbCollapse" [(ngbCollapse)]="isTechnicalCollapsed">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Engine Size" class="form-control" />
+                                        <label for="">Engine Size</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Fuel Type" class="form-control" />
+                                        <label for="">Fuel Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Cylinders" class="form-control" />
+                                        <label for="">Cylinders</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Drive Axle" class="form-control" />
+                                        <label for="">Drive Axle</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="BHP" class="form-control" />
+                                        <label for="">BHP</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Torque" class="form-control" />
+                                        <label for="">Torque</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Co2 Emissions" class="form-control" />
+                                        <label for="">Co2 Emissions</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Tax Band" class="form-control" />
+                                        <label for="">Tax Band</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="MPG (urban)" class="form-control" />
+                                        <label for="">MPG (urban)</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="MPG (extra urban)" class="form-control" />
+                                        <label for="">MPG (extra urban)</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Drive Layout" class="form-control" />
+                                        <label for="">Drive Layout</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Max Speed" class="form-control" />
+                                        <label for="">Max Speed</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="Performance" class="form-control" />
+                                        <label for="">Performance</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="float-label mb-3">
+                                        <input type="text" placeholder="NOX" class="form-control" />
+                                        <label for="">NOX</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Product Short description -->
+                <div class="row">
+                    <div class="col-md-12 px-2 mb-3">
+                        <div class="bg-light p-2">
+                            <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                                (click)="collapse6.toggle()" [attr.aria-expanded]="!isDesc2lCollapsed"
+                                aria-controls="collapseExample">
+                                <p class="text-dark fw-bold mb-0 w-50">Product Short description</p>
+                                <i class="fa w-50 text-end" [ngClass]="
+                            !isDesc2lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                            " aria-hidden="true"></i>
+                            </div>
+                            <div class="row mt-3" #collapse6="ngbCollapse" [(ngbCollapse)]="isDesc2lCollapsed">
+                                <div class="col-md-12 mb-3">
+                                    <ckeditor [editor]="Editor" [config]="editorConfig"
+                                        (change)="getEditorData($event)"></ckeditor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </form>
         </div>
         <div class="col-md-3">
             <div class="row">
-                <div class="product-gallery pt-3 mb-3 bg">
+                <div class="product-gallery pt-3 mb-3 bg-light">
                     <div class="row justify-content-between align-items-baseline"
                         [attr.aria-expanded]="!isGalleryCollapsed" aria-controls="collapseExample">
                         <p class="text-dark fw-bold pb-0 w-50" style="cursor: pointer"
@@ -147,7 +368,7 @@
                     </div>
                 </div>
 
-                <div class="product pt-3 mb-3 bg">
+                <div class="product pt-3 mb-3 bg-light">
                     <div class="row justify-content-between align-items-baseline"
                         [attr.aria-expanded]="!isCategoryCollapsed" aria-controls="collapseExample">
                         <p class="text-dark fw-bold mb-3 w-75" style="cursor: pointer"

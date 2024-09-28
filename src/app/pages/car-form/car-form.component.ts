@@ -8,13 +8,8 @@ import {
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
-
-interface Category {
-  name: string;
-  subcategories?: Category[];
-  checked?: boolean;
-}
-
+import { Category, Option, Type } from 'src/app/shared/models/category';
+import { CarStaticDataService } from 'src/app/shared/services/car-data.service';
 @Component({
   selector: 'app-car-form',
   templateUrl: './car-form.component.html',
@@ -22,70 +17,23 @@ interface Category {
   // encapsulation: ViewEncapsulation.None,
 })
 export class CarFormComponent implements OnInit {
-  FuelType = [
-    { name: 'Diesel' },
-    { name: 'Electric' },
-    { name: 'Fuel' },
-    { name: 'Hybird' },
-    { name: 'Petrol' },
-    { name: 'Petrol/Electric' },
-  ];
-  Transmission = [{ name: 'Automatic' }, { name: 'Manual' }];
-  Drive = [{ name: 'RWD' }, { name: 'FWD' }, { name: 'AWD' }];
-  BodyType = [
-    { name: 'Avant' },
-    { name: 'Sedan' },
-    { name: 'Saloon' },
-    { name: 'Coupe' },
-    { name: 'MPV' },
-    { name: 'Van' },
-    { name: 'Estate Car' },
-  ];
-  ExteriorOptions = [
-    { label: 'Alloy wheels' },
-    { label: 'Electric folding mirrors' },
-    { label: 'Fog lights' },
-    { label: 'LED' },
-    { label: 'Bi-xenon' },
-    { label: 'Headlight washers' },
-    { label: 'Daytime running lights' },
-    { label: 'Heated electric mirrors' },
-  ];
-  TechOptions = [
-    { label: 'Satellite Navigation System' },
-    { label: 'Audi MMI' },
-    { label: ' Bluetooth Interface' },
-    { label: 'AUX / USB' },
-    { label: 'MP3 / CD' },
-    { label: 'Auto stop / start' },
-  ];
-  categories: Category[] = [
-    {
-      name: 'Audi',
-      subcategories: [
-        { name: 'A1' },
-        { name: 'A3' },
-        { name: 'A4' },
-        { name: 'A5' },
-        { name: 'A6' },
-        { name: 'Q2' },
-        { name: 'Q3' },
-      ],
-    },
-    {
-      name: 'BMW',
-      subcategories: [
-        { name: 'Series 1' },
-        { name: 'Series 2' },
-        { name: 'Series 3' },
-        { name: 'Series 4' },
-        { name: 'Series 5' },
-      ],
-    },
-  ];
+  FuelType: Type[] = [];
+  Transmission: Type[] = [];
+  Drive: Type[] = [];
+  BodyType: Type[] = [];
+  ExteriorOptions: Option[] = [];
+  InteriorOptions: Option[] = [];
+  TechOptions: Option[] = [];
+  SafetyOptions: Option[] = [];
+  categories: Category[] = [];
+
   isExteriorCollapsed: boolean = false;
+  isInteriorCollapsed: boolean = false;
   isSafetyCollapsed: boolean = false;
   isTechCollapsed: boolean = false;
+  isTechnicalCollapsed: boolean = false;
+  isDesc1lCollapsed: boolean = false;
+  isDesc2lCollapsed: boolean = false;
   isGalleryCollapsed: boolean = false;
   isCategoryCollapsed: boolean = false;
 
@@ -100,9 +48,22 @@ export class CarFormComponent implements OnInit {
 
   @ViewChild('content') content!: TemplateRef<any>;
   @ViewChild('cat') cat!: TemplateRef<any>;
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private staticData: CarStaticDataService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.FuelType = this.staticData.FuelType;
+    this.Transmission = this.staticData.Transmission;
+    this.Drive = this.staticData.Drive;
+    this.BodyType = this.staticData.BodyType;
+    this.categories = this.staticData.categories;
+    this.ExteriorOptions = this.staticData.ExteriorOptions;
+    this.InteriorOptions = this.staticData.InteriorOptions;
+    this.TechOptions = this.staticData.TechOptions;
+    this.SafetyOptions = this.staticData.SafetyOptions;
+  }
 
   openImagesModal() {
     this.modalRef = this.modalService.open(this.content, {

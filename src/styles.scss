@@ -31,9 +31,10 @@
     &:focus,
     &:not(:placeholder-shown) {
       & + label {
-        color: #0c2c74;
+        color: #030303;
         top: 0;
         transform: translateY(-50%) scale(0.9);
+        border-radius: 5px;
       }
     }
   }
@@ -44,9 +45,10 @@
     &:focus,
     &:not(:placeholder-shown) {
       & + label {
-        color: #0c2c74;
+        color: #030303;
         top: 0;
         transform: translateY(-50%) scale(0.9);
+        border-radius: 5px;
       }
     }
   }
