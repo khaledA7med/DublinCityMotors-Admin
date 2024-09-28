@@ -10,6 +10,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
 import { Category, Option, Type } from 'src/app/shared/models/category';
 import { CarStaticDataService } from 'src/app/shared/services/car-data.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-car-form',
   templateUrl: './car-form.component.html',
@@ -50,10 +51,17 @@ export class CarFormComponent implements OnInit {
   @ViewChild('cat') cat!: TemplateRef<any>;
   constructor(
     private modalService: NgbModal,
-    private staticData: CarStaticDataService
+    private staticData: CarStaticDataService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 1000);
     this.FuelType = this.staticData.FuelType;
     this.Transmission = this.staticData.Transmission;
     this.Drive = this.staticData.Drive;
