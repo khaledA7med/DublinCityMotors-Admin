@@ -21,31 +21,29 @@
     </div>
     <div class="offcanvas-body">
         <ul class="navbar-nav flex-grow-1 pe-3 text-center">
-            <li class="nav-item d-flex justify-content-center">
+            <!-- <li class="nav-item d-flex justify-content-center">
                 <a class="nav-link active d-flex align-items-center" routerLink="/"><i class='bx bx-home me-1'></i>
                     Home</a>
             </li>
-            <hr>
+            <hr> -->
             <li class="nav-item d-flex justify-content-center">
-                <a class="nav-link d-flex align-items-center" routerLink="/view-stock"><i
-                        class='bx bxs-dashboard me-1'></i> View
-                    Stock</a>
+                <button type="button" class="btn btn-none" (click)="navProducts('Products')"><i
+                        class='bx bx-cart me-1'></i>
+                    Products</button>
+                <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                    <button type="button" class="btn btn-none dropdown-toggle-split" ngbDropdownToggle></button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <button ngbDropdownItem (click)="navProducts('categories')">Categories</button>
+                        <button ngbDropdownItem (click)="navProducts('tags')">Tags</button>
+                        <button ngbDropdownItem (click)="navProducts('attributes')">Attributes</button>
+                        <button ngbDropdownItem (click)="navProducts('reviews')">Reviews</button>
+                    </div>
+                </div>
             </li>
             <hr>
             <li class="nav-item d-flex justify-content-center">
-                <a class="nav-link d-flex align-items-center" href="#"><i class='bx bx-money-withdraw me-1'></i>
-                    Recently Sold</a>
-            </li>
-            <hr>
-            <li class="nav-item d-flex justify-content-center">
-                <a class="nav-link d-flex align-items-center" routerLink="/contact-us"><i class='bx bx-phone me-1'></i>
-                    Contact Us</a>
-            </li>
-            <hr>
-            <li class="nav-item d-flex justify-content-center">
-                <a class="nav-link d-flex align-items-center" routerLink="/about-us"><i
-                        class='bx bx-info-circle me-1'></i> About
-                    Us</a>
+                <a class="nav-link d-flex align-items-center" routerLink="/users"><i class='bx bx-user me-1'></i>
+                    Users</a>
             </li>
         </ul>
     </div>

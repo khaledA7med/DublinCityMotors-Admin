@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
+import { ProductsComponent } from './products.component';
+import { RouterModule } from '@angular/router';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [ProductsComponent],
   imports: [RouterModule, CommonModule, NgbCarouselModule, SharedModule],
 })
-export class HomeModule {}
+export class ProductsModule {}

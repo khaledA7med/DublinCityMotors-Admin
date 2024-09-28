@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
 
   private setTitleFromRouteData(routeData: any) {
     if (routeData && routeData['title']) this.title = routeData['title'];
-    else this.title = '';
+    else this.title = 'Products';
     this.titleService.setTitle(this.title + ' | Dublin City Motors');
   }
 
@@ -65,5 +65,25 @@ export class NavbarComponent implements OnInit {
       .subscribe((event) => {
         this.setTitleFromRouteData(event);
       });
+  }
+
+  navProducts(link: string) {
+    switch (link) {
+      case 'products':
+        this.router.navigate(['/']);
+        break;
+      case 'categories':
+        this.router.navigate(['/categories']);
+        break;
+      case 'tags':
+        this.router.navigate(['/tags']);
+        break;
+      case 'attributes':
+        this.router.navigate(['/attributes']);
+        break;
+      default:
+        this.router.navigate(['/']);
+        break;
+    }
   }
 }

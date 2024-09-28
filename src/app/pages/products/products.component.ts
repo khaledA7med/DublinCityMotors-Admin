@@ -58,13 +58,13 @@ function search(text: string, pipe: PipeTransform): Country[] {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [DecimalPipe],
 })
-export class HomeComponent implements OnInit {
+export class ProductsComponent implements OnInit {
   @ViewChild('carFilter') carFilter!: ElementRef;
 
   countries$: Observable<Country[]>;
