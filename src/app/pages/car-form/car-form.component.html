@@ -7,7 +7,7 @@
 <div class="container-fluid content">
     <div class="row">
         <h4 class="mb-3 fw-bold">
-            <i class="fa fa-car text-primary" aria-hidden="true"></i>
+            <i class="fa fa-car" aria-hidden="true"></i>
             <span class="mx-2 ">Add Car</span>
         </h4>
         <div class="col-md-9">
@@ -415,6 +415,21 @@
             Add New Category
         </h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="float-label mb-4">
+            <input type="text" placeholder="Category Name" class="form-control" />
+            <label for="">Category Name</label>
+        </div>
+        <div class="float-label mb-3">
+            <ng-select [items]="categories" [clearable]="false" [searchable]="true" bindLabel="name"
+                bindValue="name"></ng-select>
+            <label for="">Recent Categories</label>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-sm btn-outline-secondary">Save</button>
+
+        </div>
     </div>
 </ng-template>
 
