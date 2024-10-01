@@ -96,6 +96,6 @@ export class ProductsComponent implements OnInit {
   }
 
   openFilterOffcanvas(): void {
-    this.offcanvasService.open(this.carFilter, { position: 'end' });
+    this.offcanvasService.open(this.carFilter, { position: 'start' });
   }
 }

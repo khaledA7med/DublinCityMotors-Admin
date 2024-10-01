@@ -22,6 +22,8 @@ export class NavbarComponent implements OnInit {
   @ViewChild('content') content!: ElementRef;
   modalRef!: NgbModalRef;
 
+  items = ['Products', 'Users'];
+
   constructor(
     private offcanvasService: NgbOffcanvas,
     private titleService: Title,

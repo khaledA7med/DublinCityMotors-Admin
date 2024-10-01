@@ -10,4 +10,9 @@ li:hover {
   -ms-transition: 0.3s all;
   -o-transition: 0.3s all;
   cursor: pointer;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }

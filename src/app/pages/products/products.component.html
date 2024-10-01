@@ -6,11 +6,13 @@
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
             <div>
-                <button class="btn btn-outline-secondary mx-1" (click)="openFilterOffcanvas()">
-                    Filter
+                <button class="btn btn-secondary mx-1" (click)="openFilterOffcanvas()" placement="bottom"
+                    ngbTooltip="Filter">
+                    <i class='bx bx-filter-alt p-1'></i>
                 </button>
-                <button class="btn btn-outline-success" type="button" routerLink="/add-car">
-                    Add Car
+                <button class="btn btn-outline-dark" type="button" routerLink="/add-car" placement="bottom"
+                    ngbTooltip="Add Car">
+                    <i class="bx bx-plus p-1"></i>
                 </button>
             </div>
         </div>
@@ -28,7 +30,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col"></th>
+                        <th scope="col">Actions</th>
                         <th scope="col">Country</th>
                         <th scope="col">Area</th>
                         <th scope="col">Population</th>
@@ -36,7 +38,14 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let country of countries$ | async; index as i">
-                        <th scope="row">{{ i + 1 }}</th>
+                        <th scope="row">
+                            <button class="btn btn-outline-info me-3">
+                                <i class='bx bx-edit-alt'></i>
+                            </button>
+                            <button class="btn btn-outline-danger">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </th>
                         <td>
                             <img [src]="
                   'https://upload.wikimedia.org/wikipedia/commons/' +

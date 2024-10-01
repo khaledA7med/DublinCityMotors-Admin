@@ -26,25 +26,67 @@
                     Home</a>
             </li>
             <hr> -->
-            <li class="nav-item d-flex justify-content-center">
-                <button type="button" class="btn btn-none" (click)="navProducts('Products')"><i
-                        class='bx bx-cart me-1'></i>
-                    Products</button>
-                <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" class="btn btn-none dropdown-toggle-split" ngbDropdownToggle></button>
-                    <div class="dropdown-menu" ngbDropdownMenu>
-                        <button ngbDropdownItem (click)="navProducts('categories')">Categories</button>
-                        <button ngbDropdownItem (click)="navProducts('tags')">Tags</button>
-                        <button ngbDropdownItem (click)="navProducts('attributes')">Attributes</button>
-                        <button ngbDropdownItem (click)="navProducts('reviews')">Reviews</button>
+
+            <div ngbAccordion [closeOthers]="true">
+                <div ngbAccordionItem [collapsed]="true" class="border border-0">
+                    <h6 ngbAccordionHeader>
+                        <button ngbAccordionButton><i class='bx bx-cart me-1'></i> Products</button>
+                    </h6>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+                            <ul class="list-unstyled">
+                                <li class="nav-item p-1">
+                                    <a class="nav-link d-flex align-items-center" routerLink="/">
+                                        <i class='bx bx-cart me-1'></i> All Products
+                                    </a>
+                                </li>
+                                <li class="nav-item p-1">
+                                    <a class="nav-link d-flex align-items-center" routerLink="/categories">
+                                        <i class='bx bx-category me-1'></i> Categories
+                                    </a>
+                                </li>
+                                <li class="nav-item p-1">
+                                    <a class="nav-link d-flex align-items-center" routerLink="/tags">
+                                        <i class='bx bx-purchase-tag-alt me-1'></i> Tags
+                                    </a>
+                                </li>
+                                <li class="nav-item p-1">
+                                    <a class="nav-link d-flex align-items-center" routerLink="/attributes">
+                                        <i class='bx bx-cube-alt me-1'></i> Attributes
+                                    </a>
+                                </li>
+                                <li class="nav-item p-1">
+                                    <a class="nav-link d-flex align-items-center" routerLink="/reviews">
+                                        <i class='bx bx-file me-1'></i> Reviews
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </li>
-            <hr>
-            <li class="nav-item d-flex justify-content-center">
-                <a class="nav-link d-flex align-items-center" routerLink="/users"><i class='bx bx-user me-1'></i>
-                    Users</a>
-            </li>
+                <hr>
+                <div ngbAccordionItem class="border border-0">
+                    <h6 ngbAccordionHeader>
+                        <button ngbAccordionButton class="bg-none"><i class='bx bx-user me-1'></i> Users</button>
+                    </h6>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+                            <ul class="list-unstyled">
+                                <li class="nav-item p-2">
+                                    <a class="nav-link d-flex align-items-center" routerLink="/users">
+                                        <i class='bx bx-user me-1'></i> All Users
+                                    </a>
+                                </li>
+                                <li class="nav-item p-2">
+                                    <a class="nav-link d-flex align-items-center" routerLink="/profile">
+                                        <i class='bx bx-user-pin me-1'></i> Profile
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ul>
     </div>
 </ng-template>

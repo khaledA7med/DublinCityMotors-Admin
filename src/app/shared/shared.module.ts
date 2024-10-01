@@ -5,9 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EnquireCarModule } from './enquire-car/enquire-car.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {
+  NgbAccordionModule,
+  NgbCollapseModule,
   NgbDropdownModule,
+  NgbTooltipModule,
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { DropzoneModule } from './dropzone/dropzone.module';
 
 @NgModule({
   declarations: [],
@@ -20,6 +24,10 @@ import {
     ReactiveFormsModule,
     NgbTypeaheadModule,
     NgbDropdownModule,
+    NgbCollapseModule,
+    NgbAccordionModule,
+    NgbTooltipModule,
+    DropzoneModule,
   ],
   exports: [
     NgSelectModule,
@@ -29,6 +37,10 @@ import {
     NgxSpinnerModule,
     NgbTypeaheadModule,
     NgbDropdownModule,
+    NgbCollapseModule,
+    NgbAccordionModule,
+    NgbTooltipModule,
+    DropzoneModule,
   ],
 })
 export class SharedModule {}

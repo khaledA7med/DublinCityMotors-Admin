@@ -1,0 +1,64 @@
+.draggable-items .filezone-container {
+  border: 2px solid rgb(133 132 132 / 40%);
+  background-color: #e2e2e26e;
+}
+
+.draggable-items .filezone-container #img-label {
+  color: rgb(134 133 133 / 38%);
+}
+
+input#inputDocuments {
+  display: none;
+}
+
+.filezone-container {
+  padding: 10px;
+  border: 2px dashed #878a99;
+  border-radius: 10px;
+  // height: 270px;
+  table td,
+  table th {
+    vertical-align: middle;
+  }
+
+  #img-label {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #878a99;
+    /* color: rgb(134, 133, 133); */
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    i {
+      font-size: 60px;
+      font-weight: 400;
+    }
+    div span {
+      color: #878a99 !important;
+    }
+  }
+
+  @media screen {
+    font-size: 15px;
+  }
+}
+.files-views {
+  margin: 20px 0 0 0;
+  & > div {
+    min-width: 450px;
+  }
+  .card {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+      rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    height: 65px;
+    img {
+      height: 65px;
+      width: 100%;
+    }
+  }
+}
