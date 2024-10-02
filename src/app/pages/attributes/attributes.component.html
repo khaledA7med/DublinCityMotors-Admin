@@ -1,1 +1,120 @@
-<p>attributes works!</p>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="container home mt-lg-5">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <div>
+                <button class="btn btn-outline-dark" type="button" (click)="openAddModal()" placement="start"
+                    ngbTooltip="Add New Attribute">
+                    <i class="bx bx-plus p-1"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-12">
+            <form>
+                <div class="mb-3 row">
+                    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">
+                        search attribute</label>
+                    <div class="col-xs-3 col-sm-auto">
+                        <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+                    </div>
+                </div>
+            </form>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Order by</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let country of countries$ | async; index as i">
+                        <td>
+                            <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="country.slug" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="country.displayType" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="country.parentCategory" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="country.terms" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <th scope="row">
+                            <button class="btn btn-outline-info me-3">
+                                <i class='bx bx-edit-alt'></i>
+                            </button>
+                            <button class="btn btn-outline-danger">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header mb-0 box">
+        <!-- Ribbon without rotation -->
+        <div class="ribbon ribbon-top-left"><span>New Attribute</span></div>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <form [formGroup]="attributesForm" (ngSubmit)="submitForm()">
+        <div class="modal-body p-1 m-2 mt-5" style="overflow-y: unset !important;">
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                        <label for="">Name</label>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="text" class="form-control" formControlName="slug" placeholder="Slug">
+                        <label for="">Slug</label>
+                    </div>
+                </div>
+                <div class="col-6 my-2">
+                    <div class="float-label">
+                        <ng-select [items]="types" placeholder="Select Type" [searchable]="true" bindLabel="name"
+                            formControlName="displayType" bindValue="name" id="Type"></ng-select>
+                        <label for="">Type</label>
+                    </div>
+                </div>
+                <div class="col-6 my-2">
+                    <div class="float-label">
+                        <ng-select [items]="categories" placeholder="Select Category" [searchable]="true"
+                            formControlName="parentCategory" bindLabel="name" bindValue="name"
+                            id="Category"></ng-select> <label for="">Default sort order
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
+                <i class="bx bx-save me-1"></i> Save
+            </button>
+            <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
+                <i class="bx bx-clipboard me-1"></i> Clear
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm d-flex align-items-center"
+                (click)="modal.close()">
+                <i class="bx bx-x me-1"></i> Close
+            </button>
+        </div>
+    </form>
+</ng-template>

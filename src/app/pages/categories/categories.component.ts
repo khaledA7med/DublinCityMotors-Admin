@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable, startWith } from 'rxjs';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 
 interface Country {
   img: string;
@@ -101,8 +102,9 @@ export class CategoriesComponent implements OnInit {
 
   constructor(
     private spinner: NgxSpinnerService,
-    pipe: DecimalPipe,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private messages: MessagesService,
+    pipe: DecimalPipe
   ) {
     this.countries$ = this.filter.valueChanges.pipe(
       startWith(''),
@@ -145,6 +147,7 @@ export class CategoriesComponent implements OnInit {
   submitForm() {
     this.submit = true;
     console.log(this.categoriesForm.value);
+    this.messages.toast('Category created successfully', 'success');
   }
 
   reset() {
