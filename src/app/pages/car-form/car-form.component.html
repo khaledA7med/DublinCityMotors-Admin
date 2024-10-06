@@ -11,11 +11,11 @@
             <span class="mx-2 ">Add Car</span>
         </h4>
         <div class="col-md-9">
-            <form>
+            <form [formGroup]="carForm" (ngSubmit)="submitForm()">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="float-label mb-3">
-                            <input type="text" placeholder="Car Name" class="form-control" />
+                            <input type="text" placeholder="Car Name" class="form-control" formControlName="carName" />
                             <label for="">Car Name</label>
                         </div>
                     </div>
@@ -24,14 +24,14 @@
                             <div class="row justify-content-between align-items-center" style="cursor: pointer"
                                 (click)="collapseDesc.toggle()" [attr.aria-expanded]="!isDesc1lCollapsed"
                                 aria-controls="collapseExample">
-                                <p class="text-dark mb-0 w-50">Product description</p>
+                                <p class="text-dark mb-0 fw-bold w-50">Product description</p>
                                 <i class="fa w-50 text-end" [ngClass]="
-                            !isDesc1lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
-                            " aria-hidden="true"></i>
+                                !isDesc1lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                                " aria-hidden="true"></i>
                             </div>
                             <div class="row mt-3" #collapseDesc="ngbCollapse" [(ngbCollapse)]="isDesc1lCollapsed">
                                 <div class="col-md-12 mb-3">
-                                    <ckeditor [editor]="Editor" [config]="editorConfig"
+                                    <ckeditor [editor]="Editor" [config]="editorConfig" formControlName="description"
                                         (change)="getEditorData($event)"></ckeditor>
                                 </div>
                             </div>
@@ -39,53 +39,55 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
-                            <input type="text" placeholder="Reg Year" class="form-control" />
+                            <input type="text" placeholder="Reg Year" class="form-control" formControlName="RegYear" />
                             <label for="">Reg Year</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
-                            <input type="number" placeholder="Mileage" class="form-control" />
+                            <input type="number" placeholder="Mileage" class="form-control" formControlName="mileage" />
                             <label for="">Mileage</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
                             <ng-select [items]="FuelType" [clearable]="false" [searchable]="true" bindLabel="name"
-                                bindValue="name" id="Make"></ng-select>
+                                bindValue="name" formControlName="fuelType"></ng-select>
                             <label for="">Fuel Type</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
                             <ng-select [items]="Transmission" [clearable]="false" [searchable]="true" bindLabel="name"
-                                bindValue="name" id="Make"></ng-select>
+                                bindValue="name" formControlName="transmission"></ng-select>
                             <label for="">Transmission</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
                             <ng-select [items]="Drive" [clearable]="false" [searchable]="true" bindLabel="name"
-                                bindValue="name" id="Make"></ng-select>
+                                bindValue="name" formControlName="drive"></ng-select>
                             <label for="">Drive</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
                             <ng-select [items]="BodyType" [clearable]="false" [searchable]="true" bindLabel="name"
-                                bindValue="name" id="Make"></ng-select>
+                                bindValue="name" formControlName="bodyType"></ng-select>
                             <label for="">Body Type</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
-                            <input type="text" placeholder="Exterior Color" class="form-control" />
+                            <input type="text" placeholder="Exterior Color" class="form-control"
+                                formControlName="exteriorColor" />
                             <label for="">Exterior Color</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
-                            <input type="text" placeholder="Interior Color" class="form-control" />
+                            <input type="text" placeholder="Interior Color" class="form-control"
+                                formControlName="interiorColor" />
                             <label for="">Interior Color</label>
                         </div>
                     </div>
@@ -93,7 +95,7 @@
                         <label class="form-check-label" for="flexCheckDefault">
                             Is this product Sold?
                         </label>
-                        <input class="form-check-input" type="checkbox" name="sold" />
+                        <input class="form-check-input" type="checkbox" name="sold" formControlName="sold" />
                     </div>
                 </div>
                 <hr>
@@ -108,16 +110,16 @@
                                         aria-controls="collapseExample">
                                         <p class="text-dark fw-bold mb-0 w-50">Exterior Features</p>
                                         <i class="fa w-50 text-end" [ngClass]="
-                  !isExteriorCollapsed ? 'fa-caret-down' : 'fa-caret-up'
-                " aria-hidden="true"></i>
+                      !isExteriorCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                    " aria-hidden="true"></i>
                                     </div>
                                     <div class="row mt-2" #collapse1="ngbCollapse"
                                         [(ngbCollapse)]="isExteriorCollapsed">
                                         <div class="col-lg-6 col-md-12"
                                             *ngFor="let option of ExteriorOptions; let i = index">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    name="checkbox{{ i }}" />
+                                                <input class="form-check-input" type="checkbox" name="checkbox{{ i }}"
+                                                    formControlName="exteriorFeatures" />
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     {{ option.label }}
                                                 </label>
@@ -134,15 +136,15 @@
                                         aria-controls="collapseExample">
                                         <p class="text-dark fw-bold mb-0 w-50">Interior Features</p>
                                         <i class="fa w-50 text-end" [ngClass]="
-                                  !isInteriorCollapsed ? 'fa-caret-down' : 'fa-caret-up'
-                                " aria-hidden="true"></i>
+                                      !isInteriorCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                                    " aria-hidden="true"></i>
                                     </div>
                                     <div class="row mt-2" #collapse3="ngbCollapse"
                                         [(ngbCollapse)]="isInteriorCollapsed">
                                         <div class="col-md-12" *ngFor="let option of InteriorOptions; let i = index">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    name="checkbox{{ i }}" />
+                                                <input class="form-check-input" type="checkbox" name="checkbox{{ i }}"
+                                                    formControlName="interiorFeatures" />
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     {{ option.label }}
                                                 </label>
@@ -170,8 +172,8 @@
                                         <div class="col-lg-6 col-md-12"
                                             *ngFor="let option of TechOptions; let i = index">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    name="checkbox{{ i }}" />
+                                                <input class="form-check-input" type="checkbox" name="checkbox{{ i }}"
+                                                    formControlName="techFeatures" />
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     {{ option.label }}
                                                 </label>
@@ -196,8 +198,8 @@
                                         <div class="col-lg-6 col-md-12"
                                             *ngFor="let option of SafetyOptions; let i = index">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    name="checkbox{{ i }}" />
+                                                <input class="form-check-input" type="checkbox" name="checkbox{{ i }}"
+                                                    formControlName="safetyFeatures" />
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     {{ option.label }}
                                                 </label>
@@ -220,91 +222,105 @@
                                 aria-controls="collapseExample">
                                 <p class="text-dark fw-bold mb-0 w-50">Technical Specs</p>
                                 <i class="fa w-50 text-end" [ngClass]="
-                            !isTechnicalCollapsed ? 'fa-caret-down' : 'fa-caret-up'
-                            " aria-hidden="true"></i>
+                                !isTechnicalCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                                " aria-hidden="true"></i>
                             </div>
                             <div class="row mt-3" #collapse5="ngbCollapse" [(ngbCollapse)]="isTechnicalCollapsed">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Engine Size" class="form-control" />
+                                        <input type="text" placeholder="Engine Size" class="form-control"
+                                            formControlName="engineSize" />
                                         <label for="">Engine Size</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Fuel Type" class="form-control" />
+                                        <input type="text" placeholder="Fuel Type" class="form-control"
+                                            formControlName="SpecsFuelType" />
                                         <label for="">Fuel Type</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Cylinders" class="form-control" />
+                                        <input type="text" placeholder="Cylinders" class="form-control"
+                                            formControlName="cylinders" />
                                         <label for="">Cylinders</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Drive Axle" class="form-control" />
+                                        <input type="text" placeholder="Drive Axle" class="form-control"
+                                            formControlName="driveAxle" />
                                         <label for="">Drive Axle</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="BHP" class="form-control" />
+                                        <input type="text" placeholder="BHP" class="form-control"
+                                            formControlName="bHP" />
                                         <label for="">BHP</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Torque" class="form-control" />
+                                        <input type="text" placeholder="Torque" class="form-control"
+                                            formControlName="torque" />
                                         <label for="">Torque</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Co2 Emissions" class="form-control" />
+                                        <input type="text" placeholder="Co2 Emissions" class="form-control"
+                                            formControlName="emissions" />
                                         <label for="">Co2 Emissions</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Tax Band" class="form-control" />
+                                        <input type="text" placeholder="Tax Band" class="form-control"
+                                            formControlName="tax" />
                                         <label for="">Tax Band</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="MPG (urban)" class="form-control" />
+                                        <input type="text" placeholder="MPG (urban)" class="form-control"
+                                            formControlName="urban" />
                                         <label for="">MPG (urban)</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="MPG (extra urban)" class="form-control" />
+                                        <input type="text" placeholder="MPG (extra urban)" class="form-control"
+                                            formControlName="extraUrban" />
                                         <label for="">MPG (extra urban)</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Drive Layout" class="form-control" />
+                                        <input type="text" placeholder="Drive Layout" class="form-control"
+                                            formControlName="driveLayout" />
                                         <label for="">Drive Layout</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Max Speed" class="form-control" />
+                                        <input type="text" placeholder="Max Speed" class="form-control"
+                                            formControlName="speed" />
                                         <label for="">Max Speed</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="Performance" class="form-control" />
+                                        <input type="text" placeholder="Performance" class="form-control"
+                                            formControlName="performance" />
                                         <label for="">Performance</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="float-label mb-3">
-                                        <input type="text" placeholder="NOX" class="form-control" />
+                                        <input type="text" placeholder="NOX" class="form-control"
+                                            formControlName="nOX" />
                                         <label for="">NOX</label>
                                     </div>
                                 </div>
@@ -320,21 +336,22 @@
                             <div class="row justify-content-between align-items-center" style="cursor: pointer"
                                 (click)="collapse6.toggle()" [attr.aria-expanded]="!isDesc2lCollapsed"
                                 aria-controls="collapseExample">
-                                <p class="text-dark fw-bold mb-0 w-50">Product Short description</p>
-                                <i class="fa w-50 text-end" [ngClass]="
-                            !isDesc2lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
-                            " aria-hidden="true"></i>
+                                <p class="text-dark fw-bold mb-0 w-75">Product Short Description</p>
+                                <i class="fa w-25 text-end" [ngClass]="
+                                !isDesc2lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                                " aria-hidden="true"></i>
                             </div>
                             <div class="row mt-3" #collapse6="ngbCollapse" [(ngbCollapse)]="isDesc2lCollapsed">
                                 <div class="col-md-12 mb-3">
                                     <ckeditor [editor]="Editor" [config]="editorConfig"
-                                        (change)="getEditorData($event)"></ckeditor>
+                                        formControlName="shortDescription" (change)="getEditorData($event)"></ckeditor>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
+                <button class="btn btn-success mt-3">Save</button>
             </form>
         </div>
         <div class="col-md-3">

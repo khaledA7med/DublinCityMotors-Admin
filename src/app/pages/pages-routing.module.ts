@@ -1,3 +1,4 @@
+import { ProfileModule } from './profile/profile.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
@@ -32,6 +33,11 @@ const routes: Routes = [
     path: 'add-car',
     loadChildren: () =>
       import('./car-form/car-form.module').then((m) => m.CarFormModule),
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfileModule),
   },
 ];
 

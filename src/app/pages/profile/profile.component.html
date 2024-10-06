@@ -1,0 +1,97 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+<div class="container mt-lg-5">
+    <form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+        <div class="row">
+            <div class="col-12 my-2 mb-3">
+                <h2 class="fw-bold">User Profile</h2>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="float-label">
+                    <input type="text" class="form-control" formControlName="userName" placeholder="User Name">
+                    <label for="User Name">User Name</label>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="float-label">
+                    <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                    <label for="First Name">First Name</label>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="float-label">
+                    <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                    <label for="Last Name">Last Name</label>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="float-label">
+                    <input type="text" class="form-control" formControlName="nickName" placeholder="Nick Name">
+                    <label for="Nick Name">Nick Name</label>
+                </div>
+            </div>
+            <div class="col-md-12 px-2 mb-3">
+                <div class="bg-light p-2">
+                    <div class="row justify-content-between align-items-center" style="cursor: pointer"
+                        (click)="collapse.toggle()" [attr.aria-expanded]="!isContactCollapsed"
+                        aria-controls="collapseExample">
+                        <p class="text-dark fw-bold mb-0 w-75">Contact Info</p>
+                        <i class="fa w-25 text-end" [ngClass]="
+                    !isContactCollapsed ? 'fa-caret-down' : 'fa-caret-up'
+                    " aria-hidden="true"></i>
+                    </div>
+                    <div class="row mt-3" #collapse="ngbCollapse" [(ngbCollapse)]="isContactCollapsed">
+                        <div class="col-md-3 mb-3">
+                            <div class="float-label">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email">
+                                <label for="Email">Email</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="float-label">
+                                <input type="text" class="form-control" formControlName="Website" placeholder="Website">
+                                <label for="Website">Website</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="float-label">
+                                <input type="text" class="form-control" formControlName="facebookUrl"
+                                    placeholder="Facebook Profile URL">
+                                <label for="Facebook Profile URL">Facebook Profile URL</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="float-label">
+                                <input type="text" class="form-control" formControlName="instagramUrl"
+                                    placeholder="Instagram Profile URL">
+                                <label for="Instagram Profile URL">Instagram Profile URL</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="float-label">
+                                <input type="text" class="form-control" formControlName="linkedInUrl"
+                                    placeholder="LinkedIn Profile URL">
+                                <label for="LinkedIn Profile URL">LinkedIn Profile URL</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="float-label">
+                                <input type="text" class="form-control" formControlName="facebookUrl"
+                                    placeholder="Facebook Profile URL">
+                                <label for="Facebook Profile URL">Facebook Profile URL</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <ckeditor [editor]="Editor" [config]="editorConfig" (change)="getEditorData($event)"
+                                formControlName="biographicalInfo"></ckeditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-end">
+                <button class=" btn btn-sm btn-success">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

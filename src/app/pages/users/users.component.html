@@ -1,1 +1,125 @@
-<p>users works!</p>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="container home mt-lg-5">
+    <div class="row">
+        <div class="col-12 mt-2">
+            <form>
+                <div class="mb-3 row justify-content-between">
+                    <div class="col-6">
+                        <div class="float-label">
+                            <input type="text" placeholder="search Users" [formControl]="filter" class="form-control" />
+                            <label for="">search Users</label>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <button class="btn btn-outline-dark" type="button" (click)="openAddModal()">
+                            <i class="bx bx-plus p-1"></i> Add User
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users$ | async; index as i">
+                        <td>
+                            <ngb-highlight [result]="user.userName" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="user.name" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="user.email" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="user.role" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <th scope="row">
+                            <button class="btn btn-outline-info me-3">
+                                <i class='bx bx-edit-alt'></i>
+                            </button>
+                            <button class="btn btn-outline-danger">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header mb-0 box">
+        <!-- Ribbon without rotation -->
+        <div class="ribbon ribbon-top-left"><span>Add New User</span></div>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+        <div class="modal-body py-4 px-3" style="overflow-y: unset !important;">
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="text" class="form-control" formControlName="userName" placeholder="User Name">
+                        <label for="User Name">User Name</label>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                        <label for="Email">Email</label>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                        <label for="First Name">First Name</label>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                        <label for="Last Name">Last Name</label>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                        <label for="Password">Password</label>
+                    </div>
+                </div>
+                <div class="col-6 my-2">
+                    <div class="float-label">
+                        <ng-select [items]="roles" placeholder="Select Role" [searchable]="true" formControlName="role"
+                            [ngModel]="roles[0].name" bindLabel="name" bindValue="name" id="Role"></ng-select>
+                        <label for="Roles">Roles</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
+                <i class="bx bx-save me-1"></i> Save
+            </button>
+            <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
+                <i class="bx bx-clipboard me-1"></i> Clear
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm d-flex align-items-center"
+                (click)="modal.close()">
+                <i class="bx bx-x me-1"></i> Close
+            </button>
+        </div>
+    </form>
+</ng-template>

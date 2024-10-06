@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../models/category';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarStaticDataService {
-  constructor() {}
-
   FuelType = [
     { name: 'Diesel' },
     { name: 'Electric' },
@@ -94,4 +94,20 @@ export class CarStaticDataService {
       ],
     },
   ];
+
+  constructor(private http: HttpClient) {}
+
+  // login(loginReq: any): Observable<any> {
+  //   return this.http
+  //     .post(this.apiUrl + ApiRoutes.Auth.Login, loginReq)
+  //     .pipe(tap((res: LoginResponse) => {}));
+  // }
+
+  addCar(req: any): Observable<any> {
+    return this.http.post('http://localhost:8080/api/cars/add', req);
+  }
+
+  getAllClients() {
+    return this.http.get('http://localhost:8080/api/cars/all');
+  }
 }
