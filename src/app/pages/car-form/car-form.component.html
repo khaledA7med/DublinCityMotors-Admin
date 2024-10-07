@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="float-label mb-3">
-                            <input type="text" placeholder="Car Name" class="form-control" formControlName="carName" />
+                            <input type="text" placeholder="Car Name" class="form-control" formControlName="name" />
                             <label for="">Car Name</label>
                         </div>
                     </div>
@@ -39,13 +39,14 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
-                            <input type="text" placeholder="Reg Year" class="form-control" formControlName="RegYear" />
+                            <input type="number" placeholder="Reg Year" class="form-control"
+                                formControlName="regYear" />
                             <label for="">Reg Year</label>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="float-label">
-                            <input type="number" placeholder="Mileage" class="form-control" formControlName="mileage" />
+                            <input type="text" placeholder="Mileage" class="form-control" formControlName="mileage" />
                             <label for="">Mileage</label>
                         </div>
                     </div>
@@ -95,7 +96,7 @@
                         <label class="form-check-label" for="flexCheckDefault">
                             Is this product Sold?
                         </label>
-                        <input class="form-check-input" type="checkbox" name="sold" formControlName="sold" />
+                        <input class="form-check-input" type="checkbox" name="sold" formControlName="isSold" />
                     </div>
                 </div>
                 <hr>
@@ -119,7 +120,7 @@
                                             *ngFor="let option of ExteriorOptions; let i = index">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="checkbox{{ i }}"
-                                                    formControlName="exteriorFeatures" />
+                                                    formControlName="exteriors" />
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     {{ option.label }}
                                                 </label>

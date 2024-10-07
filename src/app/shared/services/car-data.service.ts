@@ -107,7 +107,7 @@ export class CarStaticDataService {
     return this.http.post('http://localhost:8080/api/cars/add', req);
   }
 
-  getAllClients() {
+  getAllClients(): Observable<any> {
     return this.http.get('http://localhost:8080/api/cars/all');
   }
 }

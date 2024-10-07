@@ -1,18 +1,19 @@
 import { FormControl } from '@angular/forms';
 
 export interface CarForm {
-  carName?: FormControl<string | null>;
-  description?: FormControl<string | null>;
-  RegYear?: FormControl<string | null>;
-  mileage?: FormControl<number | null>;
+  name?: FormControl<string | null>;
+  price?: FormControl<number | null>;
+  regYear?: FormControl<number | null>;
+  mileage?: FormControl<string | null>;
   fuelType?: FormControl<string | null>;
   transmission?: FormControl<string | null>;
   drive?: FormControl<string | null>;
-  bodyType?: FormControl<string | null>;
   exteriorColor?: FormControl<string | null>;
   interiorColor?: FormControl<string | null>;
-  sold?: FormControl<string | null>;
-  exteriorFeatures?: FormControl<string[] | null>;
+  description?: FormControl<string | null>;
+  bodyType?: FormControl<string | null>;
+  isSold?: FormControl<boolean | null>;
+  exteriors?: FormControl<string[] | null>;
   interiorFeatures?: FormControl<string[] | null>;
   techFeatures?: FormControl<string[] | null>;
   safetyFeatures?: FormControl<string[] | null>;

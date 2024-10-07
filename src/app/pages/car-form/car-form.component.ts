@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CarForm } from 'src/app/shared/models/car-form';
 import { MessagesService } from 'src/app/shared/services/messages.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-car-form',
   templateUrl: './car-form.component.html',
@@ -58,12 +59,13 @@ export class CarFormComponent implements OnInit {
     private modalService: NgbModal,
     private staticData: CarStaticDataService,
     private spinner: NgxSpinnerService,
-    private messages: MessagesService
+    private messages: MessagesService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.spinner.show();
-    // this.staticData.getAllClients().subscribe((res) => console.log(res));
+    this.staticData.getAllClients().subscribe((res) => console.log(res));
 
     setTimeout(() => {
       /** spinner ends after 5 seconds */
@@ -85,18 +87,17 @@ export class CarFormComponent implements OnInit {
   initForm() {
     this.carForm = new FormGroup<any>({
       name: new FormControl(''),
-      carName: new FormControl(''),
-      description: new FormControl(''),
-      RegYear: new FormControl(''),
+      regYear: new FormControl(),
       mileage: new FormControl(''),
       fuelType: new FormControl(''),
       transmission: new FormControl(''),
       drive: new FormControl(''),
-      bodyType: new FormControl(''),
       exteriorColor: new FormControl(''),
       interiorColor: new FormControl(''),
-      sold: new FormControl(''),
-      exteriorFeatures: new FormControl(''),
+      description: new FormControl(''),
+      bodyType: new FormControl(''),
+      isSold: new FormControl(''),
+      exteriors: new FormControl(''),
       interiorFeatures: new FormControl(''),
       techFeatures: new FormControl(''),
       safetyFeatures: new FormControl(''),
@@ -122,6 +123,9 @@ export class CarFormComponent implements OnInit {
     this.submit = true;
     console.log(this.carForm.value);
     this.messages.toast('User Updated successfully', 'success');
+    this.staticData.addCar(this.carForm.value).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   openImagesModal() {
