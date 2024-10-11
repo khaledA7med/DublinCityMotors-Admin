@@ -70,6 +70,16 @@ export class CarStaticDataService {
     { label: 'Keep in lane' },
   ];
 
+  make = [{ name: 'Audi' }, { name: 'BMW' }];
+  model = [
+    { name: 'A1' },
+    { name: 'A3' },
+    { name: 'A4' },
+    { name: 'A5' },
+    { name: 'A6' },
+    { name: 'Q2' },
+    { name: 'Q3' },
+  ];
   categories: Category[] = [
     {
       name: 'Audi',

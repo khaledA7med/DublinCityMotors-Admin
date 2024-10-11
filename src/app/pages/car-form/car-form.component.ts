@@ -11,7 +11,7 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
 import { Category, Option, Type } from 'src/app/shared/models/category';
 import { CarStaticDataService } from 'src/app/shared/services/car-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { CarForm } from 'src/app/shared/models/car-form';
 import { MessagesService } from 'src/app/shared/services/messages.service';
 import { HttpClient } from '@angular/common/http';
@@ -26,6 +26,8 @@ export class CarFormComponent implements OnInit {
   Transmission: Type[] = [];
   Drive: Type[] = [];
   BodyType: Type[] = [];
+  Make: Type[] = [];
+  Model: Type[] = [];
   ExteriorOptions: Option[] = [];
   InteriorOptions: Option[] = [];
   TechOptions: Option[] = [];
@@ -53,6 +55,11 @@ export class CarFormComponent implements OnInit {
   };
   carForm!: FormGroup<CarForm>;
 
+  selectedExteriors: { specs: string }[] = [];
+  selectedInteriors: { specs: string }[] = [];
+  selectedSafeties: { specs: string }[] = [];
+  selectedTeches: { specs: string }[] = [];
+
   @ViewChild('content') content!: TemplateRef<any>;
   @ViewChild('cat') cat!: TemplateRef<any>;
   constructor(
@@ -65,13 +72,15 @@ export class CarFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.staticData.getAllClients().subscribe((res) => console.log(res));
+    // this.staticData.getAllClients().subscribe((res) => console.log(res));
 
     setTimeout(() => {
       /** spinner ends after 5 seconds */
       this.spinner.hide();
     }, 1000);
     this.FuelType = this.staticData.FuelType;
+    this.Make = this.staticData.make;
+    this.Model = this.staticData.model;
     this.Transmission = this.staticData.Transmission;
     this.Drive = this.staticData.Drive;
     this.BodyType = this.staticData.BodyType;
@@ -92,15 +101,25 @@ export class CarFormComponent implements OnInit {
       fuelType: new FormControl(''),
       transmission: new FormControl(''),
       drive: new FormControl(''),
+      make: new FormControl(''),
+      model: new FormControl(''),
       exteriorColor: new FormControl(''),
       interiorColor: new FormControl(''),
       description: new FormControl(''),
       bodyType: new FormControl(''),
       isSold: new FormControl(''),
-      exteriors: new FormControl(''),
-      interiorFeatures: new FormControl(''),
-      techFeatures: new FormControl(''),
-      safetyFeatures: new FormControl(''),
+      exteriors: new FormArray(
+        this.ExteriorOptions.map(() => new FormControl(false))
+      ),
+      interiors: new FormArray([
+        new FormGroup({ specs: new FormControl('Alloy wheels') }),
+      ]),
+      teches: new FormArray([
+        new FormGroup({ specs: new FormControl('Alloy wheels') }),
+      ]),
+      safeties: new FormArray([
+        new FormGroup({ specs: new FormControl('Alloy wheels') }),
+      ]),
       engineSize: new FormControl(''),
       SpecsFuelType: new FormControl(''),
       cylinders: new FormControl(''),
@@ -119,13 +138,74 @@ export class CarFormComponent implements OnInit {
     });
   }
 
+  onCheckboxChange(event: Event, group: string, index: number) {
+    const inputElement = event.target as HTMLInputElement;
+    const controlArray = this.carForm.get('exteriors') as FormArray;
+
+    if (inputElement.checked) {
+      // Add to selected features
+      controlArray.at(index).setValue(true);
+    } else {
+      // Remove from selected features
+      controlArray.at(index).setValue(false);
+    }
+  }
+
+  addToSelected(group: string, feature: string) {
+    switch (group) {
+      case 'exteriors':
+        this.selectedExteriors.push({ specs: feature });
+        console.log(this.selectedExteriors);
+
+        break;
+      case 'interiors':
+        this.selectedInteriors.push({ specs: feature });
+        break;
+      case 'safeties':
+        this.selectedSafeties.push({ specs: feature });
+        break;
+      case 'teches':
+        this.selectedTeches.push({ specs: feature });
+        break;
+    }
+  }
+
+  removeFromSelected(group: string, feature: string) {
+    switch (group) {
+      case 'exteriors':
+        this.selectedExteriors = this.selectedExteriors.filter(
+          (f) => f.specs !== feature
+        );
+        break;
+      case 'interiors':
+        this.selectedInteriors = this.selectedInteriors.filter(
+          (f) => f.specs !== feature
+        );
+        break;
+      case 'safeties':
+        this.selectedSafeties = this.selectedSafeties.filter(
+          (f) => f.specs !== feature
+        );
+        break;
+      case 'teches':
+        this.selectedTeches = this.selectedTeches.filter(
+          (f) => f.specs !== feature
+        );
+        break;
+    }
+  }
   submitForm() {
     this.submit = true;
-    console.log(this.carForm.value);
     this.messages.toast('User Updated successfully', 'success');
-    this.staticData.addCar(this.carForm.value).subscribe((res) => {
-      console.log(res);
-    });
+    // this.staticData.addCar(this.carForm.value).subscribe((res) => {
+    //   console.log(res);
+    // });
+
+    //   const selectedExteriors = this.carForm.controls.exteriors?.value.map((checked: boolean, i: number) => checked ? this.ExteriorOptions[i].label : null)
+    //   .filter((v: string | null) => v !== null);
+
+    // console.log('Selected Exteriors:', selectedExteriors);
+    console.log(this.carForm.value);
   }
 
   openImagesModal() {
