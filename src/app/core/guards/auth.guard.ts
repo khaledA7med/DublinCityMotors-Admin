@@ -5,7 +5,7 @@ import { inject } from '@angular/core';
 export const AuthGuard: CanActivateFn = (route, state) => {
   const auth: AuthService = inject(AuthService);
   const router = inject(Router);
-  if (!auth.isUserTokenAvailabe) {
+  if (!auth.isUserTokenAvailable) {
     router.navigate(['/login'], {
       queryParams: { returnUrl: state.url },
     });

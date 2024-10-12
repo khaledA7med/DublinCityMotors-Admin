@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
 
   constructor(private auth: AuthService) {}
   ngOnInit(): void {
-    this.isUser = this.auth.isUserTokenAvailabe;
+    this.auth.userToken$.subscribe((token) => {
+      this.isUser = !!token; // Show navbar/footer if token exists
+    });
   }
 }
