@@ -8,7 +8,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
+import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +28,13 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      useClass: JwtInterceptor,
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
