@@ -26,11 +26,11 @@ export class AuthService {
   }
 
   Login(data: any): Observable<any> {
-    return this.http.post<any>(this.env + 'signin', data).pipe(
+    return this.http.post<any>(this.env + 'auth/signin', data).pipe(
       tap((res: any) => {
         if (res?.token) {
           localStorage.setItem(localStorageKeys.token, res.token);
-          this.userTokenSubject.next(res.token); // Update the subject
+          this.userTokenSubject.next(res.token);
         }
       })
     );
