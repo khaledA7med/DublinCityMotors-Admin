@@ -8,6 +8,10 @@ export interface Type {
   name: string;
 }
 
+export interface Specs {
+  specs: string;
+}
+
 export interface Option {
   label: string;
 }

@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export interface CarForm {
   name?: FormControl<string | null>;
@@ -13,10 +13,10 @@ export interface CarForm {
   description?: FormControl<string | null>;
   bodyType?: FormControl<string | null>;
   isSold?: FormControl<boolean | null>;
-  exteriors?: FormControl<string[] | null>;
-  interiorFeatures?: FormControl<string[] | null>;
-  techFeatures?: FormControl<string[] | null>;
-  safetyFeatures?: FormControl<string[] | null>;
+  exteriors?: FormControl<string | null>;
+  interiorFeatures?: FormControl<string | null>;
+  techFeatures?: FormControl<string | null>;
+  safetyFeatures?: FormControl<string | null>;
   engineSize?: FormControl<string | null>;
   SpecsFuelType?: FormControl<string | null>;
   cylinders?: FormControl<string | null>;

@@ -31,43 +31,43 @@ export class CarStaticDataService {
   ];
 
   ExteriorOptions = [
-    { label: 'Alloy wheels' },
-    { label: 'Electric folding mirrors' },
-    { label: 'Fog lights' },
-    { label: 'LED' },
-    { label: 'Bi-xenon' },
-    { label: 'Headlight washers' },
-    { label: 'Daytime running lights' },
-    { label: 'Heated electric mirrors' },
+    { specs: 'Alloy wheels' },
+    { specs: 'Electric folding mirrors' },
+    { specs: 'Fog lights' },
+    { specs: 'LED' },
+    { specs: 'Bi-xenon' },
+    { specs: 'Headlight washers' },
+    { specs: 'Daytime running lights' },
+    { specs: 'Heated electric mirrors' },
   ];
 
   InteriorOptions = [
-    { label: 'Air conditioning' },
-    { label: 'Multifunction steering wheel' },
-    { label: 'Adjustable /telescoping steering wheel' },
-    { label: 'Adjustable /telescoping steering wheel' },
+    { specs: 'Air conditioning' },
+    { specs: 'Multifunction steering wheel' },
+    { specs: 'Adjustable /telescoping steering wheel' },
+    { specs: 'Adjustable /telescoping steering wheel' },
   ];
 
   TechOptions = [
-    { label: 'Satellite Navigation System' },
-    { label: 'Audi MMI' },
-    { label: 'Bluetooth Interface' },
-    { label: 'AUX / USB' },
-    { label: 'MP3 / CD' },
-    { label: 'Auto stop / start' },
+    { specs: 'Satellite Navigation System' },
+    { specs: 'Audi MMI' },
+    { specs: 'Bluetooth Interface' },
+    { specs: 'AUX / USB' },
+    { specs: 'MP3 / CD' },
+    { specs: 'Auto stop / start' },
   ];
 
   SafetyOptions = [
-    { label: 'Parking assist' },
-    { label: 'ISOFIX' },
-    { label: 'Multiple airbags' },
-    { label: 'ABS' },
-    { label: 'ESP' },
-    { label: 'Traction control' },
-    { label: 'Hill keep assist' },
-    { label: 'Alarm' },
-    { label: 'Immobiliser' },
-    { label: 'Keep in lane' },
+    { specs: 'Parking assist' },
+    { specs: 'ISOFIX' },
+    { specs: 'Multiple airbags' },
+    { specs: 'ABS' },
+    { specs: 'ESP' },
+    { specs: 'Traction control' },
+    { specs: 'Hill keep assist' },
+    { specs: 'Alarm' },
+    { specs: 'Immobiliser' },
+    { specs: 'Keep in lane' },
   ];
 
   make = [{ name: 'Audi' }, { name: 'BMW' }];

@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+  token!: string;
   constructor(private auth: AuthService) {}
 
   intercept(
@@ -17,14 +18,15 @@ export class JwtInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const currentUserToken = this.auth.userToken$;
+    currentUserToken.subscribe((res) => (this.token = res!));
 
     const isLoginRequest = request.url.includes('signin'); // Adjust this based on your API URL
 
-    if (currentUserToken && !isLoginRequest) {
+    if (this.token && !isLoginRequest) {
       // Clone the request and add the token in the headers
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentUserToken}`,
+          Authorization: `Bearer ${this.token}`,
         },
       });
     }
