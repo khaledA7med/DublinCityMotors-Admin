@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { localStorageKeys } from 'src/app/core/models/localStorageKeys';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private message: MessagesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -57,13 +59,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     };
     if (!this.validationChecker()) return;
     else {
-      // this.isLoading = true;
+      this.spinner.show();
       let sub = this.auth.Login(data).subscribe((res: any) => {
         if (res) {
           localStorage.setItem(localStorageKeys.token, res?.token!);
           this.message.toast('Logged In Successfully', 'success');
+          this.spinner.hide();
           this.router.navigate([this.returnUrl]);
-        } else this.message.toast(res.message!, 'error');
+        } else {
+          this.spinner.hide();
+          this.message.toast(res.message!, 'error');
+        }
       });
       this.subsribes.push(sub);
     }

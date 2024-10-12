@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   token!: string;
+
   constructor(private auth: AuthService) {}
 
   intercept(
@@ -20,7 +21,7 @@ export class JwtInterceptor implements HttpInterceptor {
     const currentUserToken = this.auth.userToken$;
     currentUserToken.subscribe((res) => (this.token = res!));
 
-    const isLoginRequest = request.url.includes('signin'); // Adjust this based on your API URL
+    const isLoginRequest = request.url.includes('auth/signin'); // Adjust this based on your API URL
 
     if (this.token && !isLoginRequest) {
       // Clone the request and add the token in the headers
