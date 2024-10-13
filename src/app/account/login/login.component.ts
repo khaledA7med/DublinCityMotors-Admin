@@ -46,6 +46,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   validationChecker(): boolean {
     if (this.loginForm.invalid) {
+      this.message.popup(
+        'Attention!',
+        'Please Fill Required Inputs',
+        'warning'
+      );
       return false;
     }
     return true;

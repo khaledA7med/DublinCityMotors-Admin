@@ -8,18 +8,31 @@
         <form [formGroup]=loginForm (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <label for="userName" class="form-label">User Name</label>
-                <input type="text" formControlName="username" class="form-control" id="userName"
-                    placeholder="Enter your User Name" required>
+                <input [ngClass]="{
+                    'is-invalid':
+                      (f.username.touched || submitted) && f.username.invalid
+                  }" type="text" formControlName="username" class="form-control" id="userName"
+                    placeholder="Enter your User Name">
+                <div class="invalid-feedback fw-bold" *ngIf="
+                    (f.username.touched || submitted) && f.username.invalid
+                  ">
+                    Required
+                </div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" formControlName="password" class="form-control" id="password"
-                    placeholder="Enter your password" required>
+                <input [ngClass]="{
+                    'is-invalid':
+                      (f.password.touched || submitted) && f.password.invalid
+                  }" type="password" formControlName="password" class="form-control" id="password"
+                    placeholder="Enter your password">
+                <div class="invalid-feedback fw-bold" *ngIf="
+                    (f.password.touched || submitted) && f.password.invalid
+                  ">
+                    Required
+                </div>
             </div>
             <button type="submit" class="btn btn-dark w-100">Login</button>
-            <div class="text-center mt-3">
-                <a href="#" class="text-muted">Forgot Password?</a>
-            </div>
         </form>
     </div>
 </div>

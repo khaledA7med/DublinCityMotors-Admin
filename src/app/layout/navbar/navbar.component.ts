@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgbModalRef, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { filter, map, mergeMap } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -28,7 +29,8 @@ export class NavbarComponent implements OnInit {
     private offcanvasService: NgbOffcanvas,
     private titleService: Title,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {}
   ngOnInit(): void {
     this.subscribeToRouteChangeEvents();
@@ -87,5 +89,10 @@ export class NavbarComponent implements OnInit {
         this.router.navigate(['/']);
         break;
     }
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -14,6 +14,7 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
+import { UnauthorizedInterceptor } from './core/helpers/unauth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,11 @@ import { JwtInterceptor } from './core/helpers/jwt.interceptor';
   providers: [
     {
       useClass: JwtInterceptor,
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+    },
+    {
+      useClass: UnauthorizedInterceptor,
       multi: true,
       provide: HTTP_INTERCEPTORS,
     },
