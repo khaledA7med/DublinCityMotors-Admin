@@ -6,9 +6,8 @@
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
             <div>
-                <button class="btn btn-outline-dark" type="button" (click)="openAddModal()" placement="start"
-                    ngbTooltip="Add New Category">
-                    <i class="bx bx-plus p-1"></i>
+                <button class="btn btn-outline-dark" type="button" (click)="openAddModal()">
+                    New Category <i class="bx bx-plus"></i>
                 </button>
             </div>
         </div>
@@ -66,9 +65,11 @@
 </div>
 
 <ng-template #content let-modal>
-    <div class="modal-header mb-0 box">
-        <!-- Ribbon without rotation -->
-        <div class="ribbon ribbon-top-left"><span>New Category</span></div>
+    <div class="gift-ribbon-wrapper">
+        <div class="gift-ribbon">New Category</div>
+    </div>
+    <div class="modal-header mb-0">
+
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
 

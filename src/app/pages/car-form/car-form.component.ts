@@ -15,6 +15,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { CarForm } from 'src/app/shared/models/car-form';
 import { MessagesService } from 'src/app/shared/services/messages.service';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-car-form',
   templateUrl: './car-form.component.html',
@@ -50,6 +51,8 @@ export class CarFormComponent implements OnInit {
     placeholder: 'Start typing here...',
   };
   carForm!: FormGroup<CarForm>;
+  carId!: number;
+  editable!: boolean;
 
   selectedExteriors: { specs: string }[] = [];
   selectedInteriors: { specs: string }[] = [];
@@ -63,7 +66,8 @@ export class CarFormComponent implements OnInit {
     private staticData: CarStaticDataService,
     private spinner: NgxSpinnerService,
     private messages: MessagesService,
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +90,15 @@ export class CarFormComponent implements OnInit {
     this.TechOptions = this.staticData.TechOptions;
     this.SafetyOptions = this.staticData.SafetyOptions;
 
+    this.route.params.subscribe((params) => {
+      this.carId = +params['id']; // Convert string to number
+      this.editable = JSON.parse(params['editable']);
+      console.log(typeof this.editable);
+
+      if (this.carId) {
+        this.loadCarDetails(this.carId); // Load car details if editing
+      }
+    });
     this.initForm();
   }
 
@@ -133,6 +146,15 @@ export class CarFormComponent implements OnInit {
 
   get f() {
     return this.carForm.controls;
+  }
+
+  loadCarDetails(id: number) {
+    console.log(id);
+
+    // Assuming carService.getCarById returns an observable of car data
+    // this.carService.getCarById(id).subscribe(car => {
+    //   this.carForm.patchValue(car); // Populate the form with the car's data
+    // });
   }
 
   submitForm() {

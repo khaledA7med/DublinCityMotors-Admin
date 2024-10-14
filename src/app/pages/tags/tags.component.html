@@ -59,9 +59,10 @@
 </div>
 
 <ng-template #content let-modal>
-    <div class="modal-header mb-0 box">
-        <!-- Ribbon without rotation -->
-        <div class="ribbon ribbon-top-left"><span>New Tag</span></div>
+    <div class="gift-ribbon-wrapper">
+        <div class="gift-ribbon">New Tag</div>
+    </div>
+    <div class="modal-header mb-0 ">
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
 

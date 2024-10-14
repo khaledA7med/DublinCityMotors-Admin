@@ -275,7 +275,8 @@
                 </div>
             </div> -->
 
-            <button class="btn btn-success mt-3" type="submit">Save</button>
+            <button class="btn btn-success mt-3" type="submit" *ngIf="editable === false">Save</button>
+            <button class="btn btn-success mt-3" type="submit" *ngIf="editable === true">Update</button>
         </div>
         <div class="col-md-3">
             <div class="row">

@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
     this.subscribeToRouteChangeEvents();
   }
   openNav() {
-    this.offcanvasService.open(this.content, { position: 'end' });
+    this.offcanvasService.open(this.content, { position: 'start' });
   }
 
   private setTitleFromRouteData(routeData: any) {

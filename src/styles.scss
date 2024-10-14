@@ -60,133 +60,66 @@
 
 /* ribbon */
 
-.box {
+.gift-ribbon-wrapper {
   position: relative;
 }
-.ribbon {
-  width: 160px;
-  height: 110px;
-  overflow: hidden;
+
+.gift-ribbon {
   position: absolute;
-}
-.ribbon::before,
-.ribbon::after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  border: 5px solid #212529;
-}
-.ribbon span {
-  position: absolute;
-  display: block;
-  width: 225px;
-  padding: 15px 0;
-  background-color: #212529;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  top: 20px;
+  left: 0;
+  width: 140px;
+  background-color: #101214; // Dark red for a gift-like look
   color: #fff;
-  font: 700 18px/1 "Lato", sans-serif;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
   text-align: center;
+  padding: 10px 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  // transform: rotate(-45deg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  letter-spacing: 1px;
 }
 
-/* top left*/
-.ribbon-top-left {
-  top: -10px;
-  left: -10px;
+.gift-ribbon:before,
+.gift-ribbon:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-color: #101214 transparent transparent transparent;
 }
-.ribbon-top-left::before,
-.ribbon-top-left::after {
-  border-top-color: transparent;
-  border-left-color: transparent;
+
+.gift-ribbon:before {
+  border-width: 0 0 12px 12px;
+  bottom: -12px;
+  left: 0;
 }
-.ribbon-top-left::before {
+
+.gift-ribbon:after {
+  border-width: 12px 12px 0 0;
   top: 0;
   right: 0;
 }
-.ribbon-top-left::after {
-  bottom: 0;
-  left: 0;
-}
-.ribbon-top-left span {
-  right: -25px;
-  top: 30px;
-  transform: rotate(-40deg);
-  -webkit-transform: rotate(-40deg);
-  -moz-transform: rotate(-40deg);
-  -ms-transform: rotate(-40deg);
-  -o-transform: rotate(-40deg);
+
+/* Bow styling to make it look more like a gift ribbon */
+.gift-ribbon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  height: 10px;
+  width: 20px;
+  background-color: #101214;
+  border-radius: 10px 0 0 10px;
 }
 
-/* top right*/
-.ribbon-top-right {
-  top: -10px;
-  right: -10px;
-}
-.ribbon-top-right::before,
-.ribbon-top-right::after {
-  border-top-color: transparent;
-  border-right-color: transparent;
-}
-.ribbon-top-right::before {
-  top: 0;
-  left: 0;
-}
-.ribbon-top-right::after {
-  bottom: 0;
-  right: 0;
-}
-.ribbon-top-right span {
-  left: -25px;
-  top: 30px;
-  transform: rotate(45deg);
-}
-
-/* bottom left*/
-.ribbon-bottom-left {
-  bottom: -10px;
-  left: -10px;
-}
-.ribbon-bottom-left::before,
-.ribbon-bottom-left::after {
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.ribbon-bottom-left::before {
-  bottom: 0;
-  right: 0;
-}
-.ribbon-bottom-left::after {
-  top: 0;
-  left: 0;
-}
-.ribbon-bottom-left span {
-  right: -25px;
-  bottom: 30px;
-  transform: rotate(225deg);
-}
-
-/* bottom right*/
-.ribbon-bottom-right {
-  bottom: -10px;
-  right: -10px;
-}
-.ribbon-bottom-right::before,
-.ribbon-bottom-right::after {
-  border-bottom-color: transparent;
-  border-right-color: transparent;
-}
-.ribbon-bottom-right::before {
-  bottom: 0;
-  left: 0;
-}
-.ribbon-bottom-right::after {
-  top: 0;
-  right: 0;
-}
-.ribbon-bottom-right span {
-  left: -25px;
-  bottom: 30px;
-  transform: rotate(-225deg);
+.gift-ribbon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  height: 10px;
+  width: 20px;
+  background-color: #101214;
+  border-radius: 0 10px 10px 0;
 }

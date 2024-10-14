@@ -1,21 +1,24 @@
 <nav class="navbar navbar-dark bg-dark fixed-top pt-3">
     <div class="container-fluid">
         <div class="row w-100">
-            <div class="col-4"></div>
+            <div class="col-4 d-flex justify-content-start align-items-center">
+                <div>
+                    <button class="btn btn-lg btn-outline-light" type="button" (click)="openNav()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
             <div class="col-4 d-flex justify-content-center">
                 <a class="navbar-brand text-center" href="/">
                     <img src="../../../assets/images/dublin_city_last.png" alt="" width="100%">
                 </a>
             </div>
-            <div class="col-4 d-flex justify-content-end">
+            <div class="col-4 d-flex justify-content-end align-items-center">
                 <div>
-                    <button class="btn btn-outline-light mx-2" (click)="logout()"> Logout <i
+                    <button class="btn btn-outline-light" (click)="logout()"> Logout <i
                             class="fa-solid fa-right-from-bracket"></i></button>
-
-                    <button class="navbar-toggler btn btn-outline-dark" type="button" (click)="openNav()">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
                 </div>
+
             </div>
         </div>
     </div>

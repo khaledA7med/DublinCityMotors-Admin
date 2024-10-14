@@ -4,60 +4,75 @@
 
 <div class="container home mt-lg-5">
     <div class="row">
-        <div class="col-12 d-flex justify-content-end">
+        <div class="col-4 my-4">
+            <div class="float-label">
+                <input type="text" placeholder="Search Cars" [formControl]="filter" class="form-control" />
+                <label for="">Search Cars</label>
+            </div>
+        </div>
+        <div class="col-8 d-flex justify-content-end my-4">
             <div>
-                <button class="btn btn-secondary mx-1" (click)="openFilterOffcanvas()" placement="bottom"
-                    ngbTooltip="Filter">
-                    <i class='bx bx-filter-alt p-1'></i>
+                <button class="btn btn-secondary mx-1" (click)="openFilterOffcanvas()">
+                    Filter <i class='bx bx-filter-alt p-1'></i>
                 </button>
-                <button class="btn btn-outline-dark" type="button" routerLink="/add-car" placement="bottom"
-                    ngbTooltip="Add Car">
-                    <i class="bx bx-plus p-1"></i>
+                <button class="btn btn-outline-dark" type="button" routerLink="/add-car">
+                    Add Car <i class="bx bx-plus p-1"></i>
                 </button>
             </div>
         </div>
         <div class="col-12">
-            <form>
-                <div class="mb-3 row">
-                    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">
-                        search Car</label>
-                    <div class="col-xs-3 col-sm-auto">
-                        <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
-                    </div>
-                </div>
-            </form>
-
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Actions</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">Area</th>
-                        <th scope="col">Population</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Categories</th>
+                        <th scope="col">Tags</th>
+                        <th scope="col">Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let country of countries$ | async; index as i">
-                        <th scope="row">
-                            <button class="btn btn-outline-info me-3">
+                    <tr *ngFor="let product of products$ | async; index as i">
+                        <td scope="row">
+                            <button class="btn btn-outline-info me-3" ngbTooltip="Edit"
+                                (click)="edit(product.id!,true)">
                                 <i class='bx bx-edit-alt'></i>
                             </button>
-                            <button class="btn btn-outline-danger">
+                            <button class="btn btn-outline-info me-3" ngbTooltip="Duplicate"
+                                (click)="duplicate(product.id!,false)">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <button class="btn btn-outline-danger" ngbTooltip="Delete" (click)="delete(product.id!)">
                                 <i class='bx bx-trash'></i>
                             </button>
-                        </th>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="product.id | number" [term]="filter.value"></ngb-highlight>
+                        </td>
                         <td>
                             <img [src]="
                   'https://upload.wikimedia.org/wikipedia/commons/' +
-                  country.flag
+                  product.img
                 " class="me-2" style="width: 20px" />
-                            <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
                         </td>
                         <td>
-                            <ngb-highlight [result]="country.area | number" [term]="filter.value"></ngb-highlight>
+                            <ngb-highlight [result]="product.name" [term]="filter.value"></ngb-highlight>
                         </td>
                         <td>
-                            <ngb-highlight [result]="country.population | number" [term]="filter.value"></ngb-highlight>
+                            <ngb-highlight [result]="product.price | number" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="product.category" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="product.tag" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="product.date | date:'medium'"
+                                [term]="filter.value"></ngb-highlight>
                         </td>
                     </tr>
                 </tbody>
@@ -74,16 +89,16 @@
     <div class="offcanvas-body">
         <div class="row pe-3 justify-content-center">
             <div class="col-12 mb-4">
-                <ng-select [items]="cars" placeholder="Select Make" [searchable]="true" bindLabel="name"
-                    bindValue="name" id="Make"></ng-select>
+                <ng-select [items]="category" placeholder="Select Category" [searchable]="true" bindLabel="name"
+                    bindValue="name" id="category"></ng-select>
             </div>
             <div class="col-12 mb-4">
-                <ng-select [items]="models" placeholder="Select Model" [searchable]="true" bindLabel="name"
-                    bindValue="name" id="Model"></ng-select>
+                <ng-select [items]="productType" placeholder="Select Product Type" [searchable]="true" bindLabel="name"
+                    bindValue="name" id="productType"></ng-select>
             </div>
             <div class="col-12 mb-4">
-                <ng-select [items]="years" placeholder="Select Year" [searchable]="true" bindLabel="name"
-                    bindValue="name" id="Year"></ng-select>
+                <ng-select [items]="stockStatus" placeholder="Select Stock Status" [searchable]="true" bindLabel="name"
+                    bindValue="name" id="stockStatus"></ng-select>
             </div>
         </div>
     </div>

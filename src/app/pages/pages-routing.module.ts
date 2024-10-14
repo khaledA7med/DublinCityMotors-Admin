@@ -35,6 +35,16 @@ const routes: Routes = [
       import('./car-form/car-form.module').then((m) => m.CarFormModule),
   },
   {
+    path: 'edit-car/:id/:editable',
+    loadChildren: () =>
+      import('./car-form/car-form.module').then((m) => m.CarFormModule),
+  },
+  {
+    path: 'duplicate-car/:id/:editable',
+    loadChildren: () =>
+      import('./car-form/car-form.module').then((m) => m.CarFormModule),
+  },
+  {
     path: 'profile',
     loadChildren: () =>
       import('./profile/profile.module').then((m) => m.ProfileModule),
