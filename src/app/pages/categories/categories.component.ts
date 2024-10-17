@@ -30,6 +30,10 @@ interface Form {
   displayType?: FormControl<string | null>;
   img?: FormControl<File | null>;
 }
+interface makeForm {
+  make?: FormControl<string | null>;
+  model?: FormControl<string | null>;
+}
 
 const COUNTRIES: Country[] = [
   {
@@ -91,10 +95,12 @@ export class CategoriesComponent implements OnInit {
 
   contentModal!: NgbModalRef;
   @ViewChild('content') content!: TemplateRef<any>;
+  @ViewChild('makeContent') makeContent!: TemplateRef<any>;
 
   submit: boolean = false;
 
   categoriesForm!: FormGroup<Form>;
+  makeForm!: FormGroup<makeForm>;
 
   categories = [{ name: 'Audi' }, { name: 'BMW' }, { name: 'Mercedes' }];
 
@@ -120,10 +126,20 @@ export class CategoriesComponent implements OnInit {
     }, 1000);
 
     this.initForm();
+    this.initMakeForm();
   }
 
   openAddModal() {
     this.contentModal = this.modalService.open(this.content, {
+      centered: true,
+      size: 'lg',
+    });
+
+    this.contentModal.hidden.subscribe(() => {});
+  }
+
+  openMakeModal() {
+    this.contentModal = this.modalService.open(this.makeContent, {
       centered: true,
       size: 'lg',
     });
@@ -140,6 +156,12 @@ export class CategoriesComponent implements OnInit {
       desc: new FormControl(''),
     });
   }
+  initMakeForm() {
+    this.makeForm = new FormGroup<makeForm>({
+      make: new FormControl(''),
+      model: new FormControl(''),
+    });
+  }
   get f() {
     return this.categoriesForm.controls;
   }
@@ -149,8 +171,15 @@ export class CategoriesComponent implements OnInit {
     console.log(this.categoriesForm.value);
     this.messages.toast('Category created successfully', 'success');
   }
+  onSubmit() {
+    this.submit = true;
+    console.log(this.makeForm.value);
+    this.messages.toast('Category created successfully', 'success');
+    this.reset();
+  }
 
   reset() {
     this.categoriesForm.reset();
+    this.makeForm.reset();
   }
 }

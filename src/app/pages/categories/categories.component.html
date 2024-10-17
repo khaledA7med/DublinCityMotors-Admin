@@ -5,9 +5,14 @@
 <div class="container home mt-lg-5">
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
-            <div>
+            <div class="mx-2">
                 <button class="btn btn-outline-dark" type="button" (click)="openAddModal()">
                     New Category <i class="bx bx-plus"></i>
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-outline-dark" type="button" (click)="openMakeModal()">
+                    New Make / Model <i class="bx bx-plus"></i>
                 </button>
             </div>
         </div>
@@ -112,6 +117,47 @@
                 </div>
                 <div class="col-12 my-3">
                     <app-dropzone #dropzone></app-dropzone>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
+                <i class="bx bx-save me-1"></i> Save
+            </button>
+            <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
+                <i class="bx bx-clipboard me-1"></i> Clear
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm d-flex align-items-center"
+                (click)="modal.close()">
+                <i class="bx bx-x me-1"></i> Close
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #makeContent let-modal>
+    <div class="gift-ribbon-wrapper">
+        <div class="gift-ribbon">New Make / Model</div>
+    </div>
+    <div class="modal-header mb-0">
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <form [formGroup]="makeForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body p-1 m-2 mt-5" style="overflow-y: unset !important;">
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="text" class="form-control" formControlName="make" placeholder="Make">
+                        <label for="">Make</label>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="float-label">
+                        <input type="text" class="form-control" formControlName="model" placeholder="Model">
+                        <label for="">Model</label>
+                    </div>
                 </div>
             </div>
         </div>
