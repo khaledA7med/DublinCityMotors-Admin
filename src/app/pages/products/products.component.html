@@ -15,7 +15,7 @@
                 <button class="btn btn-secondary mx-1" (click)="openFilterOffcanvas()">
                     Filter <i class='bx bx-filter-alt p-1'></i>
                 </button>
-                <button class="btn btn-outline-dark" type="button" routerLink="/add-car">
+                <button class="btn btn-outline-dark" type="button" (click)="addCar()">
                     Add Car <i class="bx bx-plus p-1"></i>
                 </button>
             </div>
@@ -35,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products$ | async; index as i">
+                    <tr *ngFor="let product of this.allProducts ; index as i">
                         <td scope="row">
                             <button class="btn btn-outline-info me-3" ngbTooltip="Edit"
                                 (click)="edit(product.id!,true)">
@@ -87,28 +87,30 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
     </div>
     <div class="offcanvas-body">
-        <div class="row pe-3 justify-content-center">
-            <div class="col-12 mb-4">
-                <ng-select [items]="category" placeholder="Select Category" [searchable]="true" bindLabel="name"
-                    bindValue="name" id="category"></ng-select>
+        <form [formGroup]="filterForm" (ngSubmit)="submitfilter()">
+            <div class="row pe-3 justify-content-center">
+                <div class="col-12 mb-4">
+                    <ng-select [items]="category" placeholder="Select Category" formControlName="category"
+                        [searchable]="true" bindLabel="name" bindValue="name" id="category"></ng-select>
+                </div>
+                <div class="col-12 mb-4">
+                    <ng-select [items]="productType" placeholder="Select Product Type" formControlName="productType"
+                        [searchable]="true" bindLabel="name" bindValue="name" id="productType"></ng-select>
+                </div>
+                <div class="col-12 mb-4">
+                    <ng-select [items]="stockStatus" placeholder="Select Stock Status" formControlName="stockStatus"
+                        [searchable]="true" bindLabel="name" bindValue="name" id="stockStatus"></ng-select>
+                </div>
             </div>
-            <div class="col-12 mb-4">
-                <ng-select [items]="productType" placeholder="Select Product Type" [searchable]="true" bindLabel="name"
-                    bindValue="name" id="productType"></ng-select>
+            <!-- submit and clear btn -->
+            <div class="offcanvas-footer border-top row mb-3 mx-1">
+                <div class="col-6 mt-2">
+                    <button class="btn btn-danger btn-sm w-100">Clear Filter</button>
+                </div>
+                <div class="col-6 mt-2">
+                    <button class="btn btn-secondary btn-sm w-100" type="submit">Search</button>
+                </div>
             </div>
-            <div class="col-12 mb-4">
-                <ng-select [items]="stockStatus" placeholder="Select Stock Status" [searchable]="true" bindLabel="name"
-                    bindValue="name" id="stockStatus"></ng-select>
-            </div>
-        </div>
-    </div>
-    <!-- submit and clear btn -->
-    <div class="offcanvas-footer border-top row mb-3 mx-1">
-        <div class="col-6 mt-2">
-            <button class="btn btn-danger btn-sm w-100">Clear Filter</button>
-        </div>
-        <div class="col-6 mt-2">
-            <button class="btn btn-secondary btn-sm w-100">Search</button>
-        </div>
+        </form>
     </div>
 </ng-template>

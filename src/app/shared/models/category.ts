@@ -8,7 +8,7 @@ export interface Type {
   name: string;
 }
 
-export interface Specs {
+export interface Features {
   specs: string;
 }
 

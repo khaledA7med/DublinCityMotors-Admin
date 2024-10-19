@@ -97,41 +97,41 @@
                         <label for="">Interior Color</label>
                     </div>
                 </div>
-                <!-- <div class="col-md-4 mb-3 d-flex justify-content-between align-items-center">
+                <div class="col-md-4 mb-3 d-flex justify-content-between align-items-center">
                     <label class="form-check-label" for="flexCheckDefault">
                         Is this product Sold?
                     </label>
                     <input class="form-check-input" type="checkbox" name="sold" formControlName="isSold" />
-                </div> -->
+                </div>
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 mb-2">
                     <div class="float-label">
-                        <ng-select [items]="ExteriorOptions" (change)="getSpecs($event)" [clearable]="false"
-                            [searchable]="true" [multiple]="true" bindLabel="specs" formControlName="exteriors">
+                        <ng-select [items]="ExteriorOptions" [clearable]="false" [searchable]="true" [multiple]="true"
+                            bindLabel="specs" formControlName="exteriors">
                         </ng-select>
-                        <label for="">Exterior Feature </label>
+                        <label for="">Exterior Features </label>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-2">
                     <div class="float-label">
                         <ng-select [items]="InteriorOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
                             [multiple]="true" formControlName="interiors"></ng-select>
                         <label for="">Interiors Features</label>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-2">
                     <div class="float-label">
                         <ng-select [items]="SafetyOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
                             [multiple]="true" formControlName="safeties"></ng-select>
                         <label for="">Safeties Features</label>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-2">
                     <div class="float-label">
                         <ng-select [items]="TechOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
-                            [multiple]="true" formControlName="teches"></ng-select>
+                            [multiple]="true" formControlName="techs"></ng-select>
                         <label for="">Teches Features</label>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
             </div>
             <hr>
             <!-- Technical Specs -->
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-12 px-2 mb-3">
                     <div class="bg-light p-2">
                         <div class="row justify-content-between align-items-center" style="cursor: pointer"
@@ -162,13 +162,13 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
                                     <input type="text" placeholder="Fuel Type" class="form-control"
-                                        formControlName="SpecsFuelType" />
+                                        formControlName="specsFuelType" />
                                     <label for="">Fuel Type</label>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="Cylinders" class="form-control"
+                                    <input type="number" placeholder="Cylinders" class="form-control"
                                         formControlName="cylinders" />
                                     <label for="">Cylinders</label>
                                 </div>
@@ -182,41 +182,41 @@
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="BHP" class="form-control" formControlName="bHP" />
+                                    <input type="number" placeholder="BHP" class="form-control" formControlName="bHP" />
                                     <label for="">BHP</label>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="Torque" class="form-control"
+                                    <input type="number" placeholder="Torque" class="form-control"
                                         formControlName="torque" />
                                     <label for="">Torque</label>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="Co2 Emissions" class="form-control"
+                                    <input type="number" placeholder="Co2 Emissions" class="form-control"
                                         formControlName="emissions" />
                                     <label for="">Co2 Emissions</label>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="Tax Band" class="form-control"
+                                    <input type="number" placeholder="Tax Band" class="form-control"
                                         formControlName="tax" />
                                     <label for="">Tax Band</label>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="MPG (urban)" class="form-control"
+                                    <input type="number" placeholder="MPG (urban)" class="form-control"
                                         formControlName="urban" />
                                     <label for="">MPG (urban)</label>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="MPG (extra urban)" class="form-control"
+                                    <input type="number" placeholder="MPG (extra urban)" class="form-control"
                                         formControlName="extraUrban" />
                                     <label for="">MPG (extra urban)</label>
                                 </div>
@@ -230,7 +230,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="Max Speed" class="form-control"
+                                    <input type="number" placeholder="Max Speed" class="form-control"
                                         formControlName="speed" />
                                     <label for="">Max Speed</label>
                                 </div>
@@ -244,7 +244,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="float-label mb-3">
-                                    <input type="text" placeholder="NOX" class="form-control" formControlName="nOX" />
+                                    <input type="number" placeholder="NOX" class="form-control" formControlName="nOX" />
                                     <label for="">NOX</label>
                                 </div>
                             </div>
@@ -252,9 +252,9 @@
                     </div>
                 </div>
 
-            </div> -->
+            </div>
             <!-- Product Short description -->
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-12 px-2 mb-3">
                     <div class="bg-light p-2">
                         <div class="row justify-content-between align-items-center" style="cursor: pointer"
@@ -273,10 +273,12 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
-            <button class="btn btn-success mt-3" type="submit" *ngIf="editable === false">Save</button>
-            <button class="btn btn-success mt-3" type="submit" *ngIf="editable === true">Update</button>
+            <button class="btn btn-success mt-3" type="submit">Save <span *ngIf="submit"
+                    class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+            <button class="btn btn-success mt-3" type="submit" *ngIf="!editable">Save</button>
+            <button class="btn btn-success mt-3" type="submit" *ngIf="editable && editable === true">Update</button>
         </div>
         <div class="col-md-3">
             <div class="row">
@@ -335,14 +337,14 @@
                                 </ul>
                             </ul> -->
                         <div class="float-label mb-3">
-                            <ng-select [items]="Make" [clearable]="false" [searchable]="true" bindLabel="name"
-                                bindValue="name" formControlName="make"></ng-select>
+                            <ng-select [items]="Make" [clearable]="false" [searchable]="true" bindLabel="id"
+                                formControlName="make"></ng-select>
                             <label for="">Make</label>
                         </div>
 
                         <div class="float-label">
-                            <ng-select [items]="Model" [clearable]="false" [searchable]="true" bindLabel="name"
-                                bindValue="name" formControlName="model"></ng-select>
+                            <ng-select [items]="Model" [clearable]="false" [searchable]="true" bindLabel="id"
+                                formControlName="model"></ng-select>
                             <label for="">Model</label>
                         </div>
                     </div>

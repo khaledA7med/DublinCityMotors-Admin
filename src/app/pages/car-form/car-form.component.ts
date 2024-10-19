@@ -8,7 +8,7 @@ import {
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
-import { Category, Option, Specs, Type } from 'src/app/shared/models/category';
+import { Category, Features, Type } from 'src/app/shared/models/category';
 import { CarStaticDataService } from 'src/app/shared/services/car-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -27,12 +27,12 @@ export class CarFormComponent implements OnInit {
   Transmission: Type[] = [];
   Drive: Type[] = [];
   BodyType: Type[] = [];
-  Make: Type[] = [];
-  Model: Type[] = [];
-  ExteriorOptions: Specs[] = [];
-  InteriorOptions: Specs[] = [];
-  TechOptions: Specs[] = [];
-  SafetyOptions: Specs[] = [];
+  Make!: any;
+  Model!: any;
+  ExteriorOptions: Features[] = [];
+  InteriorOptions: Features[] = [];
+  TechOptions: Features[] = [];
+  SafetyOptions: Features[] = [];
   categories: Category[] = [];
 
   isTechnicalCollapsed: boolean = false;
@@ -53,6 +53,7 @@ export class CarFormComponent implements OnInit {
   carForm!: FormGroup<CarForm>;
   carId!: number;
   editable!: boolean;
+  isSubmit: boolean = false;
 
   selectedExteriors: { specs: string }[] = [];
   selectedInteriors: { specs: string }[] = [];
@@ -72,7 +73,6 @@ export class CarFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.staticData.getAllClients().subscribe((res) => console.log(res));
 
     setTimeout(() => {
       /** spinner ends after 5 seconds */
@@ -90,7 +90,7 @@ export class CarFormComponent implements OnInit {
     this.TechOptions = this.staticData.TechOptions;
     this.SafetyOptions = this.staticData.SafetyOptions;
 
-    this.route.params.subscribe((params) => {
+    this.route.params?.subscribe((params) => {
       this.carId = +params['id']; // Convert string to number
       this.editable = JSON.parse(params['editable']);
       console.log(typeof this.editable);
@@ -103,7 +103,7 @@ export class CarFormComponent implements OnInit {
   }
 
   initForm() {
-    this.carForm = new FormGroup<any>({
+    this.carForm = new FormGroup<CarForm>({
       name: new FormControl(''),
       price: new FormControl(),
       regYear: new FormControl(),
@@ -111,37 +111,33 @@ export class CarFormComponent implements OnInit {
       fuelType: new FormControl(''),
       transmission: new FormControl(''),
       drive: new FormControl(''),
-      make: new FormControl(''),
-      model: new FormControl(''),
+      make: new FormControl([]),
+      model: new FormControl([]),
       exteriorColor: new FormControl(''),
       interiorColor: new FormControl(''),
       // description: new FormControl(''),
       // bodyType: new FormControl(''),
-      // isSold: new FormControl(''),
-      exteriors: new FormControl(''),
-      interiors: new FormControl(''),
-      teches: new FormControl(''),
-      safeties: new FormControl(''),
-      // engineSize: new FormControl(''),
-      // SpecsFuelType: new FormControl(''),
-      // cylinders: new FormControl(''),
-      // driveAxle: new FormControl(''),
-      // bHP: new FormControl(''),
-      // torque: new FormControl(''),
-      // emissions: new FormControl(''),
-      // tax: new FormControl(''),
-      // urban: new FormControl(''),
-      // extraUrban: new FormControl(''),
-      // driveLayout: new FormControl(''),
-      // speed: new FormControl(''),
-      // performance: new FormControl(''),
-      // nOX: new FormControl(''),
-      // shortDescription: new FormControl(''),
+      isSold: new FormControl(false),
+      exteriors: new FormControl([]),
+      interiors: new FormControl([]),
+      techs: new FormControl([]),
+      safeties: new FormControl([]),
+      engineSize: new FormControl(''),
+      specsFuelType: new FormControl(''),
+      cylinders: new FormControl(),
+      driveAxle: new FormControl(''),
+      bHP: new FormControl(),
+      torque: new FormControl(),
+      emissions: new FormControl(),
+      tax: new FormControl(),
+      urban: new FormControl(),
+      extraUrban: new FormControl(),
+      driveLayout: new FormControl(''),
+      speed: new FormControl(''),
+      performance: new FormControl(''),
+      nOX: new FormControl(),
+      shortDescription: new FormControl(''),
     });
-  }
-
-  getSpecs(e: any) {
-    console.log(e);
   }
 
   get f() {
@@ -149,19 +145,22 @@ export class CarFormComponent implements OnInit {
   }
 
   loadCarDetails(id: number) {
-    console.log(id);
-
     // Assuming carService.getCarById returns an observable of car data
-    // this.carService.getCarById(id).subscribe(car => {
-    //   this.carForm.patchValue(car); // Populate the form with the car's data
-    // });
+    this.staticData
+      .getCarById(this.carId)
+      .subscribe((car) => this.carForm.patchValue(car));
   }
 
   submitForm() {
     this.submit = true;
-    this.messages.toast('User Updated successfully', 'success');
     this.staticData.addCar(this.carForm.value).subscribe((res) => {
-      console.log(res);
+      // if ((res.status = 500)) {
+      //   console.log('zzz');
+
+      //   this.submit = false;
+      // }
+      this.messages.toast('User Updated successfully', 'success');
+      console.log(res.status);
     });
 
     console.log(this.carForm.value);

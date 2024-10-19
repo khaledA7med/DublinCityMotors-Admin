@@ -1,3 +1,4 @@
+import { CarStaticDataService } from './../../shared/services/car-data.service';
 import { DecimalPipe } from '@angular/common';
 import {
   Component,
@@ -7,7 +8,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -78,8 +79,10 @@ const PRODUCTS: Products[] = [
 })
 export class ProductsComponent implements OnInit {
   @ViewChild('carFilter') carFilter!: ElementRef;
+  filterForm!: FormGroup;
 
   products$!: Observable<Products[]>;
+  allProducts!: Products[];
   filteredProducts$!: Observable<Products[]>;
   filter = new FormControl('', { nonNullable: true });
 
@@ -100,11 +103,13 @@ export class ProductsComponent implements OnInit {
   constructor(
     private spinner: NgxSpinnerService,
     pipe: DecimalPipe,
+    private CarStaticDataService: CarStaticDataService,
     private offcanvasService: NgbOffcanvas,
     private router: Router,
     private messages: MessagesService
   ) {}
   ngOnInit(): void {
+    this.getAllCars();
     this.spinner.show();
     this.products$ = of(PRODUCTS);
 
@@ -115,6 +120,19 @@ export class ProductsComponent implements OnInit {
     this.products$ = this.filter.valueChanges.pipe(
       startWith(''),
       map((searchTerm) => this.filterProducts(searchTerm))
+    );
+    this.initForm();
+  }
+  initForm() {
+    this.filterForm = new FormGroup({
+      category: new FormControl(null),
+      productType: new FormControl(null),
+      stockStatus: new FormControl(null),
+    });
+  }
+  getAllCars() {
+    return this.CarStaticDataService.getAllCars().subscribe(
+      (res) => (this.allProducts = res)
     );
   }
 
@@ -137,6 +155,15 @@ export class ProductsComponent implements OnInit {
     );
   }
 
+  submitfilter() {
+    this.CarStaticDataService.productFilter(this.filterForm.value).subscribe(
+      (res) => console.log(res)
+    );
+  }
+
+  addCar() {
+    this.router.navigate(['/add-car']);
+  }
   openFilterOffcanvas(): void {
     this.offcanvasService.open(this.carFilter, { position: 'end' });
   }
@@ -150,6 +177,9 @@ export class ProductsComponent implements OnInit {
     this.messages.toast(`data for car id ${id} to duplicate`, 'success');
   }
   delete(id: number) {
-    this.messages.toast(`car id ${id} deleted`, 'success');
+    this.CarStaticDataService.deleteCar(id).subscribe((res) => {
+      this.messages.toast(`car id ${id} deleted`, 'success');
+      this.getAllCars();
+    });
   }
 }

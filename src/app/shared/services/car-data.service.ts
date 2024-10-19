@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Category } from '../models/category';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -70,15 +71,15 @@ export class CarStaticDataService {
     { specs: 'Keep in lane' },
   ];
 
-  make = [{ name: 'Audi' }, { name: 'BMW' }];
+  make = [{ id: 1 }, { id: 2 }];
   model = [
-    { name: 'A1' },
-    { name: 'A3' },
-    { name: 'A4' },
-    { name: 'A5' },
-    { name: 'A6' },
-    { name: 'Q2' },
-    { name: 'Q3' },
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+    { id: 5 },
+    { id: 6 },
+    { id: 7 },
   ];
   categories: Category[] = [
     {
@@ -105,6 +106,8 @@ export class CarStaticDataService {
     },
   ];
 
+  private readonly env: string = environment.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   // login(loginReq: any): Observable<any> {
@@ -114,10 +117,19 @@ export class CarStaticDataService {
   // }
 
   addCar(req: any): Observable<any> {
-    return this.http.post('http://localhost:8080/api/cars/add', req);
+    return this.http.post(this.env + 'cars/add', req);
   }
 
-  getAllClients(): Observable<any> {
-    return this.http.get('http://localhost:8080/api/cars/all');
+  getAllCars(): Observable<any> {
+    return this.http.get(this.env + 'cars/all');
+  }
+  getCarById(id: number): Observable<any> {
+    return this.http.post(this.env + 'cars/getCarById', { car_id: id });
+  }
+  deleteCar(id: number): Observable<any> {
+    return this.http.delete(this.env + `cars/delete/${id}`);
+  }
+  productFilter(data: any): Observable<any> {
+    return this.http.post(this.env + `cars/filter`, data);
   }
 }
