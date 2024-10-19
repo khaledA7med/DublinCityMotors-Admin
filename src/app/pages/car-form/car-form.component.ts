@@ -92,8 +92,13 @@ export class CarFormComponent implements OnInit {
 
     this.route.params?.subscribe((params) => {
       this.carId = +params['id']; // Convert string to number
-      this.editable = JSON.parse(params['editable']);
-      console.log(typeof this.editable);
+
+      // Check if 'editable' exists and is not undefined before parsing
+      if (params['editable'] !== undefined) {
+        this.editable = JSON.parse(params['editable']);
+      } else {
+        this.editable = false; // or some default value
+      }
 
       if (this.carId) {
         this.loadCarDetails(this.carId); // Load car details if editing

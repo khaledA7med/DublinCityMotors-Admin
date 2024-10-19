@@ -12,6 +12,7 @@ import {
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { DropzoneModule } from './dropzone/dropzone.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { DropzoneModule } from './dropzone/dropzone.module';
     NgbAccordionModule,
     NgbTooltipModule,
     DropzoneModule,
+    RouterModule,
   ],
   exports: [
     NgSelectModule,
@@ -41,6 +43,7 @@ import { DropzoneModule } from './dropzone/dropzone.module';
     NgbAccordionModule,
     NgbTooltipModule,
     DropzoneModule,
+    RouterModule,
   ],
 })
 export class SharedModule {}
