@@ -9,8 +9,7 @@
                 <div>
                     Drop files here or click to upload
                     <span class="text-black-50 mx-3 fs-14">
-                        <br>.csv, .doc, .docx, .pdf, .ppt, .pptx, .txt, .xls,
-                        .xlsx, .zip, image/*</span>
+                        <br>image</span>
                 </div>
             </label>
 
@@ -25,7 +24,7 @@
         </div>
 
         <div class="row files-views">
-            <div class="col-md-3 p-0" *ngFor="let item of documentsToDisplay">
+            <div class="col-md-6 p-0" *ngFor="let item of documentsToDisplay">
                 <div class="card m-1">
                     <div class="row align-items-center g-0 overflow-hidden">
                         <div class="col-md-3 h-100">
@@ -60,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 p-0" *ngFor="let item of UploadedFiles">
+            <div class="col-md-6 p-0" *ngFor="let item of UploadedFiles">
                 <div class="card m-1">
                     <div class="row align-items-center g-0 overflow-hidden">
                         <div class="col-md-3 h-100">

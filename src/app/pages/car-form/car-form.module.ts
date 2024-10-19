@@ -9,7 +9,7 @@ import {
   NgbNavModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [{ path: '', component: CarFormComponent }];
 
@@ -24,6 +24,7 @@ const routes: Routes = [{ path: '', component: CarFormComponent }];
     NgbTooltipModule,
     NgbNavModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class CarFormModule {}

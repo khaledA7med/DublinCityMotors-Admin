@@ -3,7 +3,7 @@ export interface Products {
   img?: any;
   name?: string;
   price?: number;
-  category?: string;
-  tag?: string;
-  date?: Date;
+  make?: string;
+  model?: string;
+  fuelType?: string;
 }

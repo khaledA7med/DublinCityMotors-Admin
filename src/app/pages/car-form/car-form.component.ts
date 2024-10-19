@@ -54,14 +54,17 @@ export class CarFormComponent implements OnInit {
   carId!: number;
   editable!: boolean;
   isSubmit: boolean = false;
-
+  plainText!: string;
   selectedExteriors: { specs: string }[] = [];
   selectedInteriors: { specs: string }[] = [];
   selectedSafeties: { specs: string }[] = [];
   selectedTeches: { specs: string }[] = [];
-
+  documentsToUpload: File[] = [];
+  docs: any[] = [];
   @ViewChild('content') content!: TemplateRef<any>;
   @ViewChild('cat') cat!: TemplateRef<any>;
+  @ViewChild('dropzone') dropzone!: any;
+
   constructor(
     private modalService: NgbModal,
     private staticData: CarStaticDataService,
@@ -116,8 +119,8 @@ export class CarFormComponent implements OnInit {
       fuelType: new FormControl(''),
       transmission: new FormControl(''),
       drive: new FormControl(''),
-      make: new FormControl([]),
-      model: new FormControl([]),
+      makeId: new FormControl(),
+      modelId: new FormControl(),
       exteriorColor: new FormControl(''),
       interiorColor: new FormControl(''),
       // description: new FormControl(''),
@@ -138,7 +141,7 @@ export class CarFormComponent implements OnInit {
       urban: new FormControl(),
       extraUrban: new FormControl(),
       driveLayout: new FormControl(''),
-      speed: new FormControl(''),
+      speed: new FormControl(),
       performance: new FormControl(''),
       nOX: new FormControl(),
       shortDescription: new FormControl(''),
@@ -156,21 +159,6 @@ export class CarFormComponent implements OnInit {
       .subscribe((car) => this.carForm.patchValue(car));
   }
 
-  submitForm() {
-    this.submit = true;
-    this.staticData.addCar(this.carForm.value).subscribe((res) => {
-      // if ((res.status = 500)) {
-      //   console.log('zzz');
-
-      //   this.submit = false;
-      // }
-      this.messages.toast('User Updated successfully', 'success');
-      console.log(res.status);
-    });
-
-    console.log(this.carForm.value);
-  }
-
   openImagesModal() {
     this.modalRef = this.modalService.open(this.content, {
       backdrop: 'static',
@@ -178,6 +166,11 @@ export class CarFormComponent implements OnInit {
       centered: true,
     });
   }
+
+  documentsList(evt: File[]) {
+    this.documentsToUpload = evt;
+  }
+
   openCategoryModal() {
     this.modalRef = this.modalService.open(this.cat, {
       backdrop: 'static',
@@ -187,6 +180,64 @@ export class CarFormComponent implements OnInit {
   }
 
   getEditorData({ editor }: ChangeEvent) {
-    console.log(editor.data.get());
+    const editorData = editor.getData(); // This will have HTML content
+    this.plainText = this.extractText(editorData); // Extract text from HTML
+  }
+
+  extractText(htmlContent: string): string {
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = htmlContent;
+    return tempElement.textContent || tempElement.innerText || '';
+  }
+
+  submitForm() {
+    this.submit = true;
+    let data = this.carForm.getRawValue();
+    const formData = new FormData();
+    formData.append('name', data.name!);
+    formData.append('price', data.price!.toString());
+    formData.append('regYear', data.regYear!.toString());
+    formData.append('mileage', data.mileage!);
+    formData.append('fuelType', data.fuelType!);
+    formData.append('transmission', data.transmission!);
+    formData.append('drive', data.drive!);
+    formData.append('makeId', data.makeId!.toString());
+    formData.append('modelId', data.modelId!.toString());
+    formData.append('exteriorColor', data.exteriorColor!);
+    formData.append('interiorColor', data.interiorColor!);
+    formData.append('isSold', JSON.stringify(data.isSold!));
+    for (let i = 0; i < data.exteriors!.length; i++) {
+      formData.append(`exteriors[${i}]`, data.exteriors![i]);
+    }
+    for (let i = 0; i < data.interiors!.length; i++) {
+      formData.append(`interiors[${i}]`, data.interiors![i]);
+    }
+    for (let i = 0; i < data.techs!.length; i++) {
+      formData.append(`techs[${i}]`, data.techs![i]);
+    }
+    for (let i = 0; i < data.safeties!.length; i++) {
+      formData.append(`safeties[${i}]`, data.safeties![i]);
+    }
+    formData.append('engineSize', data.engineSize!);
+    formData.append('specsFuelType', data.specsFuelType!);
+    formData.append('cylinders', data.cylinders!.toString());
+    formData.append('driveAxle', data.driveAxle!);
+    formData.append('bHP', data.bHP!.toString());
+    formData.append('torque', data.torque!.toString());
+    formData.append('emissions', data.emissions!.toString());
+    formData.append('tax', data.tax!.toString());
+    formData.append('urban', data.urban!.toString());
+    formData.append('extraUrban', data.extraUrban!.toString());
+    formData.append('driveLayout', data.driveLayout!);
+    formData.append('speed', data.speed!.toString());
+    formData.append('performance', data.performance!);
+    formData.append('nOX', data.nOX!.toString());
+    formData.append('shortDescription', this.plainText!);
+    this.documentsToUpload.forEach((el) => formData.append('images', el));
+
+    this.staticData.addCar(formData).subscribe((res) => {
+      this.messages.toast('User Updated successfully', 'success');
+      console.log(res.status);
+    });
   }
 }

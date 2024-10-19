@@ -71,15 +71,18 @@ export class CarStaticDataService {
     { specs: 'Keep in lane' },
   ];
 
-  make = [{ id: 1 }, { id: 2 }];
+  make = [
+    { id: 1, name: 'Audi' },
+    { id: 2, name: 'BMW' },
+  ];
   model = [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
-    { id: 7 },
+    { id: 1, name: 'A1' },
+    { id: 2, name: 'A2' },
+    { id: 3, name: 'A3' },
+    { id: 4, name: 'A4' },
+    { id: 5, name: 'q1' },
+    { id: 6, name: 'q2' },
+    { id: 7, name: 'q3' },
   ];
   categories: Category[] = [
     {
@@ -116,7 +119,7 @@ export class CarStaticDataService {
   //     .pipe(tap((res: LoginResponse) => {}));
   // }
 
-  addCar(req: any): Observable<any> {
+  addCar(req: FormData): Observable<any> {
     return this.http.post(this.env + 'cars/add', req);
   }
 

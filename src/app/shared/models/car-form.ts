@@ -11,8 +11,8 @@ export interface CarForm {
   exteriorColor?: FormControl<string | null>;
   interiorColor?: FormControl<string | null>;
   isSold?: FormControl<boolean | null>;
-  make?: FormControl<[] | null>;
-  model?: FormControl<[] | null>;
+  makeId?: FormControl<number | null>;
+  modelId?: FormControl<number | null>;
   exteriors?: FormControl<string[] | null>;
   interiors?: FormControl<string[] | null>;
   techs?: FormControl<string[] | null>;
@@ -28,8 +28,9 @@ export interface CarForm {
   urban?: FormControl<number | null>;
   extraUrban?: FormControl<number | null>;
   driveLayout?: FormControl<string | null>;
-  speed?: FormControl<string | null>;
+  speed?: FormControl<number | null>;
   performance?: FormControl<string | null>;
   nOX?: FormControl<number | null>;
   shortDescription?: FormControl<string | null>;
+  images?: FormControl<string[] | null>;
 }
