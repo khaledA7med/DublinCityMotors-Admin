@@ -124,7 +124,7 @@ export class CarFormComponent implements OnInit {
       exteriorColor: new FormControl(''),
       interiorColor: new FormControl(''),
       // description: new FormControl(''),
-      // bodyType: new FormControl(''),
+      bodyType: new FormControl(''),
       isSold: new FormControl(false),
       exteriors: new FormControl([]),
       interiors: new FormControl([]),
@@ -198,6 +198,7 @@ export class CarFormComponent implements OnInit {
     formData.append('price', data.price!.toString());
     formData.append('regYear', data.regYear!.toString());
     formData.append('mileage', data.mileage!);
+    formData.append('bodyType', data.bodyType!);
     formData.append('fuelType', data.fuelType!);
     formData.append('transmission', data.transmission!);
     formData.append('drive', data.drive!);
@@ -235,9 +236,17 @@ export class CarFormComponent implements OnInit {
     formData.append('shortDescription', this.plainText!);
     this.documentsToUpload.forEach((el) => formData.append('images', el));
 
-    this.staticData.addCar(formData).subscribe((res) => {
-      this.messages.toast('User Updated successfully', 'success');
-      console.log(res.status);
-    });
+    this.staticData.addCar(formData).subscribe(
+      (res) => {
+        this.messages.toast('User Updated successfully', 'success');
+        this.resetForm();
+      },
+      (error) => {
+        this.messages.toast(error.error.message, 'error');
+      }
+    );
+  }
+  resetForm() {
+    this.carForm.reset();
   }
 }

@@ -8,6 +8,7 @@ export interface CarForm {
   fuelType?: FormControl<string | null>;
   transmission?: FormControl<string | null>;
   drive?: FormControl<string | null>;
+  bodyType?: FormControl<string | null>;
   exteriorColor?: FormControl<string | null>;
   interiorColor?: FormControl<string | null>;
   isSold?: FormControl<boolean | null>;

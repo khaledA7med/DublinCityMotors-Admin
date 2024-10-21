@@ -4,7 +4,6 @@ import {
   Component,
   ElementRef,
   OnInit,
-  PipeTransform,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -15,59 +14,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable, of, startWith } from 'rxjs';
 import { Products } from 'src/app/shared/models/products';
 import { MessagesService } from 'src/app/shared/services/messages.service';
-
-// const PRODUCTS: Products[] = [
-//   {
-//     id: 1,
-//     name: 'Audi A5 Sportback 40 TFSI S-Line S-T',
-//     img: 'f/f3/Flag_of_Russia.svg',
-//     price: 500000,
-//     make: 'AUDI',
-//     model: '-',
-//     date: new Date(),
-//   },
-//   {
-//     id: 2,
-//     name: 'BMW G30 530e Luxury iPerformance',
-//     img: 'c/cf/Flag_of_Canada.svg',
-//     price: 400000,
-//     make: 'BMW',
-//     model: '-',
-//     date: new Date(),
-//   },
-//   {
-//     id: 3,
-//     name: 'Mercedes Benz A180 AMG S',
-//     img: 'a/a4/Flag_of_the_United_States.svg',
-//     price: 1200000,
-//     make: 'MERCEDES',
-//     model: '-',
-//     date: new Date(),
-//   },
-//   {
-//     id: 4,
-//     name: 'Volkswagen Golf MK 7.5 1.2 TSI DSG Comfortline',
-//     img: 'f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
-//     price: 300000,
-//     make: '	Volkswagen',
-//     model: '-',
-//     date: new Date(),
-//   },
-// ];
-
-// function search(text: string, pipe: PipeTransform): Products[] {
-//   return PRODUCTS.filter((product) => {
-//     const term = text.toLowerCase();
-//     return (
-//       product.name!.toLowerCase().includes(term) ||
-//       pipe.transform(product.id).includes(term) ||
-//       pipe.transform(product.price).includes(term) ||
-//       pipe.transform(product.category).includes(term) ||
-//       pipe.transform(product.date).includes(term) ||
-//       pipe.transform(product.tag).includes(term)
-//     );
-//   });
-// }
 
 @Component({
   selector: 'app-products',
@@ -84,21 +30,7 @@ export class ProductsComponent implements OnInit {
   allProducts!: Products[];
   filteredProducts$!: Observable<Products[]>;
   filter = new FormControl('', { nonNullable: true });
-
-  category = [{ name: 'BMW' }, { name: 'MERCEDES' }, { name: 'Volkswagen' }];
-
-  productType = [
-    { name: 'Simple Product' },
-    { name: 'Grouped Product' },
-    { name: 'Variable Product' },
-  ];
-
-  stockStatus = [
-    { name: 'In Stock' },
-    { name: 'Out of Stock' },
-    { name: 'On Backorder' },
-  ];
-
+  images!: [];
   constructor(
     private spinner: NgxSpinnerService,
     pipe: DecimalPipe,
@@ -119,19 +51,24 @@ export class ProductsComponent implements OnInit {
   initForm() {
     this.filterForm = new FormGroup({
       regYear: new FormControl(),
-      category: new FormControl(null),
-      productType: new FormControl(null),
-      stockStatus: new FormControl(null),
+      price: new FormControl(),
     });
   }
   getAllCars() {
     this.spinner.show();
-    return this.CarStaticDataService.getAllCars().subscribe((res) => {
-      if (res) {
+    return this.CarStaticDataService.getAllCars().subscribe(
+      (res) => {
+        if (res) {
+          this.spinner.hide();
+          this.allProducts = res;
+          this.allProducts.filter((el) => console.log(el.images));
+        }
+      },
+      (error) => {
         this.spinner.hide();
-        this.allProducts = res;
+        this.messages.toast(error.error.message, 'error');
       }
-    });
+    );
   }
 
   filterProducts(searchTerm: string): any[] {
@@ -150,6 +87,10 @@ export class ProductsComponent implements OnInit {
     );
   }
 
+  openFilterOffcanvas(): void {
+    this.offcanvasService.open(this.carFilter, { position: 'end' });
+  }
+
   submitfilter() {
     this.spinner.show();
     this.CarStaticDataService.productFilter(this.filterForm.value).subscribe(
@@ -159,14 +100,16 @@ export class ProductsComponent implements OnInit {
       }
     );
   }
+  clearFilter() {
+    this.filterForm.reset();
+    this.getAllCars();
+  }
 
   addCar() {
     this.router.navigate(['/add-car']);
   }
-  openFilterOffcanvas(): void {
-    this.offcanvasService.open(this.carFilter, { position: 'end' });
-  }
 
+  // Car table methods
   edit(id: number, edit: boolean) {
     this.router.navigate(['edit-car', id, edit]);
     this.messages.toast(`data for car id ${id} patched`, 'success');

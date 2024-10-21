@@ -1,22 +1,17 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
+<!-- <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
     <p style="color: white">Loading...</p>
 </ngx-spinner>
 
 <div class="container home mt-lg-5">
     <div class="row">
-        <div class="col-4 my-4">
-            <div class="float-label">
-                <input type="text" placeholder="Search Cars" [formControl]="filter" class="form-control" />
-                <label for="">Search Cars</label>
-            </div>
-        </div>
-        <div class="col-8 d-flex justify-content-end my-4">
+
+        <div class="col-12 d-flex justify-content-end my-4">
             <div>
                 <button class="btn btn-secondary mx-1" (click)="openFilterOffcanvas()">
                     Filter <i class='bx bx-filter-alt p-1'></i>
                 </button>
-                <button class="btn btn-outline-dark" type="button" (click)="addCar()">
-                    Add Car <i class="bx bx-plus p-1"></i>
+                <button class="btn btn-outline-dark" type="button" (click)="addMake()">
+                    Add Make <i class="bx bx-plus p-1"></i>
                 </button>
             </div>
         </div>
@@ -103,7 +98,7 @@
                 </div>
             </div>
             <!-- submit and clear btn -->
-            <div class="offcanvas-footer border-top row mb-3 mx-1">
+<!-- <div class="offcanvas-footer border-top row mb-3 mx-1">
                 <div class="col-6 mt-2">
                     <button class="btn btn-danger btn-sm w-100" type="button" (click)="clearFilter()">Clear
                         Filter</button>
@@ -114,4 +109,4 @@
             </div>
         </form>
     </div>
-</ng-template>
+</ng-template>  -->

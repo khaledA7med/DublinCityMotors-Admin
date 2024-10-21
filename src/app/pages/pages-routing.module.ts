@@ -16,6 +16,15 @@ const routes: Routes = [
       import('./categories/categories.module').then((m) => m.CategoriesModule),
   },
   {
+    path: 'make',
+    loadChildren: () => import('./make/make.module').then((m) => m.MakeModule),
+  },
+  {
+    path: 'model',
+    loadChildren: () =>
+      import('./model/model.module').then((m) => m.ModelModule),
+  },
+  {
     path: 'tags',
     loadChildren: () => import('./tags/tags.module').then((m) => m.TagsModule),
   },

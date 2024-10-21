@@ -135,4 +135,11 @@ export class CarStaticDataService {
   productFilter(data: any): Observable<any> {
     return this.http.post(this.env + `cars/filter`, data);
   }
+
+  getAllMake(): Observable<any> {
+    return this.http.get(this.env + `admin/make/all`);
+  }
+  addMake(data: any): Observable<any> {
+    return this.http.post(this.env + `admin/make/add`, data);
+  }
 }

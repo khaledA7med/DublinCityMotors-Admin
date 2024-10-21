@@ -13,9 +13,14 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { DropzoneModule } from './dropzone/dropzone.module';
 import { RouterModule } from '@angular/router';
+import { MakeFormComponent } from './components/make-form/make-form.component';
+import { ModelFormComponent } from './components/model-form/model-form.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MakeFormComponent,
+    ModelFormComponent
+  ],
   imports: [
     CommonModule,
     NgSelectModule,
