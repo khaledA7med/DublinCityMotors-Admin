@@ -17,10 +17,7 @@ import { MakeFormComponent } from './components/make-form/make-form.component';
 import { ModelFormComponent } from './components/model-form/model-form.component';
 
 @NgModule({
-  declarations: [
-    MakeFormComponent,
-    ModelFormComponent
-  ],
+  declarations: [MakeFormComponent, ModelFormComponent],
   imports: [
     CommonModule,
     NgSelectModule,
@@ -49,6 +46,8 @@ import { ModelFormComponent } from './components/model-form/model-form.component
     NgbTooltipModule,
     DropzoneModule,
     RouterModule,
+    MakeFormComponent,
+    ModelFormComponent,
   ],
 })
 export class SharedModule {}

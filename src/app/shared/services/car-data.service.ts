@@ -122,6 +122,9 @@ export class CarStaticDataService {
   addCar(req: FormData): Observable<any> {
     return this.http.post(this.env + 'cars/add', req);
   }
+  updateCar(req: FormData): Observable<any> {
+    return this.http.post(this.env + 'cars/update', req);
+  }
 
   getAllCars(): Observable<any> {
     return this.http.get(this.env + 'cars/all');

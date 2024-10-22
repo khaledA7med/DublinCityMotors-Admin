@@ -33,7 +33,6 @@ export class ProductsComponent implements OnInit {
   images!: [];
   constructor(
     private spinner: NgxSpinnerService,
-    pipe: DecimalPipe,
     private CarStaticDataService: CarStaticDataService,
     private offcanvasService: NgbOffcanvas,
     private router: Router,

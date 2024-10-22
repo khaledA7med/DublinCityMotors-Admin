@@ -16,6 +16,7 @@ import { CarForm } from 'src/app/shared/models/car-form';
 import { MessagesService } from 'src/app/shared/services/messages.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { ModelFormComponent } from 'src/app/shared/components/model-form/model-form.component';
 @Component({
   selector: 'app-car-form',
   templateUrl: './car-form.component.html',
@@ -156,7 +157,12 @@ export class CarFormComponent implements OnInit {
     // Assuming carService.getCarById returns an observable of car data
     this.staticData
       .getCarById(this.carId)
-      .subscribe((car) => this.carForm.patchValue(car));
+      .subscribe((car) => this.patchCarData(car));
+  }
+
+  patchCarData(data: any) {
+    console.log('patching');
+    this.carForm.patchValue(data);
   }
 
   openImagesModal() {
@@ -171,8 +177,8 @@ export class CarFormComponent implements OnInit {
     this.documentsToUpload = evt;
   }
 
-  openCategoryModal() {
-    this.modalRef = this.modalService.open(this.cat, {
+  openModelModal() {
+    this.modalRef = this.modalService.open(ModelFormComponent, {
       backdrop: 'static',
       size: 'md',
       centered: true,
@@ -219,6 +225,8 @@ export class CarFormComponent implements OnInit {
     for (let i = 0; i < data.safeties!.length; i++) {
       formData.append(`safeties[${i}]`, data.safeties![i]);
     }
+    data.safeties?.forEach((el) => formData.append('safeties', el));
+
     formData.append('engineSize', data.engineSize!);
     formData.append('specsFuelType', data.specsFuelType!);
     formData.append('cylinders', data.cylinders!.toString());
@@ -236,15 +244,29 @@ export class CarFormComponent implements OnInit {
     formData.append('shortDescription', this.plainText!);
     this.documentsToUpload.forEach((el) => formData.append('images', el));
 
-    this.staticData.addCar(formData).subscribe(
-      (res) => {
-        this.messages.toast('User Updated successfully', 'success');
-        this.resetForm();
-      },
-      (error) => {
-        this.messages.toast(error.error.message, 'error');
-      }
-    );
+    if (this.carId) {
+      console.log('is update');
+      this.staticData.updateCar(formData).subscribe(
+        (res) => {
+          this.messages.toast('Car is Updated successfully', 'success');
+          this.resetForm();
+        },
+        (error) => {
+          this.messages.toast(error.error.message, 'error');
+        }
+      );
+    } else {
+      console.log('new');
+      this.staticData.addCar(formData).subscribe(
+        (res) => {
+          this.messages.toast('Car is Added successfully', 'success');
+          this.resetForm();
+        },
+        (error) => {
+          this.messages.toast(error.error.message, 'error');
+        }
+      );
+    }
   }
   resetForm() {
     this.carForm.reset();

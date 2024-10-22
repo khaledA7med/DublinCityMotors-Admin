@@ -1,177 +1,135 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
-    <p style="color: white">Loading...</p>
+  <p style="color: white">Loading...</p>
 </ngx-spinner>
 
 <div class="container home mt-lg-5">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-end">
-            <div class="mx-2">
-                <button class="btn btn-outline-dark" type="button" (click)="openAddModal()">
-                    New Category <i class="bx bx-plus"></i>
-                </button>
-            </div>
-            <div>
-                <button class="btn btn-outline-dark" type="button" (click)="openMakeModal()">
-                    New Make / Model <i class="bx bx-plus"></i>
-                </button>
-            </div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end">
+      <div class="mx-2">
+        <button class="btn btn-outline-dark" type="button" (click)="openAddModal()">
+          New Category <i class="bx bx-plus"></i>
+        </button>
+      </div>
+      <div>
+        <button class="btn btn-outline-dark" type="button" (click)="openMakeModal()">
+          New Make / Model <i class="bx bx-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-12">
+      <form>
+        <div class="mb-3 row">
+          <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">
+            search categories</label>
+          <div class="col-xs-3 col-sm-auto">
+            <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+          </div>
         </div>
-        <div class="col-12">
-            <form>
-                <div class="mb-3 row">
-                    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">
-                        search categories</label>
-                    <div class="col-xs-3 col-sm-auto">
-                        <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
-                    </div>
-                </div>
-            </form>
+      </form>
 
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Slug</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let country of countries$ | async; index as i">
-                        <td>
-                            <img [src]="
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Slug</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let country of countries$ | async; index as i">
+            <td>
+              <img [src]="
                   'https://upload.wikimedia.org/wikipedia/commons/' +
                   country.img
                 " class="me-2" style="width: 20px" />
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="country.slug" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="country.desc" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <th scope="row">
-                            <button class="btn btn-outline-info me-3">
-                                <i class='bx bx-edit-alt'></i>
-                            </button>
-                            <button class="btn btn-outline-danger">
-                                <i class='bx bx-trash'></i>
-                            </button>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            </td>
+            <td>
+              <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="country.slug" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="country.desc" [term]="filter.value"></ngb-highlight>
+            </td>
+            <th scope="row">
+              <button class="btn btn-outline-info me-3">
+                <i class='bx bx-edit-alt'></i>
+              </button>
+              <button class="btn btn-outline-danger">
+                <i class='bx bx-trash'></i>
+              </button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 
 <ng-template #content let-modal>
-    <div class="gift-ribbon-wrapper">
-        <div class="gift-ribbon">New Category</div>
-    </div>
-    <div class="modal-header mb-0">
+  <div class="gift-ribbon-wrapper">
+    <div class="gift-ribbon">New Category</div>
+  </div>
+  <div class="modal-header mb-0">
 
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
 
-    <form [formGroup]="categoriesForm" (ngSubmit)="submitForm()">
-        <div class="modal-body p-1 m-2 mt-5" style="overflow-y: unset !important;">
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <div class="float-label">
-                        <input type="text" class="form-control" formControlName="name" placeholder="Name">
-                        <label for="">Name</label>
-                    </div>
-                </div>
-                <div class="col-6 mb-3">
-                    <div class="float-label">
-                        <input type="text" class="form-control" formControlName="slug" placeholder="Slug">
-                        <label for="">Slug</label>
-                    </div>
-                </div>
-                <div class="col-6 my-2">
-                    <div class="float-label">
-                        <ng-select [items]="categories" placeholder="Select Category" [searchable]="true"
-                            formControlName="parentCategory" bindLabel="name" bindValue="name"
-                            id="Category"></ng-select> <label for="">Parent
-                            category</label>
-                    </div>
-                </div>
-                <div class="col-6 my-2">
-                    <div class="float-label">
-                        <ng-select [items]="types" placeholder="Select Type" [searchable]="true" bindLabel="name"
-                            formControlName="displayType" bindValue="name" id="Type"></ng-select>
-                        <label for="">Display type</label>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-floating">
-                        <textarea rows="3" name="" id="" class="form-control" placeholder="Description"
-                            formControlName="desc"></textarea>
-                        <label for="">Description</label>
-                    </div>
-                </div>
-                <div class="col-12 my-3">
-                    <app-dropzone #dropzone></app-dropzone>
-                </div>
-            </div>
+  <form [formGroup]="categoriesForm" (ngSubmit)="submitForm()">
+    <div class="modal-body p-1 m-2 mt-5" style="overflow-y: unset !important;">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <div class="float-label">
+            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+            <label for="">Name</label>
+          </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
-                <i class="bx bx-save me-1"></i> Save
-            </button>
-            <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
-                <i class="bx bx-clipboard me-1"></i> Clear
-            </button>
-            <button type="button" class="btn btn-outline-danger btn-sm d-flex align-items-center"
-                (click)="modal.close()">
-                <i class="bx bx-x me-1"></i> Close
-            </button>
+        <div class="col-6 mb-3">
+          <div class="float-label">
+            <input type="text" class="form-control" formControlName="slug" placeholder="Slug">
+            <label for="">Slug</label>
+          </div>
         </div>
-    </form>
-</ng-template>
-
-<ng-template #makeContent let-modal>
-    <div class="gift-ribbon-wrapper">
-        <div class="gift-ribbon">New Make / Model</div>
+        <div class="col-6 my-2">
+          <div class="float-label">
+            <ng-select [items]="categories" placeholder="Select Category" [searchable]="true"
+              formControlName="parentCategory" bindLabel="name" bindValue="name" id="Category"></ng-select> <label
+              for="">Parent
+              category</label>
+          </div>
+        </div>
+        <div class="col-6 my-2">
+          <div class="float-label">
+            <ng-select [items]="types" placeholder="Select Type" [searchable]="true" bindLabel="name"
+              formControlName="displayType" bindValue="name" id="Type"></ng-select>
+            <label for="">Display type</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-floating">
+            <textarea rows="3" name="" id="" class="form-control" placeholder="Description"
+              formControlName="desc"></textarea>
+            <label for="">Description</label>
+          </div>
+        </div>
+        <div class="col-12 my-3">
+          <app-dropzone #dropzone></app-dropzone>
+        </div>
+      </div>
     </div>
-    <div class="modal-header mb-0">
-
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
+        <i class="bx bx-save me-1"></i> Save
+      </button>
+      <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
+        <i class="bx bx-clipboard me-1"></i> Clear
+      </button>
+      <button type="button" class="btn btn-outline-danger btn-sm d-flex align-items-center" (click)="modal.close()">
+        <i class="bx bx-x me-1"></i> Close
+      </button>
     </div>
-
-    <form [formGroup]="makeForm" (ngSubmit)="onSubmit()">
-        <div class="modal-body p-1 m-2 mt-5" style="overflow-y: unset !important;">
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <div class="float-label">
-                        <input type="text" class="form-control" formControlName="make" placeholder="Make">
-                        <label for="">Make</label>
-                    </div>
-                </div>
-                <div class="col-6 mb-3">
-                    <div class="float-label">
-                        <input type="text" class="form-control" formControlName="model" placeholder="Model">
-                        <label for="">Model</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
-                <i class="bx bx-save me-1"></i> Save
-            </button>
-            <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
-                <i class="bx bx-clipboard me-1"></i> Clear
-            </button>
-            <button type="button" class="btn btn-outline-danger btn-sm d-flex align-items-center"
-                (click)="modal.close()">
-                <i class="bx bx-x me-1"></i> Close
-            </button>
-        </div>
-    </form>
+  </form>
 </ng-template>

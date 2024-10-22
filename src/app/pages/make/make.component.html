@@ -1,112 +1,59 @@
-<!-- <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
-    <p style="color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
 </ngx-spinner>
 
 <div class="container home mt-lg-5">
-    <div class="row">
-
-        <div class="col-12 d-flex justify-content-end my-4">
-            <div>
-                <button class="btn btn-secondary mx-1" (click)="openFilterOffcanvas()">
-                    Filter <i class='bx bx-filter-alt p-1'></i>
-                </button>
-                <button class="btn btn-outline-dark" type="button" (click)="addMake()">
-                    Add Make <i class="bx bx-plus p-1"></i>
-                </button>
-            </div>
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <form>
+        <div class="mb-3 row">
+          <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">
+            search Make</label>
+          <div class="col-xs-3 col-sm-auto">
+            <input id="table-filtering-search" class="form-control" placeholder="Type Make Name" type="text"
+              [formControl]="filter" />
+          </div>
         </div>
-        <div class="col-12">
-            <table class="table table-responsive table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Actions</th>
-                        <th scope="col">#</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Make</th>
-                        <th scope="col">Model</th>
-                        <th scope="col">Fuel Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let product of allProducts ; index as i">
-                        <td scope="row">
-                            <button class="btn btn-outline-info me-3" ngbTooltip="Edit"
-                                (click)="edit(product.id!,true)">
-                                <i class='bx bx-edit-alt'></i>
-                            </button>
-                            <button class="btn btn-outline-info me-3" ngbTooltip="Duplicate"
-                                (click)="duplicate(product.id!,false)">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
-                            <button class="btn btn-outline-danger" ngbTooltip="Delete" (click)="delete(product.id!)">
-                                <i class='bx bx-trash'></i>
-                            </button>
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="product.id | number" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <td>
-                            <img [src]="
-                  
-                  product.images
-                " class="me-2" style="width: 20px" />
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="product.name" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="product.price | number" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="product.make" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="product.model" [term]="filter.value"></ngb-highlight>
-                        </td>
-                        <td>
-                            <ngb-highlight [result]="product.fuelType" [term]="filter.value"></ngb-highlight>
-                        </td>
-                    </tr>
-                    <tr *ngIf="!allProducts" class="text-center">No Data To Show</tr>
-                </tbody>
-            </table>
-        </div>
+      </form>
     </div>
+    <div class="col-6 d-flex justify-content-end my-4">
+      <div>
+        <!-- <button class="btn btn-secondary mx-1" (click)="openFilterOffcanvas()">
+          Filter <i class='bx bx-filter-alt p-1'></i>
+        </button> -->
+        <button class="btn btn-outline-dark" type="button" (click)="openMakeModal()">
+          Add Make <i class="bx bx-plus p-1"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-responsive table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Make Name</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let country of countries$ | async; index as i">
+            <td>
+              <ngb-highlight [result]="country.id | number" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="country.makeName" [term]="filter.value"></ngb-highlight>
+            </td>
+            <th scope="row">
+              <button class="btn btn-outline-info me-3">
+                <i class='bx bx-edit-alt'></i>
+              </button>
+              <button class="btn btn-outline-danger">
+                <i class='bx bx-trash'></i>
+              </button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-
-<ng-template #carFilter let-offcanvas>
-    <div class="offcanvas-header">
-        <h4 class="offcanvas-title fs-4">Filters</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
-    </div>
-    <div class="offcanvas-body">
-        <form [formGroup]="filterForm" (ngSubmit)="submitfilter()">
-            <div class="row pe-3 justify-content-center">
-                <div class="col-12 mb-4">
-                    <div class="float-label">
-                        <input type="number" placeholder="Reg Year" class="form-control" formControlName="regYear" />
-                        <label for="">Reg Year</label>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="float-label">
-                        <input type="number" placeholder="Price" class="form-control" formControlName="price" />
-                        <label for="">Price</label>
-                    </div>
-                </div>
-            </div>
-            <!-- submit and clear btn -->
-<!-- <div class="offcanvas-footer border-top row mb-3 mx-1">
-                <div class="col-6 mt-2">
-                    <button class="btn btn-danger btn-sm w-100" type="button" (click)="clearFilter()">Clear
-                        Filter</button>
-                </div>
-                <div class="col-6 mt-2">
-                    <button class="btn btn-secondary btn-sm w-100" type="submit">Search</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</ng-template>  -->

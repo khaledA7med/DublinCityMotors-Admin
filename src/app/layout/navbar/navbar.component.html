@@ -1,69 +1,69 @@
 <nav class="navbar navbar-dark bg-dark fixed-top pt-3">
-    <div class="container-fluid">
-        <div class="row w-100">
-            <div class="col-4 d-flex justify-content-start align-items-center">
-                <div>
-                    <button class="btn btn-lg btn-outline-light" type="button" (click)="openNav()">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="col-4 d-flex justify-content-center">
-                <a class="navbar-brand text-center" routerLink="/">
-                    <img src="../../../assets/images/dublin_city_last.png" alt="" width="100%">
-                </a>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <div>
-                    <button class="btn btn-outline-light" (click)="logout()"> Logout <i
-                            class="fa-solid fa-right-from-bracket"></i></button>
-                </div>
-
-            </div>
+  <div class="container-fluid">
+    <div class="row w-100">
+      <div class="col-4 d-flex justify-content-start align-items-center">
+        <div>
+          <button class="btn btn-lg btn-outline-light" type="button" (click)="openNav()">
+            <i class="fa-solid fa-bars"></i>
+          </button>
         </div>
+      </div>
+      <div class="col-4 d-flex justify-content-center">
+        <a class="navbar-brand text-center" routerLink="/">
+          <img src="../../../assets/images/dublin_city_last.png" alt="" width="100%">
+        </a>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <div>
+          <button class="btn btn-outline-light" (click)="logout()"> Logout <i
+              class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+
+      </div>
     </div>
+  </div>
 </nav>
 <ng-template #content let-offcanvas>
-    <div class="offcanvas-header">
-        <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
-    </div>
-    <div class="offcanvas-body">
-        <ul class="navbar-nav flex-grow-1 pe-3 text-center">
-            <!-- <li class="nav-item d-flex justify-content-center">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav flex-grow-1 pe-3 text-center">
+      <!-- <li class="nav-item d-flex justify-content-center">
                 <a class="nav-link active d-flex align-items-center" routerLink="/"><i class='bx bx-home me-1'></i>
                     Home</a>
             </li>
             <hr> -->
 
-            <div ngbAccordion [closeOthers]="true">
-                <div ngbAccordionItem [collapsed]="true" class="border border-0">
-                    <h6 ngbAccordionHeader>
-                        <button ngbAccordionButton><i class='bx bx-cart me-1'></i> Products</button>
-                    </h6>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <ul class="list-unstyled">
-                                <li class="nav-item p-1">
-                                    <a class="nav-link d-flex align-items-center" routerLink="/">
-                                        <i class='bx bx-cart me-1'></i> All Products
-                                    </a>
-                                </li>
-                                <li class="nav-item p-1">
-                                    <a class="nav-link d-flex align-items-center" routerLink="/categories">
-                                        <i class='bx bx-category me-1'></i> Categories
-                                    </a>
-                                </li>
-                                <li class="nav-item p-1">
-                                    <a class="nav-link d-flex align-items-center" routerLink="/make">
-                                        <i class='bx bx-category me-1'></i> Make
-                                    </a>
-                                </li>
-                                <li class="nav-item p-1">
-                                    <a class="nav-link d-flex align-items-center" routerLink="/model">
-                                        <i class='bx bx-category me-1'></i> Model
-                                    </a>
-                                </li>
-                                <!-- <li class="nav-item p-1">
+      <div ngbAccordion [closeOthers]="true">
+        <div ngbAccordionItem [collapsed]="true" class="border border-0">
+          <h6 ngbAccordionHeader>
+            <button ngbAccordionButton><i class='bx bx-cart me-1'></i> Products</button>
+          </h6>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ul class="list-unstyled">
+                <li class="nav-item p-1">
+                  <a class="nav-link d-flex align-items-center" routerLink="/">
+                    <i class='bx bx-cart me-1'></i> All Products
+                  </a>
+                </li>
+                <li class="nav-item p-1">
+                  <a class="nav-link d-flex align-items-center" routerLink="/categories">
+                    <i class='bx bx-category me-1'></i> Categories
+                  </a>
+                </li>
+                <li class="nav-item p-1">
+                  <a class="nav-link d-flex align-items-center" routerLink="/make">
+                    <i class='bx bx-car me-1'></i> Make
+                  </a>
+                </li>
+                <li class="nav-item p-1">
+                  <a class="nav-link d-flex align-items-center" routerLink="/model">
+                    <i class='bx bx-tachometer me-1'></i> Model
+                  </a>
+                </li>
+                <!-- <li class="nav-item p-1">
                                     <a class="nav-link d-flex align-items-center" routerLink="/tags">
                                         <i class='bx bx-purchase-tag-alt me-1'></i> Tags
                                     </a>
@@ -78,33 +78,33 @@
                                         <i class='bx bx-file me-1'></i> Reviews
                                     </a>
                                 </li> -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div ngbAccordionItem class="border border-0">
-                    <h6 ngbAccordionHeader>
-                        <button ngbAccordionButton class="bg-none"><i class='bx bx-user me-1'></i> Users</button>
-                    </h6>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <ul class="list-unstyled">
-                                <li class="nav-item p-2">
-                                    <a class="nav-link d-flex align-items-center" routerLink="/users">
-                                        <i class='bx bx-user me-1'></i> All Users
-                                    </a>
-                                </li>
-                                <li class="nav-item p-2">
-                                    <a class="nav-link d-flex align-items-center" routerLink="/profile">
-                                        <i class='bx bx-user-pin me-1'></i> Profile
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+              </ul>
             </div>
-        </ul>
-    </div>
+          </div>
+        </div>
+        <hr>
+        <div ngbAccordionItem class="border border-0">
+          <h6 ngbAccordionHeader>
+            <button ngbAccordionButton class="bg-none"><i class='bx bx-user me-1'></i> Users</button>
+          </h6>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ul class="list-unstyled">
+                <li class="nav-item p-2">
+                  <a class="nav-link d-flex align-items-center" routerLink="/users">
+                    <i class='bx bx-user me-1'></i> All Users
+                  </a>
+                </li>
+                <li class="nav-item p-2">
+                  <a class="nav-link d-flex align-items-center" routerLink="/profile">
+                    <i class='bx bx-user-pin me-1'></i> Profile
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
 </ng-template>
