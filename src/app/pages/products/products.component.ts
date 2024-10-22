@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable, of, startWith } from 'rxjs';
 import { Products } from 'src/app/shared/models/products';
 import { MessagesService } from 'src/app/shared/services/messages.service';
+import { SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -30,7 +31,7 @@ export class ProductsComponent implements OnInit {
   allProducts!: Products[];
   filteredProducts$!: Observable<Products[]>;
   filter = new FormControl('', { nonNullable: true });
-  images!: [];
+  images: string[] = [];
   constructor(
     private spinner: NgxSpinnerService,
     private CarStaticDataService: CarStaticDataService,
@@ -60,7 +61,7 @@ export class ProductsComponent implements OnInit {
         if (res) {
           this.spinner.hide();
           this.allProducts = res;
-          this.allProducts.filter((el) => console.log(el.images));
+          this.allProducts.filter((el) => (this.images = el.images!));
         }
       },
       (error) => {
@@ -68,6 +69,13 @@ export class ProductsComponent implements OnInit {
         this.messages.toast(error.error.message, 'error');
       }
     );
+  }
+  convertPathToUrl(path: string): string {
+    return path.replace('C:\\Storage\\', '/assets/');
+  }
+  getFirstImage() {
+    return this.images?.[0];
+    // return this.convertPathToUrl(this.images?.[0]);
   }
 
   filterProducts(searchTerm: string): any[] {
@@ -118,13 +126,24 @@ export class ProductsComponent implements OnInit {
     this.messages.toast(`data for car id ${id} to duplicate`, 'success');
   }
   delete(id: number) {
-    this.spinner.show();
-    this.CarStaticDataService.deleteCar(id).subscribe((res) => {
-      if (res.success == true) {
-        this.spinner.hide();
-        this.messages.toast(`car id ${id} deleted`, 'success');
-        this.getAllCars();
-      }
-    });
+    this.messages
+      .confirm(
+        'Delete',
+        'Are you sure you want to delete this car?',
+        'danger',
+        'question'
+      )
+      .then((e: SweetAlertResult) => {
+        if (e.isConfirmed) {
+          this.spinner.show();
+          this.CarStaticDataService.deleteCar(id).subscribe((res) => {
+            if (res.success == true) {
+              this.spinner.hide();
+              this.messages.toast(`car id ${id} deleted`, 'success');
+              this.getAllCars();
+            }
+          });
+        }
+      });
   }
 }

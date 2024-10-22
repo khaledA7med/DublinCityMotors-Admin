@@ -108,8 +108,8 @@
             <p class="text-dark fw-bold mb-0 w-75" style="cursor: pointer" (click)="collapseCategory.toggle()">Product
               Categories</p>
             <div class="w-25 text-end">
-              <i class="fa-solid fa-square-plus mx-2" style="cursor: pointer" placement="top" ngbTooltip="Add New Model"
-                (click)="openModelModal()"></i>
+              <i class="fa-solid fa-square-plus mx-2" style="cursor: pointer" placement="left"
+                ngbTooltip="Add New Model" (click)="openModelModal()"></i>
               <i class="fa " [ngClass]="!isCategoryCollapsed ? 'fa-caret-down' : 'fa-caret-up'" aria-hidden="true"></i>
             </div>
           </div>
@@ -117,7 +117,7 @@
             <div class="col-md-6">
               <div class="float-label mb-3">
                 <ng-select [items]="Make" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="id"
-                  formControlName="makeId"></ng-select>
+                  (change)="getModel($event?.id)" formControlName="makeId" placeholder="Select Make"></ng-select>
                 <label for="">Make</label>
               </div>
             </div>
@@ -125,7 +125,7 @@
             <div class="col-md-6">
               <div class="float-label">
                 <ng-select [items]="Model" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="id"
-                  formControlName="modelId"></ng-select>
+                  formControlName="modelId" placeholder="Select Model"></ng-select>
                 <label for="">Model</label>
               </div>
             </div>
@@ -159,7 +159,7 @@
         <div class="col-md-3 mb-4">
           <div class="float-label">
             <ng-select [items]="TechOptions" [clearable]="false" [searchable]="true" bindLabel="specs" bindValue="specs"
-              [multiple]="true" formControlName="techs"></ng-select>
+              [multiple]="true" formControlName="teches"></ng-select>
             <label for="">Teches Features</label>
           </div>
         </div>

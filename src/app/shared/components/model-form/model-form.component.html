@@ -13,16 +13,21 @@
         <div class="col-12 mb-4">
           <div class="float-label">
             <ng-select [items]="makes" placeholder="Select Make" [searchable]="true" formControlName="makeId"
-              bindLabel="name" bindValue="id" id="Category"></ng-select> <label for="">Make</label>
+              bindLabel="name" bindValue="id"></ng-select> <label for="">Make</label>
+          </div>
+        </div>
+        <div class="col-12 mb-4">
+          <div class="float-label">
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter Model Name">
+            <label>Model Name</label>
           </div>
         </div>
         <div class="col-12">
           <div class="float-label">
-            <input type="text" class="form-control" formControlName="modelName" placeholder="Enter Model Name">
-            <label>Model Name</label>
+            <input type="number" class="form-control" formControlName="year" placeholder="Enter Model Year">
+            <label>Model Year</label>
           </div>
         </div>
-
       </div>
     </div>
     <div class="modal-footer">

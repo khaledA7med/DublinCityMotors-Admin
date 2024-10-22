@@ -21,36 +21,7 @@ import { MessagesService } from 'src/app/shared/services/messages.service';
 
 interface Make {
   id: number;
-  makeName: string;
-}
-
-const MAKES: Make[] = [
-  {
-    id: 1,
-    makeName: 'BMW',
-  },
-  {
-    id: 2,
-    makeName: 'Audi',
-  },
-  {
-    id: 3,
-    makeName: 'Honda',
-  },
-  {
-    id: 4,
-    makeName: 'Toyota',
-  },
-];
-
-function search(text: string, pipe: PipeTransform): Make[] {
-  return MAKES.filter((car) => {
-    const term = text.toLowerCase();
-    return (
-      car.makeName.toLowerCase().includes(term) ||
-      car.id!.toString().includes(term)
-    );
-  });
+  name: string;
 }
 
 @Component({
@@ -64,7 +35,7 @@ export class MakeComponent implements OnInit {
   @ViewChild('makeFilter') makeFilter!: ElementRef;
   modalRef!: NgbModalRef;
   filterForm!: FormGroup;
-  make: any;
+  makeData!: Make[];
   subscribe: Subscription[] = [];
 
   countries$: Observable<Make[]>;
@@ -79,9 +50,20 @@ export class MakeComponent implements OnInit {
   ) {
     this.countries$ = this.filter.valueChanges.pipe(
       startWith(''),
-      map((text) => search(text, pipe))
+      map((text) => this.search(text, pipe))
     );
   }
+
+  search(text: string, pipe: PipeTransform): Make[] {
+    return this.makeData.filter((car) => {
+      const term = text.toLowerCase();
+      return (
+        car.name.toLowerCase().includes(term) ||
+        car.id!.toString().includes(term)
+      );
+    });
+  }
+
   ngOnInit(): void {
     this.getAllMake();
     this.initForm();
@@ -94,14 +76,12 @@ export class MakeComponent implements OnInit {
   }
 
   getAllMake() {
-    console.log('loll');
-
     this.spinner.show();
     return this.CarStaticDataService.getAllMake().subscribe(
       (res) => {
         if (res) {
           this.spinner.hide();
-          this.make = res;
+          this.makeData = res;
         }
       },
       (error) => {
@@ -110,6 +90,7 @@ export class MakeComponent implements OnInit {
       }
     );
   }
+
   openFilterOffcanvas(): void {
     this.offcanvasService.open(this.makeFilter, { position: 'end' });
   }

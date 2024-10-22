@@ -123,15 +123,17 @@ export class CarStaticDataService {
     return this.http.post(this.env + 'cars/add', req);
   }
   updateCar(req: FormData): Observable<any> {
-    return this.http.post(this.env + 'cars/update', req);
+    return this.http.put(this.env + 'cars/update', req);
   }
 
   getAllCars(): Observable<any> {
     return this.http.get(this.env + 'cars/all');
   }
+
   getCarById(id: number): Observable<any> {
     return this.http.post(this.env + 'cars/getCarById', { car_id: id });
   }
+
   deleteCar(id: number): Observable<any> {
     return this.http.delete(this.env + `cars/delete/${id}`);
   }
@@ -140,9 +142,20 @@ export class CarStaticDataService {
   }
 
   getAllMake(): Observable<any> {
-    return this.http.get(this.env + `admin/make/all`);
+    return this.http.get(this.env + `make/all`);
   }
   addMake(data: any): Observable<any> {
-    return this.http.post(this.env + `admin/make/add`, data);
+    return this.http.post(this.env + `make/add`, data);
+  }
+  getAllModels(): Observable<any> {
+    return this.http.get(this.env + `model/all`);
+  }
+
+  getModelByMake(makeId: number): Observable<any> {
+    return this.http.get(this.env + `model/byMake/${makeId}`);
+  }
+
+  addModel(data: any): Observable<any> {
+    return this.http.post(this.env + `model/add`, data);
   }
 }

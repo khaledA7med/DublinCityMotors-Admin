@@ -89,7 +89,7 @@ export class ModelComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-    this.getAllMake();
+    this.getAllModels();
     this.initForm();
   }
 
@@ -99,9 +99,9 @@ export class ModelComponent implements OnInit {
     });
   }
 
-  getAllMake() {
+  getAllModels() {
     this.spinner.show();
-    return this.CarStaticDataService.getAllMake().subscribe(
+    return this.CarStaticDataService.getAllModels().subscribe(
       (res) => {
         if (res) {
           this.spinner.hide();
@@ -124,7 +124,7 @@ export class ModelComponent implements OnInit {
       size: 'lg',
       backdrop: 'static',
     });
-    let sub = this.modalRef.closed.subscribe(() => this.getAllMake());
+    let sub = this.modalRef.closed.subscribe(() => this.getAllModels());
     this.subscribe.push(sub);
   }
 }

@@ -1,6 +1,7 @@
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export interface CarForm {
+  id?: FormControl<number | null>;
   name?: FormControl<string | null>;
   price?: FormControl<number | null>;
   regYear?: FormControl<number | null>;
@@ -16,7 +17,7 @@ export interface CarForm {
   modelId?: FormControl<number | null>;
   exteriors?: FormControl<string[] | null>;
   interiors?: FormControl<string[] | null>;
-  techs?: FormControl<string[] | null>;
+  teches?: FormControl<string[] | null>;
   safeties?: FormControl<string[] | null>;
   engineSize?: FormControl<string | null>;
   specsFuelType?: FormControl<string | null>;

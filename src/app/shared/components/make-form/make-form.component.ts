@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessagesService } from '../../services/messages.service';
+import { CarStaticDataService } from '../../services/car-data.service';
 @Component({
   selector: 'app-make-form',
   templateUrl: './make-form.component.html',
@@ -12,6 +13,7 @@ export class MakeFormComponent implements OnInit {
 
   constructor(
     public modal: NgbActiveModal,
+    private CarStaticDataService: CarStaticDataService,
     private messages: MessagesService
   ) {}
   ngOnInit(): void {
@@ -25,9 +27,16 @@ export class MakeFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.makeForm.value);
-    this.messages.toast('Make Added successfully', 'success');
-    this.modal.close();
+    this.CarStaticDataService.addMake(this.makeForm.value).subscribe(
+      (res) => {
+        console.log(res);
+        this.messages.toast('Make Added successfully', 'success');
+        this.modal.close();
+      },
+      (error) => {
+        this.messages.toast(error.error.message, 'error');
+      }
+    );
   }
   reset() {
     this.makeForm.reset();

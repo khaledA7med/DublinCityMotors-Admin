@@ -53,10 +53,7 @@
                             <ngb-highlight [result]="product.id | number" [term]="filter.value"></ngb-highlight>
                         </td>
                         <td>
-                            <img [src]="
-                  
-                  product.images
-                " class="me-2" style="width: 20px" />
+                            <img [src]="getFirstImage()" class="me-2" style="width: 20px" />
                         </td>
                         <td>
                             <ngb-highlight [result]="product.name" [term]="filter.value"></ngb-highlight>

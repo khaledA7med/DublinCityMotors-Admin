@@ -14,8 +14,7 @@
             </label>
 
         </div>
-        <input type="file" id="inputDocuments" (change)="onSelectFiles($event)"
-            accept=".csv, .doc, .docx, .pdf, .ppt, .pptx, .txt, .xls, .xlsx, .zip, image/*" multiple>
+        <input type="file" id="inputDocuments" (change)="onSelectFiles($event)" accept="image/*" multiple>
         <div *ngIf="isBtn" class="d-flex" [ngClass]="{'justify-content-end': btnEnd}">
             <label for="inputDocuments" id="img-label-button" class="btn btn-sm btn-outline-success">
                 <i class="ri-file-upload-line"></i>

@@ -76,15 +76,8 @@ export class CarFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.spinner.show();
-
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinner.hide();
-    }, 1000);
+    this.getAllMake();
     this.FuelType = this.staticData.FuelType;
-    this.Make = this.staticData.make;
-    this.Model = this.staticData.model;
     this.Transmission = this.staticData.Transmission;
     this.Drive = this.staticData.Drive;
     this.BodyType = this.staticData.BodyType;
@@ -113,6 +106,7 @@ export class CarFormComponent implements OnInit {
 
   initForm() {
     this.carForm = new FormGroup<CarForm>({
+      id: new FormControl(),
       name: new FormControl(''),
       price: new FormControl(),
       regYear: new FormControl(),
@@ -129,7 +123,7 @@ export class CarFormComponent implements OnInit {
       isSold: new FormControl(false),
       exteriors: new FormControl([]),
       interiors: new FormControl([]),
-      techs: new FormControl([]),
+      teches: new FormControl([]),
       safeties: new FormControl([]),
       engineSize: new FormControl(''),
       specsFuelType: new FormControl(''),
@@ -153,16 +147,32 @@ export class CarFormComponent implements OnInit {
     return this.carForm.controls;
   }
 
+  getAllMake() {
+    return this.staticData.getAllMake().subscribe(
+      (res) => {
+        if (res) {
+          this.Make = res;
+        }
+      },
+      (error) => {
+        this.messages.toast(error.error.message, 'error');
+      }
+    );
+  }
+
   loadCarDetails(id: number) {
+    this.spinner.show();
     // Assuming carService.getCarById returns an observable of car data
-    this.staticData
-      .getCarById(this.carId)
-      .subscribe((car) => this.patchCarData(car));
+    this.staticData.getCarById(id).subscribe((car) => {
+      this.spinner.hide();
+      this.patchCarData(car);
+    });
   }
 
   patchCarData(data: any) {
-    console.log('patching');
     this.carForm.patchValue(data);
+    // this.docs = data.images;
+    // console.log(this.docs);
   }
 
   openImagesModal() {
@@ -190,6 +200,13 @@ export class CarFormComponent implements OnInit {
     this.plainText = this.extractText(editorData); // Extract text from HTML
   }
 
+  getModel(id: number) {
+    this.staticData.getModelByMake(id).subscribe((res) => {
+      console.log(res);
+      this.Model = res;
+    });
+  }
+
   extractText(htmlContent: string): string {
     const tempElement = document.createElement('div');
     tempElement.innerHTML = htmlContent;
@@ -213,18 +230,21 @@ export class CarFormComponent implements OnInit {
     formData.append('exteriorColor', data.exteriorColor!);
     formData.append('interiorColor', data.interiorColor!);
     formData.append('isSold', JSON.stringify(data.isSold!));
-    for (let i = 0; i < data.exteriors!.length; i++) {
-      formData.append(`exteriors[${i}]`, data.exteriors![i]);
-    }
-    for (let i = 0; i < data.interiors!.length; i++) {
-      formData.append(`interiors[${i}]`, data.interiors![i]);
-    }
-    for (let i = 0; i < data.techs!.length; i++) {
-      formData.append(`techs[${i}]`, data.techs![i]);
-    }
-    for (let i = 0; i < data.safeties!.length; i++) {
-      formData.append(`safeties[${i}]`, data.safeties![i]);
-    }
+    // for (let i = 0; i < data.exteriors!.length; i++) {
+    //   formData.append(`exteriors[${i}]`, data.exteriors![i]);
+    // }
+    // for (let i = 0; i < data.interiors!.length; i++) {
+    //   formData.append(`interiors[${i}]`, data.interiors![i]);
+    // }
+    // for (let i = 0; i < data.teches!.length; i++) {
+    //   formData.append(`teches[${i}]`, data.teches![i]);
+    // }
+    // for (let i = 0; i < data.safeties!.length; i++) {
+    //   formData.append(`safeties[${i}]`, data.safeties![i]);
+    // }
+    data.exteriors?.forEach((el) => formData.append('exteriors', el));
+    data.interiors?.forEach((el) => formData.append('interiors', el));
+    data.teches?.forEach((el) => formData.append('teches', el));
     data.safeties?.forEach((el) => formData.append('safeties', el));
 
     formData.append('engineSize', data.engineSize!);
@@ -245,9 +265,11 @@ export class CarFormComponent implements OnInit {
     this.documentsToUpload.forEach((el) => formData.append('images', el));
 
     if (this.carId) {
-      console.log('is update');
+      this.spinner.show();
+      formData.append('carId', data.id!.toString());
       this.staticData.updateCar(formData).subscribe(
         (res) => {
+          this.spinner.hide();
           this.messages.toast('Car is Updated successfully', 'success');
           this.resetForm();
         },
@@ -256,13 +278,16 @@ export class CarFormComponent implements OnInit {
         }
       );
     } else {
-      console.log('new');
+      this.spinner.show();
+
       this.staticData.addCar(formData).subscribe(
         (res) => {
+          this.spinner.hide();
           this.messages.toast('Car is Added successfully', 'success');
           this.resetForm();
         },
         (error) => {
+          this.spinner.hide();
           this.messages.toast(error.error.message, 'error');
         }
       );
