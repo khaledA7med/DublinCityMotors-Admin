@@ -120,7 +120,7 @@ export class CarFormComponent implements OnInit {
       interiorColor: new FormControl(''),
       // description: new FormControl(''),
       bodyType: new FormControl(''),
-      isSold: new FormControl(false),
+      sold: new FormControl(false),
       exteriors: new FormControl([]),
       interiors: new FormControl([]),
       teches: new FormControl([]),
@@ -229,7 +229,7 @@ export class CarFormComponent implements OnInit {
     formData.append('modelId', data.modelId!.toString());
     formData.append('exteriorColor', data.exteriorColor!);
     formData.append('interiorColor', data.interiorColor!);
-    formData.append('isSold', JSON.stringify(data.isSold!));
+    formData.append('sold', JSON.stringify(data.sold!));
     // for (let i = 0; i < data.exteriors!.length; i++) {
     //   formData.append(`exteriors[${i}]`, data.exteriors![i]);
     // }

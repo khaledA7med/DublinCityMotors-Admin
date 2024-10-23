@@ -12,7 +12,7 @@ export interface CarForm {
   bodyType?: FormControl<string | null>;
   exteriorColor?: FormControl<string | null>;
   interiorColor?: FormControl<string | null>;
-  isSold?: FormControl<boolean | null>;
+  sold?: FormControl<boolean | null>;
   makeId?: FormControl<number | null>;
   modelId?: FormControl<number | null>;
   exteriors?: FormControl<string[] | null>;

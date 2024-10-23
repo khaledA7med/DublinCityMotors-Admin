@@ -31,19 +31,23 @@
             <th scope="col">#</th>
             <th scope="col">Make Name</th>
             <th scope="col">Model Name</th>
+            <th scope="col">Model Year</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let country of countries$ | async; index as i">
+          <tr *ngFor="let model of modelData; index as i">
             <td>
-              <ngb-highlight [result]="country.id | number" [term]="filter.value"></ngb-highlight>
+              <ngb-highlight [result]="model.id | number" [term]="filter.value"></ngb-highlight>
             </td>
             <td>
-              <ngb-highlight [result]="country.makeName" [term]="filter.value"></ngb-highlight>
+              <ngb-highlight [result]="model.makeName" [term]="filter.value"></ngb-highlight>
             </td>
             <td>
-              <ngb-highlight [result]="country.modelName" [term]="filter.value"></ngb-highlight>
+              <ngb-highlight [result]="model.name" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="model.year | number" [term]="filter.value"></ngb-highlight>
             </td>
             <th scope="row">
               <button class="btn btn-outline-info me-3">
