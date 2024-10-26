@@ -8,87 +8,36 @@
                 </div>
                 <div>
                     Drop files here or click to upload
-                    <span class="text-black-50 mx-3 fs-14">
-                        <br>image</span>
+                    <span class="text-black-50 mx-3 fs-14"><br>image</span>
                 </div>
             </label>
-
         </div>
         <input type="file" id="inputDocuments" (change)="onSelectFiles($event)" accept="image/*" multiple>
         <div *ngIf="isBtn" class="d-flex" [ngClass]="{'justify-content-end': btnEnd}">
             <label for="inputDocuments" id="img-label-button" class="btn btn-sm btn-outline-success">
-                <i class="ri-file-upload-line"></i>
-                Insert
+                <i class="ri-file-upload-line"></i> Insert
             </label>
         </div>
 
         <div class="row files-views">
-            <div class="col-md-6 p-0" *ngFor="let item of documentsToDisplay">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-0" *ngFor="let item of documentsToDisplay">
                 <div class="card m-1">
                     <div class="row align-items-center g-0 overflow-hidden">
-                        <div class="col-md-3 h-100">
-                            <div *ngIf="item.type.startsWith('image')">
-                                <img id="file-preview" [src]="item.data" (error)="errorImages($event)"
-                                    class="img-fluid rounded shadow-sm">
-                            </div>
-                            <div class="d-block h-100" *ngIf="!item.type.startsWith('image')">
-                                <div class="file-output-icon rounded px-3 py-3 h-100 d-flex align-items-center justify-content-center"
-                                    [ngClass]="fileIcon(item.type).cls">
-                                    <i [ngClass]="fileIcon(item.type).ico" class="fs-36"></i>
-                                </div>
-                            </div>
+                        <div class="col-4 h-100">
+                            <img id="file-preview" [src]="item.data" (error)="errorImages($event)"
+                                class="img-fluid rounded shadow-sm">
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-6">
                             <div class="card-body py-2">
-                                <h6 class="card-title fs-13 text-nowrap">
-                                    {{item.name}}
-                                </h6>
-                                <!-- <p class="card-text fs-10">
-                                    <small class="text-body-secondary">{{util.formatBytes(item.size)}}</small>
-                                </p> -->
+                                <h6 class="card-title fs-13">{{item.name}}</h6>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-2">
                             <div class="border-0 py-1">
                                 <button type="button" (click)="removeImage(item)"
-                                    class="btn btn-outline-danger btn-icon waves-effect waves-light doc-btn"><i
-                                        class="bx bx-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 p-0" *ngFor="let item of UploadedFiles">
-                <div class="card m-1">
-                    <div class="row align-items-center g-0 overflow-hidden">
-                        <div class="col-md-3 h-100">
-                            <div *ngIf="item.type.startsWith('image')">
-                                <img id="file-preview" [src]="item.data" (error)="errorImages($event)"
-                                    class="img-fluid rounded shadow-sm">
-                            </div>
-                            <div class="d-block h-100" *ngIf="!item.type.startsWith('image')">
-                                <div class="file-output-icon rounded px-3 py-3 h-100 d-flex align-items-center justify-content-center"
-                                    [ngClass]="fileIcon(item.type).cls">
-                                    <i [ngClass]="fileIcon(item.type).ico" class="fs-36"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class=" py-2">
-                                <h6 class="fs-13 text-nowrap">
-                                    <button type="button" class="btn btn-link p-0">
-                                        {{item.name}}
-                                    </button>
-                                </h6>
-                                <!-- <p class="card-text fs-10">
-                                    <small class="text-body-secondary">{{util.formatBytes(item.size)}}</small>
-                                </p> -->
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class=" border-0 py-1">
-                                <button type="button" (click)="removeImage(item, true)" class="btn btn-soft-danger"><i
-                                        class='bx bx-trash'></i></button>
+                                    class="btn btn-outline-danger btn-icon waves-effect waves-light doc-btn">
+                                    <i class="bx bx-trash"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

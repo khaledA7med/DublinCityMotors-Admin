@@ -50,15 +50,52 @@ input#inputDocuments {
 .files-views {
   margin: 20px 0 0 0;
   & > div {
-    min-width: 450px;
+    min-width: 33.33%; /* Set this to create three equal columns */
   }
   .card {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
       rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    height: 65px;
+    height: 100px; /* Adjust height if needed */
     img {
-      height: 65px;
+      height: 100px; /* Ensure image size fits in the new layout */
       width: 100%;
     }
   }
 }
+
+@media screen and (max-width: 300px) {
+  .files-views {
+    margin: 20px 0 0 0;
+
+    & > div {
+      min-width: 100%; /* Set this to create three equal columns */
+    }
+
+    .card {
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+      height: 100px; /* Adjust height if needed */
+
+      img {
+        height: 100px; /* Ensure image size fits in the new layout */
+        width: 30%;
+      }
+    }
+  }
+}
+
+// .files-views {
+//   margin: 20px 0 0 0;
+//   & > div {
+//     min-width: 33.33%; /* Set this to create three equal columns */
+//   }
+//   .card {
+//     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+//       rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+//     height: 100px; /* Adjust height if needed */
+//     img {
+//       height: 100px; /* Ensure image size fits in the new layout */
+//       width: 100%;
+//     }
+//   }
+// }

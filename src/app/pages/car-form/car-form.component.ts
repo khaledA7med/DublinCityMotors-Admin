@@ -171,7 +171,9 @@ export class CarFormComponent implements OnInit {
 
   patchCarData(data: any) {
     this.carForm.patchValue(data);
-    // this.docs = data.images;
+    this.docs = data.images;
+    console.log(this.docs);
+
     // console.log(this.docs);
   }
 

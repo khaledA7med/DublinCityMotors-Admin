@@ -1,14 +1,15 @@
-import { Subscription } from 'rxjs';
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { MessagesService } from '../../services/messages.service';
 
 @Component({
@@ -17,22 +18,81 @@ import { MessagesService } from '../../services/messages.service';
   styleUrls: ['./dropzone.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DropzoneComponent implements OnDestroy {
-  documentsToUpload: any[] = [];
+export class DropzoneComponent implements OnChanges, OnDestroy {
+  documentsToUpload: File[] = [];
   documentsToDisplay: any[] = [];
-  subscribes: Subscription[] = [];
-  @Input() isBtn: boolean = false;
-  @Input() btnEnd: boolean = false;
-  @Input() UploadedFiles: any[] = [];
+  private subscriptions: Subscription[] = [];
 
-  @Output() files: EventEmitter<any> = new EventEmitter<any>();
+  @Input() isBtn = false;
+  @Input() btnEnd = false;
+  @Input() existingFiles: string[] = []; // Array of existing file paths
+  @Output() files = new EventEmitter<File[]>();
 
   constructor(
-    private message: MessagesService,
+    private messageService: MessagesService,
     private cdr: ChangeDetectorRef
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.existingFiles);
+
+    // Convert local file paths into accessible URLs
+    this.existingFiles.forEach((path) => {
+      this.documentsToDisplay.push({
+        data: this.convertPathToURL(path),
+        name: path.split('\\').pop(), // Use backslash for Windows paths
+        type: 'image',
+      });
+    });
+    console.log(this.documentsToDisplay);
+  }
+
+  // ngOnInit() {
+  //   console.log(this.existingFiles);
+
+  //   // Convert local file paths into accessible URLs
+  //   this.existingFiles.forEach((path) => {
+  //     this.documentsToDisplay.push({
+  //       data: this.convertPathToURL(path),
+  //       name: path.split('\\').pop(), // Use backslash for Windows paths
+  //       type: 'image',
+  //     });
+  //   });
+  //   console.log(this.documentsToDisplay);
+  // }
+
+  convertPathToURL(path: string): string {
+    console.log(path);
+
+    // Adjust this function based on your server configuration
+    return path; // Modify accordingly
+  }
+
+  fileIcon(fileType: string): { cls: string; ico: string } {
+    const iconMap: { [key: string]: { cls: string; ico: string } } = {
+      'image/jpeg': { cls: 'text-danger', ico: 'ri-image-line' },
+      'image/png': { cls: 'text-danger', ico: 'ri-image-line' },
+      'image/gif': { cls: 'text-danger', ico: 'ri-image-line' },
+      'application/pdf': { cls: 'text-info', ico: 'ri-file-pdf-line' },
+      'application/msword': { cls: 'text-primary', ico: 'ri-file-word-line' },
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+        { cls: 'text-primary', ico: 'ri-file-word-line' },
+      'application/vnd.ms-excel': {
+        cls: 'text-success',
+        ico: 'ri-file-excel-line',
+      },
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
+        cls: 'text-success',
+        ico: 'ri-file-excel-line',
+      },
+      'text/plain': { cls: 'text-secondary', ico: 'ri-file-text-line' },
+      // Add more file types as needed
+    };
+    return iconMap[fileType] || { cls: 'text-secondary', ico: 'ri-file-line' };
+  }
 
   onFileLoaded(file: File) {
+    console.log(file);
+
     const reader = new FileReader();
     reader.onload = (event) => {
       this.documentsToDisplay.push({
@@ -42,7 +102,7 @@ export class DropzoneComponent implements OnDestroy {
         type: file.type,
         data: event.target?.result,
       });
-      this.emitingFiles();
+      this.emitFiles();
       this.cdr.detectChanges();
     };
     reader.readAsDataURL(file);
@@ -55,18 +115,17 @@ export class DropzoneComponent implements OnDestroy {
     }
   }
 
-  onSelectFiles(e: Event) {
-    const elem = e.target as HTMLInputElement;
-    const files = elem.files!;
+  onSelectFiles(event: Event) {
+    const files = (event.target as HTMLInputElement).files!;
     this.handleSelectedFiles(files);
   }
 
-  onFileDropped(e: FileList) {
-    this.handleSelectedFiles(e);
+  onFileDropped(files: FileList) {
+    this.handleSelectedFiles(files);
   }
 
-  removeImage(item: any, isServer?: boolean) {
-    this.message
+  removeImage(item: any) {
+    this.messageService
       .confirm(
         'Delete!',
         'Are you sure you want to delete it?',
@@ -76,87 +135,27 @@ export class DropzoneComponent implements OnDestroy {
       .then((res: any) => {
         if (res.isConfirmed) {
           this.documentsToDisplay = this.documentsToDisplay.filter(
-            (doc) => doc.name !== item.name
+            (doc) => doc !== item
           );
           this.documentsToUpload = this.documentsToUpload.filter(
             (doc) => doc.name !== item.name
           );
-          this.emitingFiles();
+          this.emitFiles();
+          this.cdr.detectChanges();
         }
       });
   }
 
-  clearImages() {
-    this.UploadedFiles = [];
-    this.documentsToDisplay = [];
-    this.documentsToUpload = [];
-    this.emitingFiles();
-  }
-
-  fileIcon(type: string): { cls: string; ico: string; file: string } {
-    let cls = '',
-      ico = '',
-      file = '';
-    switch (type) {
-      case 'msword':
-      case 'doc':
-      case 'docx':
-      case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-        cls = 'bg-soft-secondary text-secondary';
-        ico = 'ri-file-word-2-fill';
-        file = 'docx';
-        break;
-      case 'vnd.ms-powerpoint':
-      case 'ppt':
-      case 'pptx':
-      case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-        cls = 'bg-soft-danger text-danger';
-        ico = 'ri-file-ppt-fill';
-        file = 'pptx';
-        break;
-      case 'text':
-      case 'txt':
-        cls = 'bg-soft-dark text-muted';
-        ico = 'ri-file-text-fill';
-        file = 'txt';
-        break;
-      case 'pdf':
-        cls = 'bg-soft-danger text-danger';
-        ico = 'ri-file-pdf-fill';
-        file = 'pdf';
-        break;
-      case 'zip':
-        cls = 'bg-soft-info text-info';
-        ico = 'ri-file-zip-fill';
-        file = 'zip';
-        break;
-      case 'vnd.ms-excel':
-      case 'xls':
-      case 'xlsx':
-      case 'csv':
-      case 'text/csv':
-      case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-        cls = 'bg-soft-success text-success';
-        ico = 'ri-file-excel-2-fill';
-        file = 'xlsx';
-        break;
-      default:
-        cls = 'bg-soft-success text-success';
-        ico = 'ri-error-warning-fill';
-        break;
-    }
-    return { cls: cls, ico: ico, file };
+  emitFiles() {
+    this.files.emit(this.documentsToUpload);
   }
 
   errorImages(event: Event) {
-    let elem = event.target as HTMLImageElement;
-    elem.src = './../../../../../assets/images/placeholder.jpg';
+    const elem = event.target as HTMLImageElement;
+    // elem.src = './../../../../../assets/images/placeholder.jpg'; // Update this path
   }
-  emitingFiles() {
-    this.cdr.detectChanges();
-    this.files.emit(this.documentsToUpload);
-  }
+
   ngOnDestroy() {
-    this.subscribes && this.subscribes.forEach((s) => s.unsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }
