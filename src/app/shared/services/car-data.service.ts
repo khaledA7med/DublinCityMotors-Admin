@@ -158,4 +158,7 @@ export class CarStaticDataService {
   addModel(data: any): Observable<any> {
     return this.http.post(this.env + `model/add`, data);
   }
+  deleteImage(data: any): Observable<any> {
+    return this.http.post(this.env + `cars/deleteImage`, data);
+  }
 }
