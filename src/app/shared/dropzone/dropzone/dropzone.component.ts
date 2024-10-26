@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MessagesService } from '../../services/messages.service';
+import { CarStaticDataService } from '../../services/car-data.service';
 
 @Component({
   selector: 'app-dropzone',
@@ -30,15 +31,18 @@ export class DropzoneComponent implements OnChanges, OnDestroy {
 
   constructor(
     private messageService: MessagesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private carsService: CarStaticDataService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     // Convert local file paths into accessible URLs
     this.existingFiles.forEach((path) => {
       this.documentsToDisplay.push({
-        data: this.convertPathToURL(path),
-        name: path.split('\\').pop(), // Use backslash for Windows paths
+        // data: this.convertPathToURL(path),
+        data: './../../../../../assets/images/1.jpg',
+        name: path.split('\\').pop(),
         type: 'image',
+        isUploaded: false, // Mark as existing from API
       });
     });
   }
@@ -123,22 +127,35 @@ export class DropzoneComponent implements OnChanges, OnDestroy {
 
   removeImage(item: any) {
     this.messageService
-      .confirm(
-        'Delete!',
-        'Are you sure you want to delete it?',
-        'danger',
-        'question'
-      )
+      .confirm('Delete!', 'Are you sure?', 'danger', 'question')
       .then((res: any) => {
         if (res.isConfirmed) {
-          this.documentsToDisplay = this.documentsToDisplay.filter(
-            (doc) => doc !== item
-          );
-          this.documentsToUpload = this.documentsToUpload.filter(
-            (doc) => doc.name !== item.name
-          );
-          this.emitFiles();
-          this.cdr.detectChanges();
+          if (item.isUploaded === false) {
+            let data = {
+              imagePath: item.data,
+            };
+            // API call to delete image
+            this.carsService.deleteImage(data).subscribe({
+              next: () => {
+                this.documentsToDisplay = this.documentsToDisplay.filter(
+                  (doc) => doc !== item
+                );
+                this.emitFiles();
+                this.cdr.detectChanges();
+              },
+              error: (error) => console.error('Error deleting image:', error),
+            });
+          } else {
+            // Delete directly
+            this.documentsToDisplay = this.documentsToDisplay.filter(
+              (doc) => doc !== item
+            );
+            this.documentsToUpload = this.documentsToUpload.filter(
+              (doc) => doc.name !== item.name
+            );
+            this.emitFiles();
+            this.cdr.detectChanges();
+          }
         }
       });
   }
