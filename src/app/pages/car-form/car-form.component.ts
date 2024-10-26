@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
@@ -62,8 +56,7 @@ export class CarFormComponent implements OnInit {
   selectedTeches: { specs: string }[] = [];
   documentsToUpload: File[] = [];
   docs: any[] = [];
-  @ViewChild('content') content!: TemplateRef<any>;
-  @ViewChild('cat') cat!: TemplateRef<any>;
+
   @ViewChild('dropzone') dropzone!: any;
 
   constructor(
@@ -77,15 +70,7 @@ export class CarFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllMake();
-    this.FuelType = this.staticData.FuelType;
-    this.Transmission = this.staticData.Transmission;
-    this.Drive = this.staticData.Drive;
-    this.BodyType = this.staticData.BodyType;
-    this.categories = this.staticData.categories;
-    this.ExteriorOptions = this.staticData.ExteriorOptions;
-    this.InteriorOptions = this.staticData.InteriorOptions;
-    this.TechOptions = this.staticData.TechOptions;
-    this.SafetyOptions = this.staticData.SafetyOptions;
+    this.getStaticData();
 
     this.route.params?.subscribe((params) => {
       this.carId = +params['id']; // Convert string to number
@@ -147,6 +132,18 @@ export class CarFormComponent implements OnInit {
     return this.carForm.controls;
   }
 
+  getStaticData() {
+    this.FuelType = this.staticData.FuelType;
+    this.Transmission = this.staticData.Transmission;
+    this.Drive = this.staticData.Drive;
+    this.BodyType = this.staticData.BodyType;
+    this.categories = this.staticData.categories;
+    this.ExteriorOptions = this.staticData.ExteriorOptions;
+    this.InteriorOptions = this.staticData.InteriorOptions;
+    this.TechOptions = this.staticData.TechOptions;
+    this.SafetyOptions = this.staticData.SafetyOptions;
+  }
+
   getAllMake() {
     return this.staticData.getAllMake().subscribe(
       (res) => {
@@ -160,29 +157,36 @@ export class CarFormComponent implements OnInit {
     );
   }
 
+  getModel(id: number) {
+    this.f.modelId?.reset();
+    this.staticData.getModelByMake(id).subscribe((res) => {
+      this.Model = res;
+    });
+  }
+
   loadCarDetails(id: number) {
     this.spinner.show();
     // Assuming carService.getCarById returns an observable of car data
-    this.staticData.getCarById(id).subscribe((car) => {
-      this.spinner.hide();
-      this.patchCarData(car);
-    });
+    this.staticData.getCarById(id).subscribe(
+      (car) => {
+        this.spinner.hide();
+        this.patchCarData(car);
+      },
+      (error) => {
+        this.spinner.hide();
+        this.messages.toast(error.error.message, 'error');
+      }
+    );
   }
 
   patchCarData(data: any) {
     this.carForm.patchValue(data);
-    this.docs = data.images;
-    console.log(this.docs);
-
-    // console.log(this.docs);
-  }
-
-  openImagesModal() {
-    this.modalRef = this.modalService.open(this.content, {
-      backdrop: 'static',
-      size: 'xl',
-      centered: true,
+    this.carForm.patchValue({
+      makeId: data?.makeId,
     });
+    this.getModel(data.makeId!);
+    this.f.modelId?.patchValue(data.modelId!);
+    this.docs = data.images;
   }
 
   documentsList(evt: File[]) {
@@ -202,13 +206,6 @@ export class CarFormComponent implements OnInit {
     this.plainText = this.extractText(editorData); // Extract text from HTML
   }
 
-  getModel(id: number) {
-    this.staticData.getModelByMake(id).subscribe((res) => {
-      console.log(res);
-      this.Model = res;
-    });
-  }
-
   extractText(htmlContent: string): string {
     const tempElement = document.createElement('div');
     tempElement.innerHTML = htmlContent;
@@ -217,6 +214,7 @@ export class CarFormComponent implements OnInit {
 
   submitForm() {
     this.submit = true;
+    this.spinner.show();
     let data = this.carForm.getRawValue();
     const formData = new FormData();
     formData.append('name', data.name!);
@@ -267,28 +265,30 @@ export class CarFormComponent implements OnInit {
     this.documentsToUpload.forEach((el) => formData.append('images', el));
 
     if (this.carId) {
-      this.spinner.show();
       formData.append('carId', data.id!.toString());
       this.staticData.updateCar(formData).subscribe(
         (res) => {
+          this.submit = false;
           this.spinner.hide();
           this.messages.toast('Car is Updated successfully', 'success');
           this.resetForm();
         },
         (error) => {
+          this.submit = false;
           this.messages.toast(error.error.message, 'error');
         }
       );
     } else {
-      this.spinner.show();
-
       this.staticData.addCar(formData).subscribe(
         (res) => {
+          this.submit = false;
+
           this.spinner.hide();
           this.messages.toast('Car is Added successfully', 'success');
           this.resetForm();
         },
         (error) => {
+          this.submit = false;
           this.spinner.hide();
           this.messages.toast(error.error.message, 'error');
         }

@@ -116,16 +116,17 @@
           <div class="row my-3" #collapseCategory="ngbCollapse" [(ngbCollapse)]="isCategoryCollapsed">
             <div class="col-md-6">
               <div class="float-label mb-3">
-                <ng-select [items]="Make" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="id"
-                  (change)="getModel($event?.id)" formControlName="makeId" placeholder="Select Make"></ng-select>
+                <ng-select [items]="Make" [clearable]="false" [loading]="Make ? false : true" [searchable]="true"
+                  bindLabel="name" bindValue="id" (change)="getModel($event?.id)" formControlName="makeId"
+                  placeholder="Select Make"></ng-select>
                 <label for="">Make</label>
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="float-label">
-                <ng-select [items]="Model" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="id"
-                  formControlName="modelId" placeholder="Select Model"></ng-select>
+                <ng-select [items]="Model" [clearable]="false" [loading]="Model ? false : true" [searchable]="true"
+                  bindLabel="name" bindValue="id" formControlName="modelId" placeholder="Select Model"></ng-select>
                 <label for="">Model</label>
               </div>
             </div>
@@ -309,77 +310,18 @@
         </div>
       </div>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-success px-5 mt-3" type="submit" *ngIf="!editable">Save</button>
-        <button class="btn btn-success px-5 mt-3" type="submit" *ngIf="editable && editable === true">Update</button>
+        <button class="btn btn-success px-5 mt-3" type="submit" *ngIf="!editable">Save <span *ngIf="submit"
+            class="spinner-border spinner-border-sm ms-2"></span></button>
+        <button class="btn btn-success px-5 mt-3" type="submit" *ngIf="editable && editable === true">Update <span
+            *ngIf="submit" class="spinner-border spinner-border-sm ms-2"></span></button>
       </div>
     </div>
   </form>
 </div>
-
 
 <ng-template #gallery>
   Add product images
   <hr class="my-1 ">
   For best results , upload JPEG or PNG files that are 1000 by 1000 pixels or larger. minimum upload
   file size: 100 MB
-</ng-template>
-
-<ng-template #cat let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">
-      Add New Category
-    </h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <div class="float-label mb-4">
-      <input type="text" placeholder="Category Name" class="form-control" />
-      <label for="">Category Name</label>
-    </div>
-    <div class="float-label mb-3">
-      <ng-select [items]="categories" [clearable]="false" [searchable]="true" bindLabel="name"
-        bindValue="name"></ng-select>
-      <label for="">Recent Categories</label>
-    </div>
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-sm btn-outline-secondary">Save</button>
-
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">
-      Add images to product gallery
-    </h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <ul ngbNav #nav="ngbNav" class="nav-tabs" (activeId)="(1)">
-      <li [ngbNavItem]="1">
-        <button ngbNavLink>Upload Files</button>
-        <ng-template ngbNavContent>
-          <div class="d-flex mt-5 justify-content-center align-items-center">
-            <app-dropzone [existingFiles]="docs" (files)="documentsList($event)" [btnEnd]="true"></app-dropzone>
-
-          </div>
-        </ng-template>
-      </li>
-      <li [ngbNavItem]="2">
-        <button ngbNavLink>Media Library</button>
-        <ng-template ngbNavContent>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, nisi!
-          </p>
-        </ng-template>
-      </li>
-    </ul>
-    <div [ngbNavOutlet]="nav" class="mt-2"></div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
-      Save
-    </button>
-  </div>
 </ng-template>

@@ -3,7 +3,9 @@ export interface Products {
   images?: [];
   name?: string;
   price?: number;
-  make?: string;
-  model?: string;
+  regYear?: string;
+  makeName?: string;
+  modelName?: string;
   fuelType?: string;
+  transmission?: string;
 }

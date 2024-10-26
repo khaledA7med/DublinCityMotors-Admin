@@ -24,7 +24,7 @@ interface Model {
   id: number;
   makeName: string;
   name: string;
-  year: number;
+  year: string;
 }
 
 @Component({
@@ -64,7 +64,7 @@ export class ModelComponent implements OnInit {
         car.makeName.toLowerCase().includes(term) ||
         car.id!.toString().includes(term) ||
         car.name.toLowerCase().includes(term) ||
-        car.year!.toString().includes(term)
+        car.year!.includes(term)
       );
     });
   }

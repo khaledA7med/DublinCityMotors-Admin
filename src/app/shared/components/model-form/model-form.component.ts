@@ -16,7 +16,7 @@ export class ModelFormComponent implements OnInit {
     { id: 2, name: 'BMW' },
     { id: 3, name: 'Mercedes' },
   ];
-
+  submit: boolean = false;
   constructor(
     public modal: NgbActiveModal,
     private CarStaticDataService: CarStaticDataService,
@@ -49,8 +49,10 @@ export class ModelFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submit = true;
     this.CarStaticDataService.addModel(this.modelForm.value).subscribe(
       (res) => {
+        this.submit = false;
         this.messages.toast('Make Added successfully', 'success');
         this.modal.close();
       },

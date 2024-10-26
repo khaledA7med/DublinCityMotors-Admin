@@ -33,8 +33,6 @@ export class DropzoneComponent implements OnChanges, OnDestroy {
     private cdr: ChangeDetectorRef
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.existingFiles);
-
     // Convert local file paths into accessible URLs
     this.existingFiles.forEach((path) => {
       this.documentsToDisplay.push({
@@ -43,7 +41,6 @@ export class DropzoneComponent implements OnChanges, OnDestroy {
         type: 'image',
       });
     });
-    console.log(this.documentsToDisplay);
   }
 
   // ngOnInit() {
@@ -61,10 +58,12 @@ export class DropzoneComponent implements OnChanges, OnDestroy {
   // }
 
   convertPathToURL(path: string): string {
-    console.log(path);
-
     // Adjust this function based on your server configuration
     return path; // Modify accordingly
+    // return path.replace(
+    //   'C:\\Storage\\33\\',
+    //   'http://localhost:8080/C:\\Storage\\'
+    // );
   }
 
   fileIcon(fileType: string): { cls: string; ico: string } {
@@ -91,8 +90,6 @@ export class DropzoneComponent implements OnChanges, OnDestroy {
   }
 
   onFileLoaded(file: File) {
-    console.log(file);
-
     const reader = new FileReader();
     reader.onload = (event) => {
       this.documentsToDisplay.push({

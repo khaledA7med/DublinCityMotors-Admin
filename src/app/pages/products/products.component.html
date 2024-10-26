@@ -20,7 +20,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-12">
+        <!-- <div class="col-12">
             <table class="table table-responsive table-striped">
                 <thead>
                     <tr>
@@ -29,6 +29,7 @@
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Reg Year</th>
                         <th scope="col">Make</th>
                         <th scope="col">Model</th>
                         <th scope="col">Fuel Type</th>
@@ -62,10 +63,13 @@
                             <ngb-highlight [result]="product.price | number" [term]="filter.value"></ngb-highlight>
                         </td>
                         <td>
-                            <ngb-highlight [result]="product.make" [term]="filter.value"></ngb-highlight>
+                            <ngb-highlight [result]="product.regYear" [term]="filter.value"></ngb-highlight>
                         </td>
                         <td>
-                            <ngb-highlight [result]="product.model" [term]="filter.value"></ngb-highlight>
+                            <ngb-highlight [result]="product.makeName" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="product.modelName" [term]="filter.value"></ngb-highlight>
                         </td>
                         <td>
                             <ngb-highlight [result]="product.fuelType" [term]="filter.value"></ngb-highlight>
@@ -74,7 +78,62 @@
                     <tr *ngIf="!allProducts" class="text-center">No Data To Show</tr>
                 </tbody>
             </table>
+        </div> -->
+        <div class="col-12">
+            <div class="table-wrapper"
+                style="overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin;">
+                <table class="table table-striped" style="table-layout: auto; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center" style="min-width: 160px;">Actions</th>
+                            <th scope="col" class="text-center" style="min-width: 50px; width: 5%;">#</th>
+                            <th scope="col" style="min-width: 120px;">Name</th>
+                            <th scope="col" style="min-width: 100px;">Price</th>
+                            <th scope="col" style="min-width: 100px;">Reg Year</th>
+                            <th scope="col" style="min-width: 100px;">Make</th>
+                            <th scope="col" style="min-width: 100px;">Model</th>
+                            <th scope="col" style="min-width: 100px;">Fuel Type</th>
+                            <th scope="col" style="min-width: 100px;">Transmission</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of allProducts; index as i">
+                            <td class="text-center">
+                                <button class="btn btn-outline-info " ngbTooltip="Edit"
+                                    (click)="edit(product.id!, true)">
+                                    <i class='bx bx-edit-alt'></i>
+                                </button>
+                                <button class="btn btn-outline-info mx-1 mx-sm-4" ngbTooltip="Duplicate"
+                                    (click)="duplicate(product.id!, false)">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                                <button class="btn btn-outline-danger" ngbTooltip="Delete"
+                                    (click)="delete(product.id!)">
+                                    <i class='bx bx-trash'></i>
+                                </button>
+                            </td>
+                            <td class="text-center"><ngb-highlight [result]="product.id | number"
+                                    [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="product.name" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="product.price | currency: 'EUR'"
+                                    [term]="filter.value"></ngb-highlight>
+                            </td>
+                            <td><ngb-highlight [result]="product.regYear" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="product.makeName" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="product.modelName" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="product.fuelType" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="product.transmission" [term]="filter.value"></ngb-highlight>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!allProducts" class="text-center">
+                            <td colspan="8">No Data To Show</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+
     </div>
 </div>
 
@@ -86,6 +145,23 @@
     <div class="offcanvas-body">
         <form [formGroup]="filterForm" (ngSubmit)="submitfilter()">
             <div class="row pe-3 justify-content-center">
+                <div class="col-12 mb-4">
+                    <div class="float-label mb-3">
+                        <ng-select [items]="make" [clearable]="false" [loading]="make ? false : true"
+                            [searchable]="true" bindLabel="name" bindValue="id" (change)="getModel($event?.id)"
+                            formControlName="makeId" placeholder="Select Make"></ng-select>
+                        <label for="">Make</label>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-4">
+                    <div class="float-label">
+                        <ng-select [items]="model" [clearable]="false" [loading]="model ? false : true"
+                            [searchable]="true" bindLabel="name" bindValue="id" formControlName="modelId"
+                            placeholder="Select Model"></ng-select>
+                        <label for="">Model</label>
+                    </div>
+                </div>
                 <div class="col-12 mb-4">
                     <div class="float-label">
                         <input type="number" placeholder="Reg Year" class="form-control" formControlName="regYear" />

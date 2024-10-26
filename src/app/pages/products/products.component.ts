@@ -26,7 +26,8 @@ import { SweetAlertResult } from 'sweetalert2';
 export class ProductsComponent implements OnInit {
   @ViewChild('carFilter') carFilter!: ElementRef;
   filterForm!: FormGroup;
-
+  make!: any;
+  model!: any;
   products$!: Observable<Products[]>;
   allProducts!: Products[];
   filteredProducts$!: Observable<Products[]>;
@@ -50,6 +51,8 @@ export class ProductsComponent implements OnInit {
   }
   initForm() {
     this.filterForm = new FormGroup({
+      makeId: new FormControl(),
+      modelId: new FormControl(),
       regYear: new FormControl(),
       price: new FormControl(),
     });
@@ -86,9 +89,11 @@ export class ProductsComponent implements OnInit {
     return this.allProducts.filter(
       (product) =>
         product.name!.toLowerCase().includes(searchTerm) ||
-        product.make!.toLowerCase().includes(searchTerm) ||
-        product.model!.toLowerCase().includes(searchTerm) ||
+        product.makeName!.toLowerCase().includes(searchTerm) ||
+        product.modelName!.toLowerCase().includes(searchTerm) ||
+        product.transmission!.toLowerCase().includes(searchTerm) ||
         product.price!.toString().includes(searchTerm) ||
+        product.regYear!.includes(searchTerm) ||
         product.id!.toString().includes(searchTerm) ||
         product.fuelType!.toString().includes(searchTerm)
     );
@@ -96,6 +101,26 @@ export class ProductsComponent implements OnInit {
 
   openFilterOffcanvas(): void {
     this.offcanvasService.open(this.carFilter, { position: 'end' });
+    this.getAllMake();
+  }
+
+  getAllMake() {
+    return this.CarStaticDataService.getAllMake().subscribe(
+      (res) => {
+        if (res) {
+          this.make = res;
+        }
+      },
+      (error) => {
+        this.messages.toast(error.error.message, 'error');
+      }
+    );
+  }
+
+  getModel(id: number) {
+    this.CarStaticDataService.getModelByMake(id).subscribe((res) => {
+      this.model = res;
+    });
   }
 
   submitfilter() {

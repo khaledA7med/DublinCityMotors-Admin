@@ -20,7 +20,7 @@
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
-        <i class="bx bx-save me-1"></i> Save
+        <i class="bx bx-save me-1"></i> Save <span *ngIf="submit" class="spinner-border spinner-border-sm ms-2"></span>
       </button>
       <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
         <i class="bx bx-clipboard me-1"></i> Clear

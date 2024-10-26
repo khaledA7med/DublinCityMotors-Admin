@@ -10,7 +10,7 @@ import { CarStaticDataService } from '../../services/car-data.service';
 })
 export class MakeFormComponent implements OnInit {
   makeForm!: FormGroup;
-
+  submit: boolean = false;
   constructor(
     public modal: NgbActiveModal,
     private CarStaticDataService: CarStaticDataService,
@@ -27,9 +27,10 @@ export class MakeFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submit = true;
     this.CarStaticDataService.addMake(this.makeForm.value).subscribe(
       (res) => {
-        console.log(res);
+        this.submit = false;
         this.messages.toast('Make Added successfully', 'success');
         this.modal.close();
       },
