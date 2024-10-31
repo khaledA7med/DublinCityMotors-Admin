@@ -30,11 +30,16 @@ export class CarFormComponent implements OnInit {
   SafetyOptions: Features[] = [];
   categories: Category[] = [];
 
-  isTechnicalCollapsed: boolean = false;
   isDesc1lCollapsed: boolean = false;
   isDesc2lCollapsed: boolean = false;
   isGalleryCollapsed: boolean = false;
   isCategoryCollapsed: boolean = false;
+  isSpecificationsCollapsed: boolean = false;
+  isDimensionsCollapsed: boolean = false;
+  isPerformanceCollapsed: boolean = false;
+  isEngineCollapsed: boolean = false;
+  isCabinCollapsed: boolean = false;
+
   submit: boolean = false;
 
   modalRef!: NgbModalRef;
@@ -96,32 +101,52 @@ export class CarFormComponent implements OnInit {
       price: new FormControl(),
       regYear: new FormControl(),
       mileage: new FormControl(''),
-      fuelType: new FormControl(''),
-      transmission: new FormControl(''),
-      drive: new FormControl(''),
+
       makeId: new FormControl(),
       modelId: new FormControl(),
       exteriorColor: new FormControl(''),
       interiorColor: new FormControl(''),
-      // description: new FormControl(''),
       bodyType: new FormControl(''),
       sold: new FormControl(false),
       exteriors: new FormControl([]),
       interiors: new FormControl([]),
       teches: new FormControl([]),
       safeties: new FormControl([]),
-      engineSize: new FormControl(''),
-      specsFuelType: new FormControl(''),
-      cylinders: new FormControl(),
-      driveAxle: new FormControl(''),
-      bHP: new FormControl(),
+
+      fuelCapacity: new FormControl(),
+      weight: new FormControl(),
+      length: new FormControl(),
+      width: new FormControl(),
+      height: new FormControl(),
+      wheelbase: new FormControl(),
+      turningCircle: new FormControl(),
+
+      power: new FormControl(),
+      mph: new FormControl(),
+      topSpeed: new FormControl(),
       torque: new FormControl(),
       emissions: new FormControl(),
+      euroEmissions: new FormControl(),
+      miles: new FormControl(),
+
+      engineSize: new FormControl(),
+      cylinders: new FormControl(),
+      valves: new FormControl(),
+      fuelType: new FormControl(''),
+      transmission: new FormControl(''),
+      gearbox: new FormControl(),
+      drive: new FormControl(''),
+
+      doors: new FormControl(),
+      seats: new FormControl(),
+      luggage: new FormControl(),
+      unbraked: new FormControl(),
+      braked: new FormControl(),
+
       tax: new FormControl(),
       urban: new FormControl(),
       extraUrban: new FormControl(),
       driveLayout: new FormControl(''),
-      speed: new FormControl(),
       performance: new FormControl(''),
       nOX: new FormControl(),
       shortDescription: new FormControl(''),
@@ -222,9 +247,7 @@ export class CarFormComponent implements OnInit {
     formData.append('regYear', data.regYear!.toString());
     formData.append('mileage', data.mileage!);
     formData.append('bodyType', data.bodyType!);
-    formData.append('fuelType', data.fuelType!);
-    formData.append('transmission', data.transmission!);
-    formData.append('drive', data.drive!);
+
     formData.append('makeId', data.makeId!.toString());
     formData.append('modelId', data.modelId!.toString());
     formData.append('exteriorColor', data.exteriorColor!);
@@ -247,13 +270,36 @@ export class CarFormComponent implements OnInit {
     data.teches?.forEach((el) => formData.append('teches', el));
     data.safeties?.forEach((el) => formData.append('safeties', el));
 
-    formData.append('engineSize', data.engineSize!);
-    formData.append('specsFuelType', data.specsFuelType!);
-    formData.append('cylinders', data.cylinders!.toString());
-    formData.append('driveAxle', data.driveAxle!);
-    formData.append('bHP', data.bHP!.toString());
+    formData.append('fuelCapacity', data.fuelCapacity!.toString());
+    formData.append('weight', data.weight!.toString());
+    formData.append('length', data.length!.toString());
+    formData.append('width', data.width!.toString());
+    formData.append('height', data.height!.toString());
+    formData.append('wheelbase', data.wheelbase!.toString());
+    formData.append('turningCircle', data.turningCircle!.toString());
+
+    formData.append('power', data.power!.toString());
+    formData.append('topSpeed', data.topSpeed!.toString());
+    formData.append('mph', data.mph!.toString());
     formData.append('torque', data.torque!.toString());
     formData.append('emissions', data.emissions!.toString());
+    formData.append('euroEmissions', data.euroEmissions!.toString());
+    formData.append('miles', data.turningCircle!.toString());
+
+    formData.append('engineSize', data.engineSize!.toString());
+    formData.append('cylinders', data.cylinders!.toString());
+    formData.append('valves', data.valves!.toString());
+    formData.append('fuelType', data.fuelType!);
+    formData.append('transmission', data.transmission!);
+    formData.append('gearbox', data.gearbox!.toString());
+    formData.append('drive', data.drive!);
+
+    formData.append('doors', data.doors!);
+    formData.append('seats', data.seats!);
+    formData.append('luggage', data.luggage!);
+    formData.append('unbraked', data.unbraked!);
+    formData.append('braked', data.braked!);
+
     formData.append('tax', data.tax!.toString());
     formData.append('urban', data.urban!.toString());
     formData.append('extraUrban', data.extraUrban!.toString());

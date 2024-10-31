@@ -55,27 +55,7 @@
             <label for="">Mileage</label>
           </div>
         </div>
-        <div class="col-md-4 mb-3">
-          <div class="float-label">
-            <ng-select [items]="FuelType" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="name"
-              formControlName="fuelType"></ng-select>
-            <label for="">Fuel Type</label>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="float-label">
-            <ng-select [items]="Transmission" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="name"
-              formControlName="transmission"></ng-select>
-            <label for="">Transmission</label>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="float-label">
-            <ng-select [items]="Drive" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="name"
-              formControlName="drive"></ng-select>
-            <label for="">Drive</label>
-          </div>
-        </div>
+
         <div class="col-md-4 mb-3">
           <div class="float-label">
             <ng-select [items]="BodyType" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="name"
@@ -102,11 +82,11 @@
           </label>
           <input class="form-check-input" type="checkbox" name="sold" formControlName="sold" />
         </div>
-        <div class="col-md-6 product py-2 mb-3 bg-light">
+        <div class="col-lg-6 col-md-12 product py-2 mb-3 bg-light">
           <div class="row justify-content-between align-items-baseline" [attr.aria-expanded]="!isCategoryCollapsed"
             aria-controls="collapseExample">
-            <p class="text-dark fw-bold mb-0 w-75" style="cursor: pointer" (click)="collapseCategory.toggle()">Product
-              Categories</p>
+            <p class="text-dark fw-bold mb-0 w-75" style="cursor: pointer" (click)="collapseCategory.toggle()">Make /
+              Model</p>
             <div class="w-25 text-end">
               <i class="fa-solid fa-square-plus mx-2" style="cursor: pointer" placement="left"
                 ngbTooltip="Add New Model" (click)="openModelModal()"></i>
@@ -133,136 +113,289 @@
           </div>
         </div>
       </div>
-      <hr>
+
       <div class="row">
-        <div class="col-md-3 mb-4">
-          <div class="float-label">
-            <ng-select [items]="ExteriorOptions" [clearable]="false" [searchable]="true" [multiple]="true"
-              bindLabel="specs" bindValue="specs" formControlName="exteriors">
-            </ng-select>
-            <label for="">Exterior Features </label>
+        <div class="col-md-12 product py-2 mb-3 bg-light">
+          <div class="row justify-content-between align-items-baseline" (click)="collapseSpecifications.toggle()"
+            [attr.aria-expanded]="!isCategoryCollapsed" aria-controls="collapseExample">
+            <p class="text-dark fw-bold mb-0 w-75" style="cursor: pointer">
+              Specifications</p>
+            <div class="w-25 text-end">
+              <i class="fa " [ngClass]="!isSpecificationsCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="row my-3" #collapseSpecifications="ngbCollapse" [(ngbCollapse)]="isSpecificationsCollapsed">
+            <div class="col-md-4 mb-4">
+              <div class="float-label">
+                <ng-select [items]="ExteriorOptions" [clearable]="false" [searchable]="true" [multiple]="true"
+                  bindLabel="specs" bindValue="specs" formControlName="exteriors">
+                </ng-select>
+                <label for="">Exterior Design </label>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="float-label">
+                <ng-select [items]="InteriorOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
+                  bindValue="specs" [multiple]="true" formControlName="interiors"></ng-select>
+                <label for="">Interiors</label>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="float-label">
+                <ng-select [items]="SafetyOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
+                  bindValue="specs" [multiple]="true" formControlName="safeties"></ng-select>
+                <label for="">Safeties</label>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="float-label">
+                <ng-select [items]="SafetyOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
+                  bindValue="specs" [multiple]="true" formControlName="safeties"></ng-select>
+                <label for="">Driver Assistance</label>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="float-label">
+                <ng-select [items]="TechOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
+                  bindValue="specs" [multiple]="true" formControlName="teches"></ng-select>
+                <label for="">Infotainment</label>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-3 mb-4">
-          <div class="float-label">
-            <ng-select [items]="InteriorOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
-              bindValue="specs" [multiple]="true" formControlName="interiors"></ng-select>
-            <label for="">Interiors Features</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="float-label">
-            <ng-select [items]="SafetyOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
-              bindValue="specs" [multiple]="true" formControlName="safeties"></ng-select>
-            <label for="">Safeties Features</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="float-label">
-            <ng-select [items]="TechOptions" [clearable]="false" [searchable]="true" bindLabel="specs" bindValue="specs"
-              [multiple]="true" formControlName="teches"></ng-select>
-            <label for="">Teches Features</label>
-          </div>
-        </div>
-
-
       </div>
-      <hr>
-      <!-- Technical Specs -->
+
+      <!-- Dimensions -->
       <div class="row">
         <div class="col-md-12 px-2 mb-3">
           <div class="bg-light p-2">
-            <div class="row justify-content-between align-items-center" style="cursor: pointer"
-              (click)="collapse5.toggle()" [attr.aria-expanded]="!isTechnicalCollapsed" aria-controls="collapseExample">
-              <p class="text-dark fw-bold mb-0 w-50">Technical Specs</p>
-              <i class="fa w-50 text-end" [ngClass]="
-                                !isTechnicalCollapsed ? 'fa-caret-down' : 'fa-caret-up'
-                                " aria-hidden="true"></i>
+            <div class="row justify-content-between align-items-baseline" (click)="collapseDimensions.toggle()"
+              [attr.aria-expanded]="!isDimensionsCollapsed" style="cursor: pointer" aria-controls="collapseExample">
+              <p class="text-dark fw-bold mb-0 w-75">
+                Dimensions</p>
+              <div class="w-25 text-end">
+                <i class="fa " [ngClass]="!isDimensionsCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                  aria-hidden="true"></i>
+              </div>
             </div>
-            <div class="row mt-3" #collapse5="ngbCollapse" [(ngbCollapse)]="isTechnicalCollapsed">
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="text" placeholder="Engine Size" class="form-control" formControlName="engineSize" />
-                  <label for="">Engine Size</label>
+            <div class="row mt-3" #collapseDimensions="ngbCollapse" [(ngbCollapse)]="isDimensionsCollapsed">
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Fuel Capacity" class="form-control"
+                    formControlName="fuelCapacity" />
+                  <label for="">Fuel Capacity</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="text" placeholder="Fuel Type" class="form-control" formControlName="specsFuelType" />
-                  <label for="">Fuel Type</label>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Weight" class="form-control" formControlName="weight" />
+                  <label for="">Weight</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="Cylinders" class="form-control" formControlName="cylinders" />
-                  <label for="">Cylinders</label>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Length" class="form-control" formControlName="length" />
+                  <label for="">Length</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="text" placeholder="Drive Axle" class="form-control" formControlName="driveAxle" />
-                  <label for="">Drive Axle</label>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Width" class="form-control" formControlName="width" />
+                  <label for="">Width</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="BHP" class="form-control" formControlName="bHP" />
-                  <label for="">BHP</label>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Height" class="form-control" formControlName="height" />
+                  <label for="">Height</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Wheelbase" class="form-control" formControlName="wheelbase" />
+                  <label for="">Wheelbase</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Turning Circle" class="form-control"
+                    formControlName="turningCircle" />
+                  <label for="">Turning Circle</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Performance -->
+      <div class="row">
+        <div class="col-md-12 px-2 mb-3">
+          <div class="bg-light p-2">
+            <div class="row justify-content-between align-items-baseline" (click)="collapsePerformance.toggle()"
+              [attr.aria-expanded]="!isPerformanceCollapsed" style="cursor: pointer" aria-controls="collapseExample">
+              <p class="text-dark fw-bold mb-0 w-75">
+                Performance</p>
+              <div class="w-25 text-end">
+                <i class="fa " [ngClass]="!isPerformanceCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="row mt-3" #collapsePerformance="ngbCollapse" [(ngbCollapse)]="isPerformanceCollapsed">
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Power" class="form-control" formControlName="power" />
+                  <label for="">Power</label>
+                </div>
+              </div>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Top Speed" class="form-control" formControlName="topSpeed" />
+                  <label for="">Top Speed</label>
+                </div>
+              </div>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="0-60 mph" class="form-control" formControlName="mph" />
+                  <label for="">0-60 mph</label>
+                </div>
+              </div>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
                   <input type="number" placeholder="Torque" class="form-control" formControlName="torque" />
                   <label for="">Torque</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="Co2 Emissions" class="form-control" formControlName="emissions" />
-                  <label for="">Co2 Emissions</label>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="CO2 Emissions" class="form-control" formControlName="emissions" />
+                  <label for="">CO2 Emissions</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="Tax Band" class="form-control" formControlName="tax" />
-                  <label for="">Tax Band</label>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Euro Emissions Standard" class="form-control"
+                    formControlName="euroEmissions" />
+                  <label for="">Euro Emissions Standard</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="MPG (urban)" class="form-control" formControlName="urban" />
-                  <label for="">MPG (urban)</label>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Miles Per Tank" class="form-control" formControlName="miles" />
+                  <label for="">Miles Per Tank</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="MPG (extra urban)" class="form-control"
-                    formControlName="extraUrban" />
-                  <label for="">MPG (extra urban)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Engine -->
+      <div class="row">
+        <div class="col-md-12 px-2 mb-3">
+          <div class="bg-light p-2">
+            <div class="row justify-content-between align-items-center" style="cursor: pointer"
+              (click)="collapse5.toggle()" [attr.aria-expanded]="!isEngineCollapsed" aria-controls="collapseExample">
+              <p class="text-dark fw-bold mb-0 w-50">Engine</p>
+              <i class="fa w-50 text-end" [ngClass]="!isEngineCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+                aria-hidden="true"></i>
+            </div>
+            <div class="row mt-3" #collapse5="ngbCollapse" [(ngbCollapse)]="isEngineCollapsed">
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Engine Size" class="form-control" formControlName="engineSize" />
+                  <label for="">Engine Size</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="text" placeholder="Drive Layout" class="form-control" formControlName="driveLayout" />
-                  <label for="">Drive Layout</label>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Cylinders" class="form-control" formControlName="cylinders" />
+                  <label for="">Cylinders</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="Max Speed" class="form-control" formControlName="speed" />
-                  <label for="">Max Speed</label>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Valves" class="form-control" formControlName="valves" />
+                  <label for="">Valves</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="text" placeholder="Performance" class="form-control" formControlName="performance" />
-                  <label for="">Performance</label>
+              <div class="col-lg-3 col-6 mb-4">
+                <div class="float-label ">
+                  <input type="number" placeholder="Gearbox" class="form-control" formControlName="gearbox" />
+                  <label for="">Gearbox</label>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="float-label mb-3">
-                  <input type="number" placeholder="NOX" class="form-control" formControlName="nOX" />
-                  <label for="">NOX</label>
+
+              <div class="col-lg-3 col-6 mb-4 mb-md-0">
+                <div class="float-label">
+                  <ng-select [items]="FuelType" [clearable]="false" [searchable]="true" bindLabel="name"
+                    bindValue="name" formControlName="fuelType"></ng-select>
+                  <label for="">Fuel Type</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-6 mb-4 mb-md-0">
+                <div class="float-label">
+                  <ng-select [items]="Transmission" [clearable]="false" [searchable]="true" bindLabel="name"
+                    bindValue="name" formControlName="transmission"></ng-select>
+                  <label for="">Transmission</label>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-6 mb-4 mb-md-0">
+                <div class="float-label">
+                  <ng-select [items]="Drive" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="name"
+                    formControlName="drive"></ng-select>
+                  <label for="">Drive</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cabin & Luggage -->
+      <div class="row">
+        <div class="col-md-12 px-2 mb-3">
+          <div class="bg-light p-2">
+            <div class="row justify-content-between align-items-center" style="cursor: pointer"
+              (click)="collapse6.toggle()" [attr.aria-expanded]="!isCabinCollapsed" aria-controls="collapseExample">
+              <p class="text-dark fw-bold mb-0 w-50">Cabin & Luggage</p>
+              <i class="fa w-50 text-end" [ngClass]=" !isCabinCollapsed ? 'fa-caret-down' : 'fa-caret-up' "
+                aria-hidden="true"></i>
+            </div>
+            <div class="row mt-3" #collapse6="ngbCollapse" [(ngbCollapse)]="isCabinCollapsed">
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Doors" class="form-control" formControlName="doors" />
+                  <label for="">Doors</label>
+                </div>
+              </div>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Seats" class="form-control" formControlName="seats" />
+                  <label for="">Seats</label>
+                </div>
+              </div>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Luggage Capacity" class="form-control" formControlName="luggage" />
+                  <label for="">Luggage Capacity</label>
+                </div>
+              </div>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Unbraked Towing Weight" class="form-control"
+                    formControlName="unbraked" />
+                  <label for="">Unbraked Towing Weight</label>
+                </div>
+              </div>
+              <div class="col-lg-2 col-6 mb-4">
+                <div class="float-label">
+                  <input type="number" placeholder="Braked Towing Weight" class="form-control"
+                    formControlName="braked" />
+                  <label for="">Braked Towing Weight</label>
                 </div>
               </div>
             </div>
@@ -270,18 +403,19 @@
         </div>
 
       </div>
-      <!-- Product Short description -->
+
+      <!-- Car description -->
       <div class="row">
         <div class="col-md-12 px-2 mb-3">
           <div class="bg-light p-2">
             <div class="row justify-content-between align-items-center" style="cursor: pointer"
-              (click)="collapse6.toggle()" [attr.aria-expanded]="!isDesc2lCollapsed" aria-controls="collapseExample">
-              <p class="text-dark fw-bold mb-0 w-75">Product Short Description</p>
+              (click)="collapse7.toggle()" [attr.aria-expanded]="!isDesc2lCollapsed" aria-controls="collapseExample">
+              <p class="text-dark fw-bold mb-0 w-75">Car Description</p>
               <i class="fa w-25 text-end" [ngClass]="
                                 !isDesc2lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
                                 " aria-hidden="true"></i>
             </div>
-            <div class="row mt-3" #collapse6="ngbCollapse" [(ngbCollapse)]="isDesc2lCollapsed">
+            <div class="row mt-3" #collapse7="ngbCollapse" [(ngbCollapse)]="isDesc2lCollapsed">
               <div class="col-md-12 mb-3">
                 <ckeditor [editor]="Editor" [config]="editorConfig" formControlName="shortDescription"
                   (change)="getEditorData($event)"></ckeditor>
@@ -291,6 +425,7 @@
         </div>
       </div>
 
+      <!-- Upload Images -->
       <div class="row">
         <div class="product-gallery py-2 mb-3 bg-light">
           <div class="row justify-content-between align-items-baseline" [attr.aria-expanded]="!isGalleryCollapsed"
@@ -309,6 +444,7 @@
           </div>
         </div>
       </div>
+
       <div class="d-flex justify-content-end">
         <button class="btn btn-success px-5 mt-3" type="submit" *ngIf="!editable">Save <span *ngIf="submit"
             class="spinner-border spinner-border-sm ms-2"></span></button>
@@ -319,8 +455,9 @@
   </form>
 </div>
 
+<!-- Car images Warning  -->
 <ng-template #gallery>
-  Add product images
+  Add Car images
   <hr class="my-1 ">
   For best results , upload JPEG or PNG files that are 1000 by 1000 pixels or larger. minimum upload
   file size: 100 MB
