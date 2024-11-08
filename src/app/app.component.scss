@@ -1,0 +1,14 @@
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; // Makes sure it covers the full viewport height
+}
+
+.con {
+  flex-grow: 1; // This allows the content to grow and take up remaining space
+}
+
+app-footer {
+  text-align: center;
+  position: relative;
+}
