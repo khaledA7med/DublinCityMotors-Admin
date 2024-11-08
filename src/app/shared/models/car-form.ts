@@ -5,7 +5,6 @@ export interface CarForm {
   name?: FormControl<string | null>;
   price?: FormControl<number | null>;
   regYear?: FormControl<number | null>;
-  mileage?: FormControl<string | null>;
 
   bodyType?: FormControl<string | null>;
   exteriorColor?: FormControl<string | null>;
@@ -15,8 +14,9 @@ export interface CarForm {
   modelId?: FormControl<number | null>;
   exteriors?: FormControl<string[] | null>;
   interiors?: FormControl<string[] | null>;
-  teches?: FormControl<string[] | null>;
+  assistance?: FormControl<string[] | null>;
   safeties?: FormControl<string[] | null>;
+  infotainment?: FormControl<string[] | null>;
 
   fuelCapacity?: FormControl<number | null>;
   weight?: FormControl<number | null>;
@@ -48,14 +48,6 @@ export interface CarForm {
   luggage?: FormControl<string | null>;
   unbraked?: FormControl<string | null>;
   braked?: FormControl<string | null>;
-
-  tax?: FormControl<number | null>;
-  urban?: FormControl<number | null>;
-  extraUrban?: FormControl<number | null>;
-  driveLayout?: FormControl<string | null>;
-  speed?: FormControl<number | null>;
-  performance?: FormControl<string | null>;
-  nOX?: FormControl<number | null>;
 
   shortDescription?: FormControl<string | null>;
   images?: FormControl<string[] | null>;

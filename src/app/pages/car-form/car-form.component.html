@@ -25,37 +25,12 @@
             <label for="">Car Price</label>
           </div>
         </div>
-        <!-- <div class="col-md-12 mb-3">
-                    <div class="bg-light p-2">
-                        <div class="row justify-content-between align-items-center" style="cursor: pointer"
-                            (click)="collapseDesc.toggle()" [attr.aria-expanded]="!isDesc1lCollapsed"
-                            aria-controls="collapseExample">
-                            <p class="text-dark mb-0 fw-bold w-50">Product description</p>
-                            <i class="fa w-50 text-end" [ngClass]="
-                                !isDesc1lCollapsed ? 'fa-caret-down' : 'fa-caret-up'
-                                " aria-hidden="true"></i>
-                        </div>
-                        <div class="row mt-3" #collapseDesc="ngbCollapse" [(ngbCollapse)]="isDesc1lCollapsed">
-                            <div class="col-md-12 mb-3">
-                                <ckeditor [editor]="Editor" [config]="editorConfig" formControlName="description"
-                                    (change)="getEditorData($event)"></ckeditor>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
         <div class="col-md-4 mb-3">
           <div class="float-label">
             <input type="number" placeholder="Reg Year" class="form-control" formControlName="regYear" />
             <label for="">Reg Year</label>
           </div>
         </div>
-        <div class="col-md-4 mb-3">
-          <div class="float-label">
-            <input type="text" placeholder="Mileage" class="form-control" formControlName="mileage" />
-            <label for="">Mileage</label>
-          </div>
-        </div>
-
         <div class="col-md-4 mb-3">
           <div class="float-label">
             <ng-select [items]="BodyType" [clearable]="false" [searchable]="true" bindLabel="name" bindValue="name"
@@ -75,7 +50,6 @@
             <label for="">Interior Color</label>
           </div>
         </div>
-
         <div class="col-md-4 mb-3 d-flex justify-content-between align-items-center">
           <label class="form-check-label" for="flexCheckDefault">
             Is this product Sold?
@@ -151,14 +125,14 @@
             <div class="col-md-4 mb-4">
               <div class="float-label">
                 <ng-select [items]="SafetyOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
-                  bindValue="specs" [multiple]="true" formControlName="safeties"></ng-select>
+                  bindValue="specs" [multiple]="true" formControlName="assistance"></ng-select>
                 <label for="">Driver Assistance</label>
               </div>
             </div>
             <div class="col-md-4 mb-4">
               <div class="float-label">
                 <ng-select [items]="TechOptions" [clearable]="false" [searchable]="true" bindLabel="specs"
-                  bindValue="specs" [multiple]="true" formControlName="teches"></ng-select>
+                  bindValue="specs" [multiple]="true" formControlName="infotainment"></ng-select>
                 <label for="">Infotainment</label>
               </div>
             </div>
@@ -244,44 +218,44 @@
               </div>
             </div>
             <div class="row mt-3" #collapsePerformance="ngbCollapse" [(ngbCollapse)]="isPerformanceCollapsed">
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="Power" class="form-control" formControlName="power" />
                   <label for="">Power</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="Top Speed" class="form-control" formControlName="topSpeed" />
                   <label for="">Top Speed</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="0-60 mph" class="form-control" formControlName="mph" />
                   <label for="">0-60 mph</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="Torque" class="form-control" formControlName="torque" />
                   <label for="">Torque</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="CO2 Emissions" class="form-control" formControlName="emissions" />
                   <label for="">CO2 Emissions</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="Euro Emissions Standard" class="form-control"
                     formControlName="euroEmissions" />
                   <label for="">Euro Emissions Standard</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="Miles Per Tank" class="form-control" formControlName="miles" />
                   <label for="">Miles Per Tank</label>
@@ -384,14 +358,14 @@
                   <label for="">Luggage Capacity</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="Unbraked Towing Weight" class="form-control"
                     formControlName="unbraked" />
                   <label for="">Unbraked Towing Weight</label>
                 </div>
               </div>
-              <div class="col-lg-2 col-6 mb-4">
+              <div class="col-lg-3 col-6 mb-4">
                 <div class="float-label">
                   <input type="number" placeholder="Braked Towing Weight" class="form-control"
                     formControlName="braked" />

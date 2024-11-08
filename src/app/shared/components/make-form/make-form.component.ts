@@ -35,6 +35,7 @@ export class MakeFormComponent implements OnInit {
         this.modal.close();
       },
       (error) => {
+        this.submit = false;
         this.messages.toast(error.error.message, 'error');
       }
     );
