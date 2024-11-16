@@ -1,0 +1,106 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-spin" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+<div class="container home mt-lg-5">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end my-4">
+            <button class="btn btn-outline-dark" type="button" (click)="openOfferModal(content)">
+                Add Offer <i class="bx bx-plus p-1"></i>
+            </button>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Offer Start</th>
+                        <th scope="col">Offer End</th>
+                        <th scope="col">Offer State</th>
+                        <th scope="col">Offer Description</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let offer of offersData; index as i">
+                        <td>
+                            {{offer.id}}
+                        </td>
+                        <td>
+                            {{offer.validFrom}}
+                        </td>
+                        <td>
+                            {{offer.validUntil}}
+                        </td>
+                        <td>
+                            <span *ngIf="offer.active == true">
+                                Active
+                            </span>
+                            <span *ngIf="offer.active == false">
+                                Not Active
+                            </span>
+                        </td>
+                        <td>
+                            {{offer.description}}
+                        </td>
+                        <th scope="row">
+                            <button class="btn btn-outline-info me-3" (click)="editOffer(offer)">
+                                <i class='bx bx-edit-alt'></i>
+                            </button>
+                        </th>
+                    </tr>
+                    <!-- <tr *ngIf="!offersData" class="text-center">
+                        <td colspan="12"><span class="fw-bold">No Data To Show</span></td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Offer Details</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup)">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 my-2">
+                    <label for="">Offer Start Date</label>
+                    <app-date-picker (dateChange)="setFromDate($event)"></app-date-picker>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 my-2">
+                    <label for="">Offer End Date</label>
+                    <app-date-picker (dateChange)="setUntillDate($event)"></app-date-picker>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 my-2">
+                    <label for="">Offer State</label>
+                    <ng-select [items]="state" placeholder="Select time" formControlName="active" [searchable]="true"
+                        bindLabel="name" bindValue="id" id="active"></ng-select>
+                </div>
+                <div class="col-12 my-2">
+                    <label for="">Offer Description</label>
+                    <textarea class="form-control" formControlName="description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button *ngIf="!isEdit" type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
+                <i class="bx bx-save me-1"></i> Save <span *ngIf="submitted"
+                    class="spinner-border spinner-border-sm ms-2"></span>
+            </button>
+            <button *ngIf="isEdit" type="submit" class="btn btn-sm btn-outline-success mx-2 d-flex align-items-center">
+                <i class="bx bx-save me-1"></i> Update <span *ngIf="submitted"
+                    class="spinner-border spinner-border-sm ms-2"></span>
+            </button>
+            <button type="button" (click)="reset()" class="btn btn-sm btn-outline-info mx-2 d-flex align-items-center">
+                <i class="bx bx-clipboard me-1"></i> Clear
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm d-flex align-items-center"
+                (click)="modal.dismiss('Cross click')">
+                <i class="bx bx-x me-1"></i> Close
+            </button>
+        </div>
+    </form>
+</ng-template>

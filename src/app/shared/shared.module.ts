@@ -15,6 +15,7 @@ import { DropzoneModule } from './dropzone/dropzone.module';
 import { RouterModule } from '@angular/router';
 import { MakeFormComponent } from './components/make-form/make-form.component';
 import { ModelFormComponent } from './components/model-form/model-form.component';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [MakeFormComponent, ModelFormComponent],

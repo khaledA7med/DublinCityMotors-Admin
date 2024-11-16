@@ -1,0 +1,19 @@
+<div class="input-group input-group-sm">
+    <input type="text" ngbDatepicker #d="ngbDatepicker" container="body" [(ngModel)]="date" #dates="ngModel"
+        [disabled]="disabled" [required]="required" placeholder="yyyy-mm-dd" class="form-control"
+        [footerTemplate]="footerTemplate" [minDate]="minDate" [maxDate]="maxDate"
+        [ngClass]="{'is-invalid': required && ((dates.touched && dates.invalid) || (submitted && dates.invalid))}"
+        (dateSelect)="onDateSelect($event)" readonly (click)="!readonly && d.toggle()" />
+    <button class="btn btn-outline-secondary bx bx-calendar dateTogglerBtn" type="button"
+        (click)="!readonly && d.toggle()" [disabled]="disabled"></button>
+    <div class="invalid-feedback fw-bold"
+        *ngIf="required && ((dates.touched && dates.invalid) || (submitted && dates.invalid))">
+        Required
+    </div>
+</div>
+<ng-template #footerTemplate>
+    <hr class="my-0" />
+    <button class="btn btn-outline-primary btn-sm m-2 float-start" [disabled]="disabled"
+        (click)="date = today; d.close()">Today</button>
+    <button class="btn btn-ghost-secondary btn-sm m-2 float-end" (click)="d.close()">Close</button>
+</ng-template>
